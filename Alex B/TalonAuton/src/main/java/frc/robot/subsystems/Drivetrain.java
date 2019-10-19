@@ -105,6 +105,9 @@ public class Drivetrain extends Subsystem {
 
     // Reset the Encoders
 
+    leftLeader.setSelectedSensorPosition(0);
+    rightLeader.setSelectedSensorPosition(0);
+
   }
 
   @Override
