@@ -5,22 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.autoselector;
+package frc.robot.commands.navigation.pathgen;
 
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.CustomClasses.StoredTrajectory;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.*;
-import frc.robot.subsystems.Drivetrain.Path;
+import jaci.pathfinder.*;
 
-public class UpdatePath extends Command {
-  public UpdatePath(Path path) {
+public class PathGenerator extends Command {
+  String name;
+
+  Waypoint[] points;
+  Trajectory trajectory;
+  public PathGenerator(String name, Waypoint[] points) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    Robot.drivetrain.currentPath = path;
+    this.name = name;
+    this.points = points;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
+    Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, Constants.Auto.DT, Constants.Auto.MAX_VELOCITY, Constants.Auto.MAX_ACCELERATION, Constants.Auto.MAX_JERK);
+    
+    trajectory = Pathfinder.generate(points, config);
+
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -37,6 +49,7 @@ public class UpdatePath extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.drivetrain.straightpath = new StoredTrajectory(this.name, this.trajectory);
   }
 
   // Called when another command which requires one or more of the same

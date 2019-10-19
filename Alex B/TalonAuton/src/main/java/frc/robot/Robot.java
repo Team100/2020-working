@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.autoselector.UpdatePath;
+import frc.robot.commands.navigation.pathgen.PathGenerator;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Drivetrain.Path;
+import jaci.pathfinder.*;
 
 public class Robot extends TimedRobot {
  
@@ -31,16 +31,32 @@ public class Robot extends TimedRobot {
    */
   public static OI m_oi;
 
+  /**
+   * The command to run for the autonomous
+   */
   Command m_autonomousCommand;
+
+  /**
+   * The auton selector that will be sent to SmartDashboard
+   */
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  public void generateTrajectories(){
+    Waypoint[] straightPath = {new Waypoint(0,0,0), new Waypoint(0,2,0)};
+    new PathGenerator("straight", straightPath).start();
+  }
   
+  /**
+   * Run on the robot power on
+   * 
+   * Do any initial setup steps
+   */
   @Override
   public void robotInit() {
-    drivetrain.currentPath = Path.DRIVE_FORWARD;
     m_oi = new OI();
-    m_chooser.addOption("My Auto", new UpdatePath(Path.DRIVE_FORWARD));
+    m_chooser.addOption("My Auto", null);
     SmartDashboard.putData("Auto mode", m_chooser);
+    generateTrajectories();
   }
 
  
