@@ -8,7 +8,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.libswerve.math.CentricMode;
 
 /**
  * Drive command
@@ -22,17 +24,12 @@ public class Drive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.drivetrain.fletcher.zero();
-        Robot.drivetrain.frederick.zero();
-        Robot.drivetrain.blake.zero();
-        Robot.drivetrain.brian.zero();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.drivetrain.updatePeriodic();
-        Robot.drivetrain.rotation(Robot.ahrs.getFusedHeading());
+        Robot.drivetrain.swerveDrive.move(Robot.oi.leftStick.getY(), Robot.oi.leftStick.getX(), Robot.oi.rightStick.getX(), (double)(Robot.ahrs.getFusedHeading()));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +41,7 @@ public class Drive extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.drivetrain.swerveDrive.stop();
     }
 
     // Called when another command which requires one or more of the same

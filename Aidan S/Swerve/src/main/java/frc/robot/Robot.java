@@ -12,7 +12,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -61,13 +60,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Heading", (int)(ahrs.getFusedHeading()));
-        SmartDashboard.putNumber("FL", drivetrain.fletcher.turn.getSelectedSensorPosition());
-        SmartDashboard.putNumber("FR", drivetrain.frederick.turn.getSelectedSensorPosition());
-        SmartDashboard.putNumber("BL", drivetrain.blake.turn.getSelectedSensorPosition());
-        SmartDashboard.putNumber("BR", drivetrain.brian.turn.getSelectedSensorPosition());
-        
-        SmartDashboard.putNumber("BRSet", drivetrain.brian.turnSetpoint);
     }
 
     @Override
@@ -103,13 +95,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Heading", ahrs.getFusedHeading());
-        SmartDashboard.putNumber("FL", drivetrain.fletcher.turn.getSelectedSensorPosition());
-        SmartDashboard.putNumber("FR", drivetrain.frederick.turn.getSelectedSensorPosition());
-        SmartDashboard.putNumber("BL", drivetrain.blake.turn.getSelectedSensorPosition());
-        SmartDashboard.putNumber("BR", drivetrain.brian.turn.getSelectedSensorPosition());
-        
-        SmartDashboard.putNumber("BRSet", drivetrain.brian.turnSetpoint);
     }
 
     /**

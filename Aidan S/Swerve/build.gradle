@@ -1,9 +1,14 @@
+import edu.wpi.first.gradlerio.GradleRIOPlugin
+import jaci.gradle.deploy.target.RemoteTarget
+
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2019.4.1"
 }
 
+//noinspection GroovyUnusedAssignment
 sourceCompatibility = JavaVersion.VERSION_11
+//noinspection GroovyUnusedAssignment
 targetCompatibility = JavaVersion.VERSION_11
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
@@ -17,12 +22,12 @@ deploy {
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = frc.getTeamNumber()
+            team = frc.getTeamOrDefault(100)
         }
     }
     artifacts {
         frcJavaArtifact('frcJava') {
-            targets << "roborio"
+            targets << ("roborio" as RemoteTarget)
             // Debug can be overridden by command line, for use with VSCode
             debug = frc.getDebugOrDefault(false)
         }
@@ -31,13 +36,14 @@ deploy {
             // The directory below is the local directory to deploy
             files = fileTree(dir: 'src/main/deploy')
             // Deploy to RoboRIO target, into /home/lvuser/deploy
-            targets << "roborio"
+            targets << ("roborio" as RemoteTarget)
             directory = '/home/lvuser/deploy'
         }
     }
 }
 
 // Set this to true to enable desktop support.
+//noinspection GroovyUnusedAssignment
 def includeDesktopSupport = false
 
 // Maven central needed for JUnit
@@ -60,5 +66,5 @@ dependencies {
 // knows where to look for our Robot Class.
 jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+    manifest GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }

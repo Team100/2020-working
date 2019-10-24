@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.Home;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -43,21 +42,10 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    Joystick leftStick, rightStick;
+    public Joystick leftStick, rightStick;
 
-    public OI(){
+    OI(){
         leftStick = new Joystick(0);
         rightStick = new Joystick(1);
-
-        homeButton = leftStick.get(5);
-        homeButton.onPress(Home);
-    }
-
-    public Joystick leftStick() {
-        return leftStick;
-    }
-
-    public Joystick rightStick(){
-        return rightStick;
     }
 }
