@@ -22,21 +22,29 @@ public class Drivetrain extends Subsystem {
     // here. Call these from Commands.
 
     private static final double GEAR_RATIO = (1988d/1.2);
-    private static final double frameLength = 19;
-    private static final double frameWidth = 27.5;
+    private static final double frameLength = 18.15;
+    private static final double frameWidth = 17.75;
+
     public SwerveDrive swerveDrive;
+
+    public WPI_TalonSRX fletcherTurn;
+    public WPI_TalonSRX frederickTurn;
+    public WPI_TalonSRX blakeTurn;
+    public WPI_TalonSRX brianTurn;
 
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new Drive());
+
+        fletcherTurn = new WPI_TalonSRX(Constants.FL_TURN_CANID);
+        frederickTurn = new WPI_TalonSRX(Constants.FR_TURN_CANID);
+        blakeTurn = new WPI_TalonSRX(Constants.BL_TURN_CANID);
+        brianTurn = new WPI_TalonSRX(Constants.BR_TURN_CANID);
+
         WPI_TalonSRX fletcherDrive = new WPI_TalonSRX(Constants.FL_DRIVE_CANID);
-        WPI_TalonSRX fletcherTurn = new WPI_TalonSRX(Constants.FL_TURN_CANID);
         WPI_TalonSRX frederickDrive = new WPI_TalonSRX(Constants.FR_DRIVE_CANID);
-        WPI_TalonSRX frederickTurn = new WPI_TalonSRX(Constants.FR_TURN_CANID);
         WPI_TalonSRX blakeDrive = new WPI_TalonSRX(Constants.BL_DRIVE_CANID);
-        WPI_TalonSRX blakeTurn = new WPI_TalonSRX(Constants.BL_TURN_CANID);
         WPI_TalonSRX brianDrive = new WPI_TalonSRX(Constants.BR_DRIVE_CANID);
-        WPI_TalonSRX brianTurn = new WPI_TalonSRX(Constants.BR_TURN_CANID);
 
         CanTalonSwerveEnclosure se1 = new CanTalonSwerveEnclosure("enc 1", frederickDrive, frederickTurn, GEAR_RATIO);
         CanTalonSwerveEnclosure se2 = new CanTalonSwerveEnclosure("enc 2", fletcherDrive, fletcherTurn, GEAR_RATIO);

@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -60,6 +61,11 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+
+        SmartDashboard.putNumber("FL", drivetrain.fletcherTurn.getSensorCollection().getAnalogInRaw());
+        SmartDashboard.putNumber("FR", drivetrain.frederickTurn.getSensorCollection().getAnalogInRaw());
+        SmartDashboard.putNumber("BL", drivetrain.blakeTurn.getSensorCollection().getAnalogInRaw());
+        SmartDashboard.putNumber("BR", drivetrain.brianTurn.getSensorCollection().getAnalogInRaw());
     }
 
     @Override
