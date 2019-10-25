@@ -23,14 +23,32 @@ public class Constants {
         public static final double KI = 0;
         public static final double KD = 0;
         public static final double KF = 1;
+        public static final int CLOSED_LOOP_ERROR = 0;
+
         public static final boolean INVERTED = false;
         public static final int TIMEOUT = 10;
+        public static final int STATUS_FRAME = 10;
 
         public class Feedback {
             // Specify the encoder type in `Drivetrain.java`
             public static final int PORT = 0;
             public static final boolean SENSOR_PHASE = false;
         }
+
+        public class Output{
+            public static final double MAX_OUTPUT_FORWARD = 1;
+            public static final double MAX_OUTPUT_REVERSE = -1;
+            public static final double NOMINAL_OUTPUT_FORWARD = 0;
+            public static final double NOMINAL_OUTPUT_REVERSE = 0;
+
+        }
+
+        public class Power{
+            public static final boolean CURRENT_LIMIT = true;
+            public static final int MAX_AMP = 30;
+        }
+
+        
     }
 
     public class LeftFollower {
@@ -46,11 +64,27 @@ public class Constants {
         public static final double KD = 0;
         public static final double KF = 1;
         public static final int TIMEOUT = 10;
+        public static final int STATUS_FRAME = 10;
+
+        public static final int CLOSED_LOOP_ERROR = 0;
         public static final boolean INVERTED = false;
         public class Feedback {
             public static final int PORT = 0;
             public static final boolean SENSOR_PHASE = false;
 
+        }
+
+        public class Output{
+            public static final double MAX_OUTPUT_FORWARD = 1;
+            public static final double MAX_OUTPUT_REVERSE = -1;
+            public static final double NOMINAL_OUTPUT_FORWARD = 0;
+            public static final double NOMINAL_OUTPUT_REVERSE = 0;
+
+        }
+
+        public class Power{
+            public static final boolean CURRENT_LIMIT = true;
+            public static final int MAX_AMP = 30;
         }
 
     }

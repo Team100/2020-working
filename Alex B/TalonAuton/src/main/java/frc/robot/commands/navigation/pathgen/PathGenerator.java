@@ -14,10 +14,27 @@ import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.*;
 
 public class PathGenerator extends Command {
+
+  /**
+   * The common name for the path
+   */
   String name;
 
+  /**
+   * The points that will be generated
+   */
   Waypoint[] points;
+
+  /**
+   * The trajectory exported from the generation
+   */
   Trajectory trajectory;
+
+  /**
+   * Generate a new trajectory
+   * @param name
+   * @param points
+   */
   public PathGenerator(String name, Waypoint[] points) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);

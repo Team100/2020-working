@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -18,7 +19,7 @@ import frc.robot.Constants;
 import frc.robot.CustomClasses.StoredTrajectory;
 
 /**
- * The drivetrain object used for autonmous
+ * The drivetrain object used for autonomous
  */
 public class Drivetrain extends Subsystem {
  
@@ -108,7 +109,34 @@ public class Drivetrain extends Subsystem {
     leftLeader.setSelectedSensorPosition(0);
     rightLeader.setSelectedSensorPosition(0);
 
+    ///////////////////////////////////////////////////////////////
+
+    // Closed Loop Error
+    leftLeader.configAllowableClosedloopError(0, Constants.LeftLeader.CLOSED_LOOP_ERROR, Constants.LeftLeader.TIMEOUT);
+    rightLeader.configAllowableClosedloopError(0, Constants.RightLeader.CLOSED_LOOP_ERROR, Constants.RightLeader.TIMEOUT);
+
+    ///////////////////////////////////////////////////////////////
+
+    // Set Status Frame Period
+    leftLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, Constants.LeftLeader.STATUS_FRAME, Constants.LeftLeader.TIMEOUT);
+    rightLeader.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, Constants.RightLeader.STATUS_FRAME, Constants.RightLeader.TIMEOUT);
+
+    ///////////////////////////////////////////////////////////////
+
+    // Current Limit
+
+    if(Constants.LeftLeader.Power.CURRENT_LIMIT){
+      leftLeader.configPeakCurrentLimit(Constants.LeftLeader.Power.MAX_AMP);
+    }
+
+    if(Constants.RightLeader.Power.CURRENT_LIMIT){
+      rightLeader.configPeakCurrentLimit(Constants.RightLeader.Power.MAX_AMP);
+    }
+
+
+
   }
+
 
   @Override
   public void initDefaultCommand() {
