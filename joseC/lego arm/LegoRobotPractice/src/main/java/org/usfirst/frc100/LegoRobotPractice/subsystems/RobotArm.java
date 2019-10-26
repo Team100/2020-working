@@ -113,6 +113,9 @@ public class RobotArm extends Subsystem {
     public int getEncodervalue() {
         return encodervalue.get();
     }
+    public void resetencoder() {
+        encodervalue.reset();
+    }
 
 
     @Override
