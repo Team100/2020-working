@@ -34,8 +34,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
   
-    m_myRobot.arcadeDrive(m_Stick.getY()/1.5, m_Stick.getTwist()/1.5*-1);
-  //  m_myRobot.tankDrive(m_Stick.getY(), m_Stick.getThrottle());
+   // m_myRobot.arcadeDrive(m_Stick.getY()/1.5, m_Stick.getTwist()/1.5*-1);
+   m_myRobot.tankDrive(m_Stick.getY()/2, m_Stick.getThrottle()/2);
   // System.out.println(m_potentiometer.getVoltage());
   SmartDashboard.putNumber("pot", m_potentiometer.getVoltage());
   SmartDashboard.putNumber("left_Y", m_Stick.getY());
