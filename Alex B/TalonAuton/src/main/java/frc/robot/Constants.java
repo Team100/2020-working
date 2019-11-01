@@ -10,6 +10,9 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 public class Constants {
+    public class RobotCharacteristics{
+        public static final double WHEELBASE_WIDTH = 0.5; //Meters
+    }
     public class Auto{
         public static final double DT=0.05;
         public static final double MAX_VELOCITY = 1.7;
@@ -58,7 +61,7 @@ public class Constants {
     }
    
     public class RightLeader{
-        public static final int CAN_ID = 1;
+        public static final int CAN_ID = 15;
         public static final double KP = 1;
         public static final double KI = 0;
         public static final double KD = 0;

@@ -24,9 +24,9 @@ import frc.robot.CustomClasses.StoredTrajectory;
 public class Drivetrain extends Subsystem {
  
   public TalonSRX leftLeader;
-  public VictorSPX leftFollower;
+  //public VictorSPX leftFollower;
   public TalonSRX rightLeader;
-  public VictorSPX rightFollower;
+  //public VictorSPX rightFollower;
   
   
   public int iterator;
@@ -41,10 +41,10 @@ public class Drivetrain extends Subsystem {
 
 
     leftLeader = new TalonSRX(Constants.LeftLeader.CAN_ID);
-    leftFollower = new VictorSPX(Constants.LeftFollower.CAN_ID);
+    //leftFollower = new VictorSPX(Constants.//LeftFollower.CAN_ID);
 
     rightLeader = new TalonSRX(Constants.RightLeader.CAN_ID);
-    rightFollower = new VictorSPX(Constants.RightFollower.CAN_ID);
+    //rightFollower = new VictorSPX(Constants.//RightFollower.CAN_ID);
 
 
     ///////////////////////////////////////////////////////////////
@@ -53,27 +53,27 @@ public class Drivetrain extends Subsystem {
     // This is so that we can avoid having left over settings changes messing stuff open
 
     leftLeader.configFactoryDefault();
-    leftFollower.configFactoryDefault();
+    //leftFollower.configFactoryDefault();
 
     rightLeader.configFactoryDefault();
-    rightFollower.configFactoryDefault();
+    //rightFollower.configFactoryDefault();
 
     ///////////////////////////////////////////////////////////////
 
     // Have the followers follow the masters
 
-    leftFollower.follow(leftLeader);
-    rightFollower.follow(rightLeader);
+    //leftFollower.follow(leftLeader);
+    //rightFollower.follow(rightLeader);
 
     ///////////////////////////////////////////////////////////////
 
     // Configure inverts
 
     leftLeader.setInverted(Constants.LeftLeader.INVERTED);
-    leftFollower.setInverted(Constants.LeftFollower.INVERTED);
+    //leftFollower.setInverted(Constants.//LeftFollower.INVERTED);
 
     rightLeader.setInverted(Constants.RightLeader.INVERTED);
-    rightFollower.setInverted(Constants.RightFollower.INVERTED);
+    //rightFollower.setInverted(Constants.//RightFollower.INVERTED);
     
     ///////////////////////////////////////////////////////////////
 

@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.navigation.pathgen.PathGenerator;
+import frc.robot.supporting.CustomPathGenerator;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.supporting.PathDebugging;
 import jaci.pathfinder.*;
 
 public class Robot extends TimedRobot {
@@ -42,8 +43,14 @@ public class Robot extends TimedRobot {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public void generateTrajectories(){
-    Waypoint[] straightPath = {new Waypoint(0,0,0), new Waypoint(0,2,0)};
-    new PathGenerator("straight", straightPath).start();
+    System.out.println("Generating Trajectories");
+    Waypoint[] straightPath = {new Waypoint(0,0,0), new Waypoint(2,0,0)};
+    System.out.println(straightPath.toString());
+    Trajectory straight = CustomPathGenerator.generate(straightPath);
+    PathDebugging.printTrajectory(straight);
+    PathDebugging.printTrajectory(CustomPathGenerator.getLeftTrajectory(straight));
+    PathDebugging.printTrajectory(CustomPathGenerator.getRightTrajectory(straight));
+    System.out.println("DONE");
   }
   
   /**
@@ -53,8 +60,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    System.out.println("RobotInit");
     m_oi = new OI();
-    m_chooser.addOption("My Auto", null);
+    m_chooser.addOption("Straight", null);
     SmartDashboard.putData("Auto mode", m_chooser);
     generateTrajectories();
   }
@@ -82,7 +90,7 @@ public class Robot extends TimedRobot {
    
 
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
+      //m_autonomousCommand.start();
     }
   }
 
