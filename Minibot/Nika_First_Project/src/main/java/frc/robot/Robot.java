@@ -26,32 +26,69 @@ public class Robot extends TimedRobot {
   private AnalogInput m_potentiometer;
   private Preferences preferences;
   private boolean isArcadeDrive;
+  private double Velocity;
+  private boolean rightStick;
+  
+  
+
 
   @Override
   public void robotInit() {
     m_myRobot = new DifferentialDrive(new WPI_TalonSRX(0), new WPI_TalonSRX(15));
     m_Stick = new Joystick(0);
     m_potentiometer=new AnalogInput(1);
+   
+    preferences = Preferences.getInstance();
+    isArcadeDrive = preferences.getBoolean("arcadeDrive", true);
+    preferences.putBoolean("arcadeDrive", isArcadeDrive);
+    Velocity = preferences.getDouble("Velocity", 1.5);
+    if (Velocity > 2) {
+      Velocity = 2;
+    } 
+    if (Velocity < 1) {
+      Velocity = 1;
+    }
+    preferences.putDouble("Velocity", Velocity);
+    rightStick = preferences.getBoolean("rightStick", true);
+    preferences.putBoolean("rightStick", rightStick);
+    
   }
 
   @Override
   public void teleopPeriodic() {
-  if (isArcadeDrive){
-    m_myRobot.arcadeDrive(m_Stick.getY()/1.5, m_Stick.getX() / 1.5 * -1);
+
+  if (isArcadeDrive) {
+    m_myRobot.arcadeDrive(m_Stick.getY()/Velocity, m_Stick.getX() / Velocity * -1);
   }
   else{
-    m_myRobot.tankDrive(m_Stick.getY()/2, m_Stick.getThrottle()/2);
+    m_myRobot.tankDrive(m_Stick.getY()/Velocity, m_Stick.getThrottle()/Velocity);
   }
+  if (rightStick) {
+    m_myRobot.arcadeDrive(m_Stick.getThrottle()/Velocity, m_Stick.getTwist()/Velocity);
+  }
+  
    // m_myRobot.arcadeDrive(m_Stick.getY()/1.5, m_Stick.getTwist()/1.5*-1);
   // System.out.println(m_potentiometer.getVoltage());
   SmartDashboard.putNumber("pot", m_potentiometer.getVoltage());
   SmartDashboard.putNumber("left_Y", m_Stick.getY());
   SmartDashboard.putNumber("right_X", m_Stick.getThrottle());
-
-  preferences = Preferences.getInstance();
-  isArcadeDrive = preferences.getBoolean("aracdeDrive", true);
-
+  
 }
+ @Override
+ public void teleopInit() {
+  preferences = Preferences.getInstance();
+  isArcadeDrive = preferences.getBoolean("arcadeDrive", true);
+  Velocity = preferences.getDouble("Velocity", 1.5);
+  rightStick = preferences.getBoolean("rightStick", true);
+  if (Velocity > 2) {
+    Velocity = 2;
+  } 
+  if (Velocity < 1) {
+    Velocity = 1;
+  }
 
+  
+
+ }
  
 }
