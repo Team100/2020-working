@@ -13,9 +13,13 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+
+
 
 /**
  * This is a demo program showing the use of the RobotDrive class, specifically
@@ -29,7 +33,13 @@ public class Robot extends TimedRobot {
   private boolean isArcadeDrive;
   private double Velocity;
   private boolean rightStick;
-  private Button button1;
+  private static final int leftDeviceID = 0; 
+  private static final int rightDeviceID = 15;
+  private CANSparkMax m_leftMotor;
+  private CANSparkMax m_rightMotor;
+  private int firmwareVersion;
+
+
 
   
   
@@ -37,7 +47,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    m_myRobot = new DifferentialDrive(new WPI_TalonSRX(0), new WPI_TalonSRX(15));
+   // m_myRobot = new DifferentialDrive(new WPI_TalonSRX(0), new WPI_TalonSRX(15));
     m_Stick = new Joystick(0);
     m_potentiometer=new AnalogInput(1); 
     preferences = Preferences.getInstance();
@@ -53,6 +63,13 @@ public class Robot extends TimedRobot {
     preferences.putDouble("Velocity", Velocity);
     rightStick = preferences.getBoolean("rightStick", true);
     preferences.putBoolean("rightStick", rightStick);
+    m_leftMotor = new CANSparkMax(leftDeviceID, MotorType.kBrushless);
+    m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
+    m_myRobot = new DifferentialDrive(m_leftMotor, m_rightMotor);
+    //firmwareVersion = com.revrobotics.CANSparkMaxLowLevel.getFirmwareVersion();
+    firmwareVersion = m_leftMotor.getFirmwareVersion();
+    
+
     
   }
 
@@ -74,6 +91,7 @@ public class Robot extends TimedRobot {
   SmartDashboard.putNumber("pot", m_potentiometer.getVoltage());
   SmartDashboard.putNumber("left_Y", m_Stick.getY());
   SmartDashboard.putNumber("right_X", m_Stick.getThrottle());
+  SmartDashboard.putNumber("FWVersion", firmwareVersion);
   
 }
  @Override
