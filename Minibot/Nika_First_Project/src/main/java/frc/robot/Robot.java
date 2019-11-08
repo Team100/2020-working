@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,6 +29,8 @@ public class Robot extends TimedRobot {
   private boolean isArcadeDrive;
   private double Velocity;
   private boolean rightStick;
+  private Button button1;
+
   
   
 
@@ -36,8 +39,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_myRobot = new DifferentialDrive(new WPI_TalonSRX(0), new WPI_TalonSRX(15));
     m_Stick = new Joystick(0);
-    m_potentiometer=new AnalogInput(1);
-   
+    m_potentiometer=new AnalogInput(1); 
     preferences = Preferences.getInstance();
     isArcadeDrive = preferences.getBoolean("arcadeDrive", true);
     preferences.putBoolean("arcadeDrive", isArcadeDrive);
@@ -86,9 +88,9 @@ public class Robot extends TimedRobot {
   if (Velocity < 1) {
     Velocity = 1;
   }
-
-  
+ }
+ @Override
+ public void autonomousInit() {
 
  }
- 
 }
