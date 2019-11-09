@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   private boolean isArcadeDrive;
   private double Velocity;
   private boolean rightStick;
-  private static final int leftDeviceID = 0; 
+  private static final int leftDeviceID = 1; 
   private static final int rightDeviceID = 15;
   private CANSparkMax m_leftMotor;
   private CANSparkMax m_rightMotor;
