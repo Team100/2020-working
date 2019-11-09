@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
@@ -38,6 +40,10 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_leftMotor;
   private CANSparkMax m_rightMotor;
   private int firmwareVersion;
+  private Button buttonY;
+
+
+  
 
 
 
@@ -49,6 +55,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
    // m_myRobot = new DifferentialDrive(new WPI_TalonSRX(0), new WPI_TalonSRX(15));
     m_Stick = new Joystick(0);
+    buttonY = new JoystickButton(m_Stick, 4);
     m_potentiometer=new AnalogInput(1); 
     preferences = Preferences.getInstance();
     isArcadeDrive = preferences.getBoolean("arcadeDrive", true);
@@ -69,6 +76,7 @@ public class Robot extends TimedRobot {
     //firmwareVersion = com.revrobotics.CANSparkMaxLowLevel.getFirmwareVersion();
     firmwareVersion = m_leftMotor.getFirmwareVersion();
     
+    
 
     
   }
@@ -84,6 +92,11 @@ public class Robot extends TimedRobot {
   }
   if (rightStick) {
     m_myRobot.arcadeDrive(m_Stick.getThrottle()/Velocity, m_Stick.getTwist()/Velocity);
+
+  }
+  if (buttonY.get()) {
+    m_rightMotor.getEncoder().setPosition(0);
+    m_leftMotor.getEncoder().setPosition(0);
   }
   
    // m_myRobot.arcadeDrive(m_Stick.getY()/1.5, m_Stick.getTwist()/1.5*-1);
@@ -92,6 +105,9 @@ public class Robot extends TimedRobot {
   SmartDashboard.putNumber("left_Y", m_Stick.getY());
   SmartDashboard.putNumber("right_X", m_Stick.getThrottle());
   SmartDashboard.putNumber("FWVersion", firmwareVersion);
+  SmartDashboard.putNumber("rightPosition", m_rightMotor.getEncoder().getPosition());
+  SmartDashboard.putNumber("leftPosition", m_leftMotor.getEncoder().getPosition());
+
   
 }
  @Override
@@ -112,3 +128,7 @@ public class Robot extends TimedRobot {
 
  }
 }
+
+  
+
+  
