@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.Constants.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -42,10 +43,33 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick leftStick, rightStick;
+    public Joystick leftStick, rightStick, gamepad;
 
     OI(){
-        leftStick = new Joystick(0);
-        rightStick = new Joystick(1);
+        switch(Constants.CONTROL_TYPE) {
+            case JOYSTICKS:
+                leftStick = new Joystick(0);
+                rightStick = new Joystick(1);
+                break;
+            case GAMEPAD:
+                gamepad = new Joystick(0);
+                break;
+            }
+        }
+    }
+    
+    public double getStickValue(StickType stick, StickDirection dir) {
+        switch(Constants.CONTROL_TYPE) {
+            case JOYSTICKS:
+                if (stick == StickType.LEFT && dir == StickDirection.X) return leftStick.getX();
+                if (stick == StickType.LEFT && dir == StickDirection.Y) return leftStick.getY();
+                if (stick == StickType.RIGHT && dir == StickDirection.X) return rightStick.getX();
+                if (stick == StickType.RIGHT && dir == StickDirection.Y) return rightStick.getY();
+            case GAMEPAD:
+                if (stick == StickType.LEFT && dir == StickDirection.X) return gamepad.getRawAxis(0);
+                if (stick == StickType.LEFT && dir == StickDirection.Y) return gamepad.getRawAxis(1);
+                if (stick == StickType.RIGHT && dir == StickDirection.X) return gamepad.getRawAxis(2);
+                if (stick == StickType.RIGHT && dir == StickDirection.Y) return rightStick.getRawAxis(3);
+        }
     }
 }
