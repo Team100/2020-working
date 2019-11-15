@@ -9,6 +9,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.Constants.StickDirection;
+import frc.robot.Constants.StickType;
 
 /**
  * Drive command
@@ -27,7 +29,10 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.drivetrain.swerveDrive.move(Robot.oi.leftStick.getY(), Robot.oi.leftStick.getX(), Robot.oi.rightStick.getX(), (double)(Robot.ahrs.getFusedHeading()));
+        Robot.drivetrain.swerveDrive.move(  Robot.oi.getStickValue(StickType.LEFT, StickDirection.Y),   //Straight
+                                            Robot.oi.getStickValue(StickType.LEFT, StickDirection.X),   //Strafe
+                                            Robot.oi.getStickValue(StickType.RIGHT, StickDirection.Y),  //Rotate
+                                            (double)(Robot.ahrs.getFusedHeading()));                    //NavX
     }
 
     // Make this return true when this Command no longer needs to run execute()

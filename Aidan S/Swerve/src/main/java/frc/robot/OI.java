@@ -54,7 +54,6 @@ public class OI {
             case GAMEPAD:
                 gamepad = new Joystick(0);
                 break;
-            }
         }
     }
     
@@ -70,6 +69,7 @@ public class OI {
                 if (stick == StickType.LEFT && dir == StickDirection.Y) return gamepad.getRawAxis(1);
                 if (stick == StickType.RIGHT && dir == StickDirection.X) return gamepad.getRawAxis(2);
                 if (stick == StickType.RIGHT && dir == StickDirection.Y) return rightStick.getRawAxis(3);
+            default: return 0;
         }
     }
 }
