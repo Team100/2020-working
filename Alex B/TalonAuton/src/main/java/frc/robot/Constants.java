@@ -20,17 +20,34 @@ public class Constants {
         public static final double MAX_JERK = 60;
     }
 
-    public class LeftLeader{
-        public static final int CAN_ID = 0;
+    public class DTConstants{
+        public static final int TICKS_PER_REV = 2048;
+        public static final double WHEEL_DIAMETER = 0.66;
+
         public static final double KP = 1;
         public static final double KI = 0;
         public static final double KD = 0;
         public static final double KF = 1;
+        public static final double KV = 1/Auto.MAX_VELOCITY;
+        public static final double KA = Auto.MAX_ACCELERATION;
+        public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
+    }
+    public class LeftLeader{
+        public static final int CAN_ID = 0;
+        public static final double KP = DTConstants.KP;
+        public static final double KI = DTConstants.KI;
+        public static final double KD = DTConstants.KD;
+        public static final double KF = DTConstants.KF;
+        public static final double KV = DTConstants.KV;
+        public static final double KA = DTConstants.KA;
         public static final int CLOSED_LOOP_ERROR = 0;
 
         public static final boolean INVERTED = false;
         public static final int TIMEOUT = 10;
         public static final int STATUS_FRAME = 10;
+
+        public static final int MAX_VELOCITY = 1;
+
 
         public class Feedback {
             // Specify the encoder type in `Drivetrain.java`
@@ -62,12 +79,16 @@ public class Constants {
    
     public class RightLeader{
         public static final int CAN_ID = 15;
-        public static final double KP = 1;
-        public static final double KI = 0;
-        public static final double KD = 0;
-        public static final double KF = 1;
+        public static final double KP = DTConstants.KP;
+        public static final double KI = DTConstants.KI;
+        public static final double KD = DTConstants.KD;
+        public static final double KF = DTConstants.KF;
+        public static final double KV = DTConstants.KV;
+        public static final double KA = DTConstants.KA;
         public static final int TIMEOUT = 10;
         public static final int STATUS_FRAME = 10;
+
+        public static final int MAX_VELOCITY = 1;
 
         public static final int CLOSED_LOOP_ERROR = 0;
         public static final boolean INVERTED = false;

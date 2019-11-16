@@ -82,6 +82,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -156,6 +157,8 @@
       <workItem from="1571983572087" duration="3099000" />
       <workItem from="1572129228534" duration="750000" />
       <workItem from="1572591863872" duration="1607000" />
+      <workItem from="1573804170746" duration="4316000" />
+      <workItem from="1573780622236" duration="9435000" />
     </task>
     <servers />
   </component>
