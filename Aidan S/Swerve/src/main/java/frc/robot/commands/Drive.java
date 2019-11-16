@@ -31,7 +31,7 @@ public class Drive extends Command {
     protected void execute() {
         Robot.drivetrain.swerveDrive.move(  Robot.oi.getStickValue(StickType.LEFT, StickDirection.Y),   //Straight
                                             Robot.oi.getStickValue(StickType.LEFT, StickDirection.X),   //Strafe
-                                            Robot.oi.getStickValue(StickType.RIGHT, StickDirection.Y),  //Rotate
+                                            Robot.oi.getStickValue(StickType.RIGHT, StickDirection.X),  //Rotate
                                             (double)(Robot.ahrs.getFusedHeading()));                    //NavX
     }
 

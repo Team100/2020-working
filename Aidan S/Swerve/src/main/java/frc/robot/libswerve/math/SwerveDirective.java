@@ -8,7 +8,7 @@ public class SwerveDirective {
     private double angle;
     private double speed;
 
-    SwerveDirective(double angle, double speed) {
+    public SwerveDirective(double angle, double speed) {
         this.angle = angle;
         this.speed = speed;
     }

@@ -1,7 +1,11 @@
 package frc.robot.libswerve.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.libswerve.drive.BaseEnclosure;
+import frc.robot.libswerve.drive.SwerveEnclosure;
 
 /**
  * An implementation of the SwerveEnclosure using CanTalon motors and encoders
@@ -24,8 +28,9 @@ public class CanTalonSwerveEnclosure extends BaseEnclosure implements SwerveEncl
 
     @Override
     public void stop() {
-        this.steerMotor.set(ControlMode.PercentOutput, 0);
-        this.driveMotor.set(ControlMode.PercentOutput, 0);
+        // TODO: deprecated...
+        this.steerMotor.stopMotor();
+        this.driveMotor.stopMotor();
     }
 
     @Override

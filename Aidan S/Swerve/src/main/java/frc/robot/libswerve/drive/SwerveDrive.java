@@ -41,9 +41,9 @@ public class SwerveDrive {
      * Inputs are between -1 and 1, with 1 being full power, -1 being full reverse, and 0 being neutral.
      * The method uses gyro for field centric driving, if it is enabled.
      *
-     * @param fwd forward velocity?
-     * @param str strafe velocity?
-     * @param rcw rotation angle?
+     * @param fwd
+     * @param str
+     * @param rcw
      * @param gyroValue the value of the gyro input to be used by the calculation. Optional. Only used when the robot is in field-centric mode.
      */
     public void move(double fwd, double str, double rcw, Double gyroValue) {
@@ -58,6 +58,7 @@ public class SwerveDrive {
 
     /**
      * Stop the robot (set speed to 0)
+     * @throws Exception 
      */
     public void stop() {
         swerveEnclosure1.stop();

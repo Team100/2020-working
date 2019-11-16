@@ -39,12 +39,11 @@ public class SwerveMath {
     private final double SCALE_SPEED = 1.00;
 
     // The "Centric" mode for the robot
-    private CentricMode centricMode = CentricMode.ROBOT;
+    	private CentricMode centricMode = CentricMode.ROBOT;
 
     public void setModeField() {
-		centricMode = CentricMode.FIELD;
+		centricMode= CentricMode.FIELD;
 	}
-
     /**
      * Constructor
      * @param width the robot width (units do not matter)
@@ -89,7 +88,7 @@ public class SwerveMath {
         }
         
         //Adjust for Gyro (if wanted)
-        if (isFieldCentric() && gyroValue != null){
+        if (isFieldCentric()){
             //Convert the gyro angle (in degrees) to radians.
             double gyro = (gyroValue * Math.PI) / 180;
 

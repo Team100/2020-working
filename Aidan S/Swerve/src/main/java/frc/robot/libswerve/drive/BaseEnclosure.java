@@ -9,9 +9,9 @@ package frc.robot.libswerve.drive;
 public abstract class BaseEnclosure implements SwerveEnclosure {
 
     private String name;
-    double gearRatio;
+    protected double gearRatio;
 
-    BaseEnclosure(String name, double gearRatio) {
+    public BaseEnclosure(String name, double gearRatio) {
         this.name = name;
         this.gearRatio = gearRatio;
     }
@@ -48,12 +48,14 @@ public abstract class BaseEnclosure implements SwerveEnclosure {
 
     /**
      * @return the value of the angle encoder (used to calculate current wheel position)
+     * TODO: This should be converted to -1 - +1 range...
      */
     protected abstract int getEncPosition();
 
     /**
      * Sets the value of the angle encoder (used for aligning wheel in case of drift)
      * @param encPosition the current encoder value
+     * TODO: This should be converted to -1 - +1 range...
      */
     protected abstract void setEncPosition(int encPosition);
 
@@ -65,9 +67,9 @@ public abstract class BaseEnclosure implements SwerveEnclosure {
 
     /**
      * Set the angle for the steer motor
-     * @param angle the angle value: -0.5 - counterclockwise 180 degrees, 0 - forward 180 degrees, +0.5 - 180 degrees clockwise
+     * @param abgle the angle value: -0.5 - counterclockwise 180 degrees, 0 - forward 180 degrees, +0.5 - 180 degrees clockwise
      */
-    protected abstract void setAngle(double angle);
+    protected abstract void setAngle(double abgle);
 
 
     private boolean shouldReverse(double wa, double encoderValue){
@@ -85,7 +87,8 @@ public abstract class BaseEnclosure implements SwerveEnclosure {
         double difference = Math.min(longDifference, 1.0-longDifference);
 
         //If the difference is greater than 1/4, then return true (aka it is easier for it to turn around and go backwards than go forward)
-        return difference > 0.25;
+        if (difference > 0.25) return true;
+        else return false;
     }
 
     private double convertAngle(double angle, double encoderValue) {

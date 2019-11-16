@@ -17,7 +17,7 @@ public class SwerveUtils {
 	 *            the ratio of values in a single turn
 	 * @return the encoder value in the -0.5 to +0.5 range
 	 */
-	static double convertEncoderValue(double encoderValue, double gearRatio) {
+	public static double convertEncoderValue(double encoderValue, double gearRatio) {
 		double encPos = encoderValue;
 		// Reverse
 //		encPos *= -1;
