@@ -27,7 +27,7 @@ public class Constants {
         public static final double KP = 1;
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 10;
+        public static final double KF = 3;
         public static final double KV = 1/Auto.MAX_VELOCITY;
         public static final double KA = Auto.MAX_ACCELERATION;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;

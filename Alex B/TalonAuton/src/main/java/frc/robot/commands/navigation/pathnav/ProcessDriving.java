@@ -73,8 +73,8 @@ public class ProcessDriving extends Command {
 
     SmartDashboard.putNumber("Left Intended", leftSpeed+turn);
     SmartDashboard.putNumber("Right Intended", rightSpeed-turn);
-    SmartDashboard.putNumber("DT Left Velocity", Robot.drivetrain.leftLeader.getActiveTrajectoryVelocity());
-    SmartDashboard.putNumber("DT Right Velocity", Robot.drivetrain.rightLeader.getActiveTrajectoryVelocity());
+    SmartDashboard.putNumber("DT Left Velocity", Robot.drivetrain.leftLeader.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("DT Right Velocity", Robot.drivetrain.rightLeader.getSelectedSensorVelocity());
     System.out.println("Left: "+ (leftSpeed+turn));
     System.out.println("Right: "+(rightSpeed-turn));
 
