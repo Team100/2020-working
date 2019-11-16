@@ -8,6 +8,7 @@
 package frc.robot.commands.navigation.pathnav;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.supporting.CustomPathGenerator;
@@ -69,6 +70,11 @@ public class ProcessDriving extends Command {
     //double turn =  0.8 * (-1.0/80.0) * headingDifference;
     double turn = 0;
     Robot.drivetrain.driveInVelocityMode(leftSpeed + turn, rightSpeed - turn);
+
+    SmartDashboard.putNumber("Left Intended", leftSpeed+turn);
+    SmartDashboard.putNumber("Right Intended", rightSpeed-turn);
+    SmartDashboard.putNumber("DT Left Velocity", Robot.drivetrain.leftLeader.getActiveTrajectoryVelocity());
+    SmartDashboard.putNumber("DT Right Velocity", Robot.drivetrain.rightLeader.getActiveTrajectoryVelocity());
     System.out.println("Left: "+ (leftSpeed+turn));
     System.out.println("Right: "+(rightSpeed-turn));
 
@@ -86,11 +92,17 @@ public class ProcessDriving extends Command {
   @Override
   protected void end() {
     Robot.drivetrain.driveInVelocityMode(0,0);
+    System.out.println("END");
+    System.out.println(leftEncFollower.isFinished());
+    System.out.println(rightEncFollower.isFinished());
+    System.out.println(this.done);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    System.out.println("Interrupt ProcessDriving");
+    end();
   }
 }

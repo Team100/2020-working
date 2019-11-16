@@ -15,19 +15,19 @@ public class Constants {
     }
     public class Auto{
         public static final double DT=0.05;
-        public static final double MAX_VELOCITY = 1.7;
+        public static final double MAX_VELOCITY = 20;
         public static final double MAX_ACCELERATION = 2.0;
         public static final double MAX_JERK = 60;
     }
 
     public class DTConstants{
         public static final int TICKS_PER_REV = 2048;
-        public static final double WHEEL_DIAMETER = 0.66;
+        public static final double WHEEL_DIAMETER = 0.1;
 
         public static final double KP = 1;
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 1;
+        public static final double KF = 10;
         public static final double KV = 1/Auto.MAX_VELOCITY;
         public static final double KA = Auto.MAX_ACCELERATION;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
@@ -42,7 +42,7 @@ public class Constants {
         public static final double KA = DTConstants.KA;
         public static final int CLOSED_LOOP_ERROR = 0;
 
-        public static final boolean INVERTED = false;
+        public static final boolean INVERTED = true;
         public static final int TIMEOUT = 10;
         public static final int STATUS_FRAME = 10;
 
@@ -52,7 +52,7 @@ public class Constants {
         public class Feedback {
             // Specify the encoder type in `Drivetrain.java`
             public static final int PORT = 0;
-            public static final boolean SENSOR_PHASE = false;
+            public static final boolean SENSOR_PHASE = true;
         }
 
         public class Output{
@@ -94,7 +94,7 @@ public class Constants {
         public static final boolean INVERTED = false;
         public class Feedback {
             public static final int PORT = 0;
-            public static final boolean SENSOR_PHASE = false;
+            public static final boolean SENSOR_PHASE = true;
 
         }
 
