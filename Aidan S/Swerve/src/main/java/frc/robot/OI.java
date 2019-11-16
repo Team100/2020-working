@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Constants.*;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -53,6 +55,8 @@ public class OI {
                 break;
             case GAMEPAD:
                 gamepad = new Joystick(0);
+                JoystickButton zero = new JoystickButton(gamepad, 4);
+                zero.whenPressed(new Zero());
                 break;
         }
     }
@@ -60,15 +64,15 @@ public class OI {
     public double getStickValue(StickType stick, StickDirection dir) {
         switch(Constants.CONTROL_TYPE) {
             case JOYSTICKS:
-                if (stick == StickType.LEFT && dir == StickDirection.X) return leftStick.getX();
-                if (stick == StickType.LEFT && dir == StickDirection.Y) return leftStick.getY();
-                if (stick == StickType.RIGHT && dir == StickDirection.X) return rightStick.getX();
-                if (stick == StickType.RIGHT && dir == StickDirection.Y) return rightStick.getY();
+                if (stick == StickType.LEFT && dir == StickDirection.X) return leftStick.getX()*Constants.STICK_MODIFIER;
+                if (stick == StickType.LEFT && dir == StickDirection.Y) return -leftStick.getY()*Constants.STICK_MODIFIER;
+                if (stick == StickType.RIGHT && dir == StickDirection.X) return rightStick.getX()*Constants.STICK_MODIFIER;
+                if (stick == StickType.RIGHT && dir == StickDirection.Y) return -rightStick.getY()*Constants.STICK_MODIFIER;
             case GAMEPAD:
-                if (stick == StickType.LEFT && dir == StickDirection.X) return gamepad.getRawAxis(0);
-                if (stick == StickType.LEFT && dir == StickDirection.Y) return gamepad.getRawAxis(1);
-                if (stick == StickType.RIGHT && dir == StickDirection.X) return gamepad.getRawAxis(2);
-                if (stick == StickType.RIGHT && dir == StickDirection.Y) return gamepad.getRawAxis(3);
+                if (stick == StickType.LEFT && dir == StickDirection.X) return gamepad.getRawAxis(0)*Constants.STICK_MODIFIER;
+                if (stick == StickType.LEFT && dir == StickDirection.Y) return -gamepad.getRawAxis(1)*Constants.STICK_MODIFIER;
+                if (stick == StickType.RIGHT && dir == StickDirection.X) return gamepad.getRawAxis(2)*Constants.STICK_MODIFIER;
+                if (stick == StickType.RIGHT && dir == StickDirection.Y) return -gamepad.getRawAxis(3)*Constants.STICK_MODIFIER;
             default: return 0;
         }
     }

@@ -6,6 +6,7 @@ public class Constants {
     public enum ControlType {JOYSTICKS, GAMEPAD}
     public enum StickType {LEFT, RIGHT}
     public enum StickDirection {X, Y}
+    public static final double STICK_MODIFIER = 0.3;
 
     public static final int FL_TURN_CANID = 4;      //2
     public static final int FL_DRIVE_CANID = 0;     //2
