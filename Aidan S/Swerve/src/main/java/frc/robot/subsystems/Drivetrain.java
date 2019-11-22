@@ -21,7 +21,7 @@ public class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private static final double GEAR_RATIO = (1988d/1.2);
+    private static final double GEAR_RATIO = 1665d;
     private static final double frameLength = 18.15;
     private static final double frameWidth = 17.75;
 
@@ -41,16 +41,36 @@ public class Drivetrain extends Subsystem {
         blakeTurn = new WPI_TalonSRX(Constants.BL_TURN_CANID);
         brianTurn = new WPI_TalonSRX(Constants.BR_TURN_CANID);
 
+        updateMotorControllers();
+
         WPI_TalonSRX fletcherDrive = new WPI_TalonSRX(Constants.FL_DRIVE_CANID);
         WPI_TalonSRX frederickDrive = new WPI_TalonSRX(Constants.FR_DRIVE_CANID);
         WPI_TalonSRX blakeDrive = new WPI_TalonSRX(Constants.BL_DRIVE_CANID);
         WPI_TalonSRX brianDrive = new WPI_TalonSRX(Constants.BR_DRIVE_CANID);
 
-        CanTalonSwerveEnclosure se1 = new CanTalonSwerveEnclosure("enc 1", frederickDrive, frederickTurn, GEAR_RATIO);
-        CanTalonSwerveEnclosure se2 = new CanTalonSwerveEnclosure("enc 2", fletcherDrive, fletcherTurn, GEAR_RATIO);
-        CanTalonSwerveEnclosure se3 = new CanTalonSwerveEnclosure("enc 3", blakeDrive, blakeTurn, GEAR_RATIO);
-        CanTalonSwerveEnclosure se4 = new CanTalonSwerveEnclosure("enc 4", brianDrive, brianTurn, GEAR_RATIO);
+        CanTalonSwerveEnclosure se1 = new CanTalonSwerveEnclosure("enc 1", frederickDrive, frederickTurn, GEAR_RATIO, Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se2 = new CanTalonSwerveEnclosure("enc 2", fletcherDrive, fletcherTurn, GEAR_RATIO, -Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se3 = new CanTalonSwerveEnclosure("enc 3", blakeDrive, blakeTurn, GEAR_RATIO, -Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se4 = new CanTalonSwerveEnclosure("enc 4", brianDrive, brianTurn, GEAR_RATIO, Constants.DRIVE_MODIFIER);
 
         swerveDrive = new SwerveDrive(se1, se2, se3, se4, frameWidth, frameLength);
+    }
+
+    private void updateMotorControllers() {
+        WPI_TalonSRX[] motors = new WPI_TalonSRX[4];
+        motors[0] = fletcherTurn;
+        motors[1] = frederickTurn;
+        motors[2] = blakeTurn;
+        motors[3] = brianTurn;
+
+        for(WPI_TalonSRX mc: motors) {
+            mc.configFactoryDefault();
+
+            mc.config_kP(0, 0.1);
+            mc.config_kI(0, 0);
+            mc.config_kD(0, 0);
+            mc.config_kF(0, 0.1);
+            mc.configAllowableClosedloopError(0, 5);
+        }
     }
 }

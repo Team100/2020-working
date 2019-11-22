@@ -15,15 +15,17 @@ public class CanTalonSwerveEnclosure extends BaseEnclosure implements SwerveEncl
 	private WPI_TalonSRX driveMotor;
 	private WPI_TalonSRX steerMotor;
 	
-	private boolean reverseEncoder = false;
-	private boolean reverseSteer = false;
+    private boolean reverseEncoder = false;
+    private boolean reverseSteer = false;
+    private double driveModifier;
 
-    public CanTalonSwerveEnclosure(String name, WPI_TalonSRX driveMotor, WPI_TalonSRX steerMotor, double gearRatio) {
+    public CanTalonSwerveEnclosure(String name, WPI_TalonSRX driveMotor, WPI_TalonSRX steerMotor, double gearRatio, double driveModifier) {
 
         super(name, gearRatio);
 
         this.driveMotor = driveMotor;
         this.steerMotor = steerMotor;
+        this.driveModifier = driveModifier;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class CanTalonSwerveEnclosure extends BaseEnclosure implements SwerveEncl
 
     @Override
     public void setSpeed(double speed) {
-    	driveMotor.set(ControlMode.PercentOutput, speed);
+    	driveMotor.set(ControlMode.PercentOutput, speed * driveModifier);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class CanTalonSwerveEnclosure extends BaseEnclosure implements SwerveEncl
 	public boolean isReverseEncoder()
 	{
 		return reverseEncoder;
-	}
+    }
 	
 	public void setReverseEncoder(boolean reverseEncoder)
 	{

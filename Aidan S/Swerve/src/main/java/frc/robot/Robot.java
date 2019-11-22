@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        updateDashboard();
     }
 
     /**
@@ -61,11 +62,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-
-        SmartDashboard.putNumber("FL", drivetrain.fletcherTurn.getSensorCollection().getAnalogInRaw());
-        SmartDashboard.putNumber("FR", drivetrain.frederickTurn.getSensorCollection().getAnalogInRaw());
-        SmartDashboard.putNumber("BL", drivetrain.blakeTurn.getSensorCollection().getAnalogInRaw());
-        SmartDashboard.putNumber("BR", drivetrain.brianTurn.getSensorCollection().getAnalogInRaw());
     }
 
     @Override
@@ -108,5 +104,27 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    private void updateDashboard() {
+        SmartDashboard.putNumber("FLA", drivetrain.fletcherTurn.getSensorCollection().getAnalogInRaw());
+        SmartDashboard.putNumber("FRA", drivetrain.frederickTurn.getSensorCollection().getAnalogInRaw());
+        SmartDashboard.putNumber("BLA", drivetrain.blakeTurn.getSensorCollection().getAnalogInRaw());
+        SmartDashboard.putNumber("BRA", drivetrain.brianTurn.getSensorCollection().getAnalogInRaw());
+    
+        SmartDashboard.putNumber("FLQ", drivetrain.fletcherTurn.getSensorCollection().getQuadraturePosition());
+        SmartDashboard.putNumber("FRQ", drivetrain.frederickTurn.getSensorCollection().getQuadraturePosition());
+        SmartDashboard.putNumber("BLQ", drivetrain.blakeTurn.getSensorCollection().getQuadraturePosition());
+        SmartDashboard.putNumber("BRQ", drivetrain.brianTurn.getSensorCollection().getQuadraturePosition());
+    
+        SmartDashboard.putNumber("FLS", drivetrain.fletcherTurn.getSelectedSensorPosition());
+        SmartDashboard.putNumber("FRS", drivetrain.frederickTurn.getSelectedSensorPosition());
+        SmartDashboard.putNumber("BLS", drivetrain.blakeTurn.getSelectedSensorPosition());
+        SmartDashboard.putNumber("BRS", drivetrain.brianTurn.getSelectedSensorPosition());
+
+        SmartDashboard.putNumber("FLE", drivetrain.fletcherTurn.getClosedLoopError());
+        SmartDashboard.putNumber("FRE", drivetrain.frederickTurn.getClosedLoopError());
+        SmartDashboard.putNumber("BLE", drivetrain.blakeTurn.getClosedLoopError());
+        SmartDashboard.putNumber("BRE", drivetrain.brianTurn.getClosedLoopError());
     }
 }
