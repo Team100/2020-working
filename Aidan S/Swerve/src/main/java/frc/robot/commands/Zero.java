@@ -14,6 +14,7 @@ public class Zero extends Command {
   public Zero() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.drivetrain);
+    setRunWhenDisabled(true);
   }
 
   // Called just before this Command runs the first time

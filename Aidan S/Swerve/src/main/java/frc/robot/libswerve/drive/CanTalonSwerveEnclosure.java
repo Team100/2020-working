@@ -42,7 +42,8 @@ public class CanTalonSwerveEnclosure extends BaseEnclosure implements SwerveEncl
 
     @Override
     public void setAngle(double angle) {
-    	steerMotor.set(ControlMode.Position, (reverseSteer ? -1 : 1) * angle * gearRatio);
+        steerMotor.set(ControlMode.Position, (reverseSteer ? -1 : 1) * angle * gearRatio);
+        // System.out.println((reverseSteer ? -1 : 1) * angle * gearRatio);
     }
 
     @Override

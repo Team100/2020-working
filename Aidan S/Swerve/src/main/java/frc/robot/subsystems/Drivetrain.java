@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
@@ -51,9 +52,9 @@ public class Drivetrain extends Subsystem {
         CanTalonSwerveEnclosure se1 = new CanTalonSwerveEnclosure("enc 1", frederickDrive, frederickTurn, GEAR_RATIO, Constants.DRIVE_MODIFIER);
         CanTalonSwerveEnclosure se2 = new CanTalonSwerveEnclosure("enc 2", fletcherDrive, fletcherTurn, GEAR_RATIO, -Constants.DRIVE_MODIFIER);
         CanTalonSwerveEnclosure se3 = new CanTalonSwerveEnclosure("enc 3", blakeDrive, blakeTurn, GEAR_RATIO, -Constants.DRIVE_MODIFIER);
-        CanTalonSwerveEnclosure se4 = new CanTalonSwerveEnclosure("enc 4", brianDrive, brianTurn, GEAR_RATIO, Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se4 = new CanTalonSwerveEnclosure("enc 4", brianDrive, brianTurn, GEAR_RATIO/2.366, Constants.DRIVE_MODIFIER);
 
-        swerveDrive = new SwerveDrive(se1, se2, se3, se4, frameWidth, frameLength);
+        swerveDrive = new SwerveDrive(se4, se3, se2, se1, frameWidth, frameLength);
     }
 
     private void updateMotorControllers() {
@@ -66,11 +67,13 @@ public class Drivetrain extends Subsystem {
         for(WPI_TalonSRX mc: motors) {
             mc.configFactoryDefault();
 
-            mc.config_kP(0, 0.1);
-            mc.config_kI(0, 0);
+            mc.config_kP(0, 20);
+            mc.config_kI(0, 0.01);
             mc.config_kD(0, 0);
-            mc.config_kF(0, 0.1);
-            mc.configAllowableClosedloopError(0, 5);
+            mc.config_kF(0, 0);
+            mc.setSensorPhase(true);
+            mc.setNeutralMode(NeutralMode.Brake);
+            mc.configAllowableClosedloopError(0, 4);
         }
     }
 }

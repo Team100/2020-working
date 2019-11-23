@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("FRA", drivetrain.frederickTurn.getSensorCollection().getAnalogInRaw());
         SmartDashboard.putNumber("BLA", drivetrain.blakeTurn.getSensorCollection().getAnalogInRaw());
         SmartDashboard.putNumber("BRA", drivetrain.brianTurn.getSensorCollection().getAnalogInRaw());
-    
+
         SmartDashboard.putNumber("FLQ", drivetrain.fletcherTurn.getSensorCollection().getQuadraturePosition());
         SmartDashboard.putNumber("FRQ", drivetrain.frederickTurn.getSensorCollection().getQuadraturePosition());
         SmartDashboard.putNumber("BLQ", drivetrain.blakeTurn.getSensorCollection().getQuadraturePosition());
@@ -121,6 +121,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("FRS", drivetrain.frederickTurn.getSelectedSensorPosition());
         SmartDashboard.putNumber("BLS", drivetrain.blakeTurn.getSelectedSensorPosition());
         SmartDashboard.putNumber("BRS", drivetrain.brianTurn.getSelectedSensorPosition());
+
+        SmartDashboard.putString("FLE", drivetrain.fletcherTurn.getControlMode().toString());
+        SmartDashboard.putString("FRE", drivetrain.frederickTurn.getControlMode().toString());
+        SmartDashboard.putString("BLE", drivetrain.blakeTurn.getControlMode().toString());
+        SmartDashboard.putString("BRE", drivetrain.brianTurn.getControlMode().toString());
+
+        SmartDashboard.putNumber("FRV", drivetrain.frederickTurn.getMotorOutputVoltage());
 
         SmartDashboard.putNumber("FLE", drivetrain.fletcherTurn.getClosedLoopError());
         SmartDashboard.putNumber("FRE", drivetrain.frederickTurn.getClosedLoopError());

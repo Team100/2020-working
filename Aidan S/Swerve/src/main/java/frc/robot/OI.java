@@ -50,6 +50,7 @@ public class OI {
     OI(){
         JoystickButton zero = null;
         JoystickButton homeRel = null;
+        JoystickButton homeAbs = null;
 
         switch(Constants.CONTROL_TYPE) {
             case JOYSTICKS:
@@ -60,11 +61,13 @@ public class OI {
                 gamepad = new Joystick(0);
                 zero = new JoystickButton(gamepad, 4);
                 homeRel = new JoystickButton(gamepad, 1);
+                homeAbs = new JoystickButton(gamepad, 3);
                 break;
         }
         
         zero.whenPressed(new Zero());
         homeRel.whenPressed(new HomeRelative());
+        homeAbs.whenPressed(new HomeAbsolute());
     }
     
     public double getStickValue(StickType stick, StickDirection dir) {
@@ -75,7 +78,7 @@ public class OI {
                 if (stick == StickType.RIGHT && dir == StickDirection.X) return rightStick.getX();
                 if (stick == StickType.RIGHT && dir == StickDirection.Y) return -rightStick.getY();
             case GAMEPAD:
-                if (stick == StickType.LEFT && dir == StickDirection.X) return gamepad.getRawAxis(0);
+                if (stick == StickType.LEFT && dir == StickDirection.X) return -gamepad.getRawAxis(0);
                 if (stick == StickType.LEFT && dir == StickDirection.Y) return -gamepad.getRawAxis(1);
                 if (stick == StickType.RIGHT && dir == StickDirection.X) return gamepad.getRawAxis(2);
                 if (stick == StickType.RIGHT && dir == StickDirection.Y) return -gamepad.getRawAxis(3);
