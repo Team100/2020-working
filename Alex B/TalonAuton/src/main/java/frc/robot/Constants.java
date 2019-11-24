@@ -24,10 +24,10 @@ public class Constants {
         public static final int TICKS_PER_REV = 2048;
         public static final double WHEEL_DIAMETER = 0.25; //Feet
 
-        public static final double KP = 1;
+        public static final double KP = 30;
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 1;
+        public static final double KF = 15;
         public static final double KV = 1/Auto.MAX_VELOCITY;
         public static final double KA = Auto.MAX_ACCELERATION;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;

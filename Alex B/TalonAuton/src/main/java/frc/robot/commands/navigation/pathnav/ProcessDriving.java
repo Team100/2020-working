@@ -68,7 +68,7 @@ public class ProcessDriving extends Command {
   }
 
   protected void processPath(){
-      if ((!leftEncFollower.isFinished() && !rightEncFollower.isFinished())||(leftEncFollower.getSegment() == null || rightEncFollower.getSegment()== null)) {
+      if (!((leftEncFollower.isFinished() || rightEncFollower.isFinished())||(leftEncFollower.getSegment() == null || rightEncFollower.getSegment()== null))) {
 
 
           double leftSpeed = leftEncFollower.calculate(Robot.drivetrain.getLeftDrivetrainTicks());

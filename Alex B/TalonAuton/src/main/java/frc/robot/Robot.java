@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
 
   public void generateTrajectories(){
     System.out.println("Generating Trajectories");
-    Waypoint[] straightPath = {new Waypoint(0,0,0), new Waypoint(2,0,0)};
+    Waypoint[] straightPath = {new Waypoint(0,0,0), new Waypoint(5,0,0)};
     System.out.println(straightPath.toString());
     Trajectory straight = CustomPathGenerator.generate(straightPath);
     PathDebugging.printTrajectory(straight);
