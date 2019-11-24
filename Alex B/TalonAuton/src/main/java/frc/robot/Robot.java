@@ -73,6 +73,8 @@ public class Robot extends TimedRobot {
  
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("DT Left ENC", Robot.drivetrain.leftLeader.getSelectedSensorPosition());
+    SmartDashboard.putNumber("DT Right ENC",Robot.drivetrain.rightLeader.getSelectedSensorPosition());
   }
 
  

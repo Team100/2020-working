@@ -11,23 +11,23 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 public class Constants {
     public class RobotCharacteristics{
-        public static final double WHEELBASE_WIDTH = 0.5; //Meters
+        public static final double WHEELBASE_WIDTH = 1.5; // Feet
     }
     public class Auto{
         public static final double DT=0.05;
-        public static final double MAX_VELOCITY = 20;
-        public static final double MAX_ACCELERATION = 2.0;
-        public static final double MAX_JERK = 60;
+        public static final double MAX_VELOCITY = 7;
+        public static final double MAX_ACCELERATION = 3;
+        public static final double MAX_JERK = 4;
     }
 
     public class DTConstants{
         public static final int TICKS_PER_REV = 2048;
-        public static final double WHEEL_DIAMETER = 0.1;
+        public static final double WHEEL_DIAMETER = 0.25; //Feet
 
         public static final double KP = 1;
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 3;
+        public static final double KF = 1;
         public static final double KV = 1/Auto.MAX_VELOCITY;
         public static final double KA = Auto.MAX_ACCELERATION;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
@@ -52,7 +52,7 @@ public class Constants {
         public class Feedback {
             // Specify the encoder type in `Drivetrain.java`
             public static final int PORT = 0;
-            public static final boolean SENSOR_PHASE = true;
+            public static final boolean SENSOR_PHASE = false;
         }
 
         public class Output{
@@ -94,7 +94,7 @@ public class Constants {
         public static final boolean INVERTED = false;
         public class Feedback {
             public static final int PORT = 0;
-            public static final boolean SENSOR_PHASE = true;
+            public static final boolean SENSOR_PHASE = false;
 
         }
 

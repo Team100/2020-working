@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -138,10 +139,12 @@ public class Drivetrain extends Subsystem {
       rightLeader.configPeakCurrentLimit(Constants.RightLeader.Power.MAX_AMP);
     }
 
+    leftLeader.setNeutralMode(NeutralMode.Brake);
+    rightLeader.setNeutralMode(NeutralMode.Brake);
+
     Waypoint[] straight ={
             new Waypoint(0,0,0),
-            new Waypoint (5,5,0),
-            new Waypoint (10, -5, 0)
+            new Waypoint (5,0,0),
     };
     straightpath = new StoredTrajectory("Straight",CustomPathGenerator.generate(straight));
 
@@ -159,12 +162,15 @@ public class Drivetrain extends Subsystem {
   public void driveInVelocityMode(double l, double r){
     System.out.println("Driving in Velocity Mode");
 
-    this.leftLeader.set(ControlMode.Velocity, l);
-    this.rightLeader.set(ControlMode.Velocity, r);
+    //this.leftLeader.set(ControlMode.Velocity, l);
+    //this.rightLeader.set(ControlMode.Velocity, r);
 
 
-     //this.leftLeader.set(ControlMode.PercentOutput, 0.05*l);
-     //this.rightLeader.set(ControlMode.PercentOutput, 0.05 * r);
+     //this.leftLeader.set(ControlMode.PercentOutput, l);
+     //this.rightLeader.set(ControlMode.PercentOutput, r);
+
+      this.leftLeader.set(ControlMode.PercentOutput, l);
+      this.rightLeader.set(ControlMode.PercentOutput, r);
   }
 
   public void halt(){
