@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -22,6 +23,7 @@ import frc.robot.CustomClasses.StoredTrajectory;
 import frc.robot.commands.navigation.DTStop;
 import frc.robot.commands.navigation.pathnav.ProcessDriving;
 import frc.robot.supporting.CustomPathGenerator;
+import frc.robot.supporting.MotionCalc;
 import jaci.pathfinder.Waypoint;
 
 /**
@@ -171,6 +173,12 @@ public class Drivetrain extends Subsystem {
 
       this.leftLeader.set(ControlMode.PercentOutput, l);
       this.rightLeader.set(ControlMode.PercentOutput, r);
+  }
+
+  public void positionPDauxF(double leftPos, double leftFF, double rightPos, double rightFF){
+    leftLeader.set(ControlMode.Position, MotionCalc.distanceToRotations(leftPos, Constants.DTConstants.WHEEL_DIAMETER)*Constants.DTConstants.TICKS_PER_REV, DemandType.ArbitraryFeedForward, leftFF);
+    rightLeader.set(ControlMode.Position, MotionCalc.distanceToRotations(rightPos, Constants.DTConstants.WHEEL_DIAMETER)*Constants.DTConstants.TICKS_PER_REV, DemandType.ArbitraryFeedForward, -rightFF);
+
   }
 
   public void halt(){

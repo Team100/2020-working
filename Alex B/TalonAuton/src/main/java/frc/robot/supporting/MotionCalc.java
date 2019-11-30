@@ -42,6 +42,16 @@ public class MotionCalc {
     }
 
     /**
+     * Convert a distance to wheel rotations
+     * @param distance The distance travelled by the rotating object
+     * @param circumference The circumference of the rotating object
+     * @return the sensor distance in the units of @param circumference
+     */
+    public static double distanceToRotations(double distance, double circumference){
+        return distance/circumference;
+    }
+
+    /**
      * Convert sensor units to rotations per minute
      * @param ticks The number of ticks to convert
      * @param ticksPerRotation The number of native ticks in each rotation
