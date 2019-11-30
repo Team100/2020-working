@@ -151,11 +151,16 @@ public class TalonFollowTrajectory extends Command {
     //TODO Stop driving
     leftSetpoint = 0;
     rightSetpoint = 0;
+    lFollower.reset();
+    rFollower.reset();
+    //TODO Zero Yaw
+    notifier.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
