@@ -9,7 +9,7 @@ package frc.robot.supporting;
 
 import jaci.pathfinder.Trajectory;
 
-public class TalonPathGenerator {
+public class TalonPathFollower {
     //This is based on http://acb.link/Fc4u
 
     /**
@@ -55,7 +55,7 @@ public class TalonPathGenerator {
      * Create a generator with a trajectory
      * @param traj the current trajectory
      */
-    public TalonPathGenerator(Trajectory traj){
+    public TalonPathFollower(Trajectory traj){
         this.trajectory = traj;
         td = new TalonData();
     }
@@ -63,7 +63,7 @@ public class TalonPathGenerator {
     /**
      * Create a generator without a trajectory
      */
-    public TalonPathGenerator(){
+    public TalonPathFollower(){
         td = new TalonData();
     }
     
@@ -104,7 +104,7 @@ public class TalonPathGenerator {
 
     /**
      * The error from the PID Loop
-     * @return
+     * @return the error
      */
     public double getError(){
         return lastError;
@@ -113,7 +113,7 @@ public class TalonPathGenerator {
     
     /**
      * Get the current Segment
-     * @return
+     * @return the current trajectory
      */
     public Trajectory.Segment getSegment(){
         Trajectory.Segment seg = new Trajectory.Segment(0,0,0,0,0,0,0,0);
