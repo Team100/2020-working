@@ -16,19 +16,20 @@ public class Constants {
 
     public class Auto {
         public static final double DT = 0.05;
-        public static final double MAX_VELOCITY = 7;
-        public static final double MAX_ACCELERATION = 3;
+        public static final double MAX_VELOCITY = 5;
+        public static final double MAX_ACCELERATION = 1;
         public static final double MAX_JERK = 4;
     }
 
     public class DTConstants {
-        public static final int TICKS_PER_REV = 1024;
+        public static final int TICKS_PER_REV = 8000;
         public static final double WHEEL_DIAMETER = 0.25; // Feet
 
-        public static final double KP = .01;
+
+        public static final double KP = 0.004;
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 0.00001;
+        public static final double KF = 0.004;
         public static final double KV = 1 / Auto.MAX_VELOCITY;
         public static final double KA = Auto.MAX_ACCELERATION;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;

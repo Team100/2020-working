@@ -22,6 +22,7 @@ import frc.robot.Constants;
 import frc.robot.CustomClasses.StoredTrajectory;
 import frc.robot.commands.navigation.DTStop;
 import frc.robot.commands.navigation.pathnav.ProcessDriving;
+import frc.robot.commands.navigation.pathnav.TalonFollowTrajectory;
 import frc.robot.supporting.CustomPathGenerator;
 import frc.robot.supporting.MotionCalc;
 import jaci.pathfinder.Waypoint;
@@ -187,7 +188,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void runStraightPath(){
-    new ProcessDriving(straightpath.trajectory).start();
+    new TalonFollowTrajectory(straightpath.trajectory).start();
   }
 
   @Override

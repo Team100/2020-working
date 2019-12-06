@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.autoselector.DriveForward;
 import frc.robot.commands.navigation.pathnav.ProcessDriving;
 import frc.robot.supporting.CustomPathGenerator;
+import frc.robot.supporting.MotionCalc;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.supporting.PathDebugging;
 import jaci.pathfinder.*;
@@ -75,6 +76,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("DT Left ENC", Robot.drivetrain.leftLeader.getSelectedSensorPosition());
     SmartDashboard.putNumber("DT Right ENC",Robot.drivetrain.rightLeader.getSelectedSensorPosition());
+    SmartDashboard.putNumber("DT TICKS IN REV", MotionCalc.ticksToRotations(8000, Constants.DTConstants.TICKS_PER_REV, 1));
   }
 
  

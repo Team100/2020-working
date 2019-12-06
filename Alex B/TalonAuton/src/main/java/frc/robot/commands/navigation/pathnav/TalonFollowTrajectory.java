@@ -117,6 +117,7 @@ public class TalonFollowTrajectory extends Command {
   }
 
   protected void notifierExecute(){
+    System.out.println("EXECUTING IN NOTIFIER");
     double time = Timer.getFPGATimestamp();
     followerdt = (time-lastTime);
     lastTime = time;
@@ -131,7 +132,7 @@ public class TalonFollowTrajectory extends Command {
     rightSetpoint = rFollower.calculate();
     if(!this.isFinished()){
       if(!backwards){
-        //TODO Drive PDauxF
+        Robot.drivetrain.positionPDauxF(leftSetpoint, Constants.LeftLeader.KF, rightSetpoint, Constants.RightLeader.KF);
       }
       else{
         //TODO Drive PDauxF
