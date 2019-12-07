@@ -91,7 +91,9 @@ public class Robot extends TimedRobot {
         m_leftPidController = m_leftMotor.getPIDController();
         m_rightPidController = m_rightMotor.getPIDController();
         m_leftEncoder = m_leftMotor.getEncoder();
+        m_leftEncoder.setPosition(0);
         m_rightEncoder = m_rightMotor.getEncoder();
+        m_rightEncoder.setPosition(0);
         kP = 5e-5;
         kI = 0;
         kD = 0;
@@ -179,6 +181,8 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        m_leftEncoder.setPosition(0);
+        m_rightEncoder.setPosition(0);
     }
 
     /**
