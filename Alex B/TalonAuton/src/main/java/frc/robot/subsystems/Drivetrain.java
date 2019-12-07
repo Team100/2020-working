@@ -17,6 +17,8 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.CustomClasses.StoredTrajectory;
@@ -36,6 +38,7 @@ public class Drivetrain extends Subsystem {
   //public VictorSPX leftFollower;
   public TalonSRX rightLeader;
   //public VictorSPX rightFollower;
+  public ADXRS450_Gyro gyro;
   
   
   public int iterator;
@@ -145,6 +148,12 @@ public class Drivetrain extends Subsystem {
     leftLeader.setNeutralMode(NeutralMode.Brake);
     rightLeader.setNeutralMode(NeutralMode.Brake);
 
+
+    gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+    gyro.reset();
+
+
+
     Waypoint[] straight ={
             new Waypoint(0,0,0),
             new Waypoint (5,0,0),
@@ -189,6 +198,9 @@ public class Drivetrain extends Subsystem {
 
   public void runStraightPath(){
     new TalonFollowTrajectory(straightpath.trajectory).start();
+  }
+  public double getGyroValue(){
+    return this.gyro.getAngle();
   }
 
   @Override

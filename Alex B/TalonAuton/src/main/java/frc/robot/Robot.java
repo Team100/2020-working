@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -77,6 +79,23 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("DT Left ENC", Robot.drivetrain.leftLeader.getSelectedSensorPosition());
     SmartDashboard.putNumber("DT Right ENC",Robot.drivetrain.rightLeader.getSelectedSensorPosition());
     SmartDashboard.putNumber("DT TICKS IN REV", MotionCalc.ticksToRotations(8000, Constants.DTConstants.TICKS_PER_REV, 1));
+    SmartDashboard.putNumber("Gyro", Robot.drivetrain.gyro.getAngle());
+
+    SmartDashboard.putNumber("DT Left Percent Output", Robot.drivetrain.leftLeader.getMotorOutputPercent());
+    SmartDashboard.putNumber("DT Right Percent Output", Robot.drivetrain.rightLeader.getMotorOutputPercent());
+    if(Robot.drivetrain.leftLeader.getControlMode() == ControlMode.Position){
+      SmartDashboard.putNumber("DT Left Error", Robot.drivetrain.leftLeader.getClosedLoopError());
+      SmartDashboard.putNumber("DT Left Setpoint", Robot.drivetrain.leftLeader.getClosedLoopTarget());
+  
+      SmartDashboard.putNumber("DT Right Error", Robot.drivetrain.rightLeader.getClosedLoopError());
+      SmartDashboard.putNumber("DT Right Setpoint", Robot.drivetrain.rightLeader.getClosedLoopTarget());
+    } else{
+      SmartDashboard.putNumber("DT Left Error", -1);
+      SmartDashboard.putNumber("DT Left Setpoint", -1);
+  
+      SmartDashboard.putNumber("DT Right Error", -1);
+      SmartDashboard.putNumber("DT Right Setpoint", -1);
+    }
   }
 
  

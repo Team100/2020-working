@@ -9,6 +9,7 @@ package frc.robot.commands.navigation.pathnav;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -99,8 +100,10 @@ public class TalonFollowTrajectory extends Command {
 
     lFollower.reset();
     rFollower.reset();
-    //TODO Reset encoders
-    //TODO Zero Yaw
+    Robot.drivetrain.leftLeader.setSelectedSensorPosition(0);
+    Robot.drivetrain.rightLeader.setSelectedSensorPosition(0);
+
+    Robot.drivetrain.gyro.reset();
     leftSetpoint = 0;
     rightSetpoint = 0;
     lastTime = Timer.getFPGATimestamp();
@@ -121,8 +124,8 @@ public class TalonFollowTrajectory extends Command {
     double time = Timer.getFPGATimestamp();
     followerdt = (time-lastTime);
     lastTime = time;
-    //gyroHeading
-    double gyroHeading = 0;
+    double gyroHeading = Pathfinder.d2r(-1*Robot.drivetrain.getGyroValue());
+    //double gyroHeading = 0;
     double desiredHeading = Pathfinder.r2d(lFollower.getHeading() - startingAngle);
     angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
     double turn = Constants.DTConstants.KP*angleDifference;
@@ -149,12 +152,12 @@ public class TalonFollowTrajectory extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    //TODO Stop driving
+    Robot.drivetrain.halt();
     leftSetpoint = 0;
     rightSetpoint = 0;
     lFollower.reset();
     rFollower.reset();
-    //TODO Zero Yaw
+    Robot.drivetrain.gyro.reset();
     notifier.stop();
   }
 
