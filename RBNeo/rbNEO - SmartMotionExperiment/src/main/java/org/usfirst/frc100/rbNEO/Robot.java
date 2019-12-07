@@ -83,10 +83,11 @@ public class Robot extends TimedRobot {
 
         //Experiment
         m_leftMotor = new CANSparkMax(leftDeviceID, MotorType.kBrushless);
+        m_leftMotor.restoreFactoryDefaults();
         m_leftMotor.setInverted(true);
         m_rightMotor = new CANSparkMax(rightDeviceID, MotorType.kBrushless);
-        m_leftMotor.restoreFactoryDefaults();
         m_rightMotor.restoreFactoryDefaults();
+        m_rightMotor.setInverted(true);
         m_leftPidController = m_leftMotor.getPIDController();
         m_rightPidController = m_rightMotor.getPIDController();
         m_leftEncoder = m_leftMotor.getEncoder();
@@ -96,12 +97,12 @@ public class Robot extends TimedRobot {
         kD = 0;
         kIz = 0;
         kFF = 0.000156;
-        kMaxOutput = .25;
-        kMinOutput = -.25;
+        kMaxOutput = 1;
+        kMinOutput = -1;
         maxRPM = 5700;
         maxVel = 2000;
         maxAcc = 1500;
-        minVel = 100;
+        minVel = 0;
         m_leftPidController.setP(kP);
         m_rightPidController.setP(kP);
         m_leftPidController.setI(kI);
@@ -198,29 +199,24 @@ public class Robot extends TimedRobot {
         double maxA = SmartDashboard.getNumber("Max Acceleration", 0);
         double allE = SmartDashboard.getNumber("Allowed Closed Loop Error", 0);
 
-        if((p != kP)) {m_leftPidController.setP(p); kP = p; }
-        if((p != kP)) {m_rightPidController.setP(p); kP = p; }
-        if((i != kI)) {m_leftPidController.setI(i); kI = i; }
-        if((i != kI)) {m_rightPidController.setI(i); kI = i; }
-        if((d != kD)) {m_leftPidController.setD(d); kD = d; }
-        if((d != kD)) {m_rightPidController.setD(d); kD = d; }
-        if((iz != kIz)) {m_leftPidController.setIZone(iz); kIz = iz; }
-        if((iz != kIz)) {m_rightPidController.setIZone(iz); kIz = iz; }
-        if((ff != kFF)) {m_leftPidController.setFF(ff); kFF = ff; }
-        if((ff != kFF)) {m_rightPidController.setFF(ff); kFF = ff; }
+        if((p != kP)) {m_leftPidController.setP(p); m_rightPidController.setP(p); kP = p; }
+        if((i != kI)) {m_leftPidController.setI(i); m_rightPidController.setI(i); kI = i; }
+        if((d != kD)) {m_leftPidController.setD(d); m_rightPidController.setD(d); kD = d; }
+        if((iz != kIz)) {m_leftPidController.setIZone(iz); m_rightPidController.setIZone(iz); kIz = iz; }
+        if((ff != kFF)) {m_leftPidController.setFF(ff); m_rightPidController.setFF(ff); kFF = ff; }
         if((max !=kMaxOutput) || (min != kMinOutput)) {
             m_leftPidController.setOutputRange(min, max);
             m_rightPidController.setOutputRange(min, max);
             kMinOutput = min; kMaxOutput = max;
         }
-        if((maxV != maxVel)) {m_leftPidController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
-        if((maxV != maxVel)) {m_rightPidController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
-        if((minV != minVel)) {m_leftPidController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
-        if((minV != minVel)) {m_rightPidController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
-        if((maxA != maxAcc)) {m_leftPidController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
-        if((maxA != maxAcc)) {m_rightPidController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
-        if((allE != allowedErr)) {m_leftPidController.setSmartMotionAllowedClosedLoopError(allE,0); allowedErr = allE; }
-        if((allE != allowedErr)) {m_rightPidController.setSmartMotionAllowedClosedLoopError(allE,0); allowedErr = allE; }
+        if((maxV != maxVel)) {m_leftPidController.setSmartMotionMaxVelocity(maxV,0);
+            m_rightPidController.setSmartMotionMaxVelocity(maxV,0); maxVel = maxV; }
+        if((minV != minVel)) {m_leftPidController.setSmartMotionMinOutputVelocity(minV,0);
+            m_rightPidController.setSmartMotionMinOutputVelocity(minV,0); minVel = minV; }
+        if((maxA != maxAcc)) {m_leftPidController.setSmartMotionMaxAccel(maxA,0);
+            m_rightPidController.setSmartMotionMaxAccel(maxA,0); maxAcc = maxA; }
+        if((allE != allowedErr)) {m_leftPidController.setSmartMotionAllowedClosedLoopError(allE,0);
+            m_rightPidController.setSmartMotionAllowedClosedLoopError(allE,0); allowedErr = allE; }
 
 
         double setPoint, leftProcessVariable, rightProcessVariable;
@@ -233,9 +229,10 @@ public class Robot extends TimedRobot {
             rightProcessVariable = m_rightEncoder.getVelocity();
         }   else {
             setPoint = SmartDashboard.getNumber("Set Position", 0);
-           // m_leftPidController.setReference(setPoint, ControlType.kSmartMotion);
-           m_leftMotor.stopMotor();
-            m_rightPidController.setReference(100, ControlType.kSmartMotion);
+            m_leftPidController.setReference(-setPoint, ControlType.kSmartMotion);
+          // m_leftMotor.stopMotor();
+           m_rightPidController.setReference(setPoint, ControlType.kSmartMotion);
+           // m_rightMotor.stopMotor();
             leftProcessVariable = m_leftEncoder.getPosition();
             rightProcessVariable = m_rightEncoder.getPosition();
         } 
