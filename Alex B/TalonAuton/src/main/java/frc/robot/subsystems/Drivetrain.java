@@ -156,7 +156,7 @@ public class Drivetrain extends Subsystem {
 
     Waypoint[] straight ={
             new Waypoint(0,0,0),
-            new Waypoint (5,0,0),
+            new Waypoint (5,3,0),
     };
     straightpath = new StoredTrajectory("Straight",CustomPathGenerator.generate(straight));
 
