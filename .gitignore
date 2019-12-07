@@ -5,3 +5,6 @@ Aidan S/.DS_Store
 Aidan S/Swerve/.gradle/5.0/fileHashes/fileHashes.bin
 Aidan S/Swerve/build/*
 Aidan S/Swerve/.vscode/settings.json
+*.class
+*.bin
+*.lock

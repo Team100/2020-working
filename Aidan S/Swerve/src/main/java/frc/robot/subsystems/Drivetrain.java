@@ -14,6 +14,7 @@ import frc.robot.Constants;
 import frc.robot.commands.Drive;
 import frc.robot.libswerve.drive.CanTalonSwerveEnclosure;
 import frc.robot.libswerve.drive.SwerveDrive;
+import frc.robot.libswerve.math.CentricMode;
 
 /**
  * Drivetrain
@@ -22,7 +23,6 @@ public class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private static final double GEAR_RATIO = 1665d;
     private static final double frameLength = 18.15;
     private static final double frameWidth = 17.75;
 
@@ -49,12 +49,13 @@ public class Drivetrain extends Subsystem {
         WPI_TalonSRX blakeDrive = new WPI_TalonSRX(Constants.BL_DRIVE_CANID);
         WPI_TalonSRX brianDrive = new WPI_TalonSRX(Constants.BR_DRIVE_CANID);
 
-        CanTalonSwerveEnclosure se1 = new CanTalonSwerveEnclosure("enc 1", frederickDrive, frederickTurn, GEAR_RATIO, Constants.DRIVE_MODIFIER);
-        CanTalonSwerveEnclosure se2 = new CanTalonSwerveEnclosure("enc 2", fletcherDrive, fletcherTurn, GEAR_RATIO, -Constants.DRIVE_MODIFIER);
-        CanTalonSwerveEnclosure se3 = new CanTalonSwerveEnclosure("enc 3", blakeDrive, blakeTurn, GEAR_RATIO, -Constants.DRIVE_MODIFIER);
-        CanTalonSwerveEnclosure se4 = new CanTalonSwerveEnclosure("enc 4", brianDrive, brianTurn, GEAR_RATIO/2.366, Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se1 = new CanTalonSwerveEnclosure("enc 1", frederickDrive, frederickTurn, Constants.FR_GEAR_RATIO, Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se2 = new CanTalonSwerveEnclosure("enc 2", fletcherDrive, fletcherTurn, Constants.FL_GEAR_RATIO, -Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se3 = new CanTalonSwerveEnclosure("enc 3", blakeDrive, blakeTurn, Constants.BL_GEAR_RATIO, -Constants.DRIVE_MODIFIER);
+        CanTalonSwerveEnclosure se4 = new CanTalonSwerveEnclosure("enc 4", brianDrive, brianTurn, Constants.BR_GEAR_RATIO, Constants.DRIVE_MODIFIER);
 
-        swerveDrive = new SwerveDrive(se4, se3, se2, se1, frameWidth, frameLength);
+        swerveDrive = new SwerveDrive(se1, se2, se3, se4, frameWidth, frameLength);
+        swerveDrive.setCentricMode(CentricMode.FIELD);
     }
 
     private void updateMotorControllers() {

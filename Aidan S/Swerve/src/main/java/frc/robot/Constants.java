@@ -6,7 +6,7 @@ public class Constants {
     public enum ControlType {JOYSTICKS, GAMEPAD}
     public enum StickType {LEFT, RIGHT}
     public enum StickDirection {X, Y}
-    public static final double DRIVE_MODIFIER = 0.4;
+    public static final double DRIVE_MODIFIER = 0.6;
 
     public static final int FL_TURN_CANID = 4;      //2
     public static final int FL_DRIVE_CANID = 0;     //2
@@ -17,6 +17,11 @@ public class Constants {
     public static final int BR_TURN_CANID = 10;     //4
     public static final int BR_DRIVE_CANID = 14;    //4
     
+    public static final double FL_GEAR_RATIO = -1664;
+    public static final double FR_GEAR_RATIO = -1661;
+    public static final double BL_GEAR_RATIO = -1629;
+    public static final double BR_GEAR_RATIO = -717;
+
 	public static final double FL_TURN_ZERO = -772.0;
 	public static final double FR_TURN_ZERO = -818.0;
 	public static final double BL_TURN_ZERO = 408.0;
