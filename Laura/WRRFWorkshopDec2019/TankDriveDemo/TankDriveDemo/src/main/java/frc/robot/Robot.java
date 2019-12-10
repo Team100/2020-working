@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -41,9 +45,11 @@ public class Robot extends TimedRobot {
       m_rightMotor = new Victor(RIGHT_VICTOR);
     }
     else if (m_is_NEO) {
-
+      m_leftMotor = new CANSparkMax(LEFT_NEO, MotorType.kBrushless);
+      m_rightMotor = new CANSparkMax(RIGHT_NEO, MotorType.kBrushless);
     } else if (m_is_TalonSRX) {
-
+      m_leftMotor = new WPI_TalonSRX(LEFT_TALON_SRX);
+      m_rightMotor = new WPI_TalonSRX(RIGHT_TALON_SRX);
     }
     m_myRobot = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_gamepad = new Joystick(0);
