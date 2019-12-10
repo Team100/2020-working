@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.Vector;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -30,6 +32,10 @@ public class Robot extends TimedRobot {
   // private static final int RIGHT_NEO =15;
   // private static final int LEFT_TALON_SRX = 0;
   // private static final int RIGHT_TALON_SRX = 15;
+  private static final String CONTROLLER_TYPE_KEY = "SpeedControllerType";
+  private static final String LEFT_ID_KEY = "LeftID";
+  private static final String RIGHT_ID_KEY = "RightID";
+  private static final String THROTTLE_RATIO_KEY = "ThrottleRatio";
 
     private DifferentialDrive m_myRobot;
   private Joystick m_gamepad;
@@ -40,16 +46,52 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    String controllerType = Preferences.getInstance().getString("SpeedControllerType", "Victor");
-    int leftID = Preferences.getInstance().getInt("LeftID", LEFT_VICTOR);
-    int rightID = Preferences.getInstance().getInt("RightID", RIGHT_VICTOR);
-    m_throttleRatio = Preferences.getInstance().getDouble("ThrottleRatio", 1.0);
+    getFromPrefs();
     
-    if (controllerType == CANSparkMax.class.getName()) {
+    m_myRobot = new DifferentialDrive(m_leftMotor, m_rightMotor);
+    m_gamepad = new Joystick(0);
+    
+  }
+
+  private void getFromPrefs() {
+    Vector<String> keys = Preferences.getInstance().getKeys();
+    String controllerType;
+    int leftID;
+    int rightID;
+
+    if(!keys.contains(CONTROLLER_TYPE_KEY)){
+      controllerType = "Victor";
+      Preferences.getInstance().putString(CONTROLLER_TYPE_KEY, controllerType);      
+    } else {
+      controllerType = Preferences.getInstance().getString(CONTROLLER_TYPE_KEY, "Victor");
+    }
+   
+    if (!keys.contains(LEFT_ID_KEY)) {
+      leftID = LEFT_VICTOR;
+      Preferences.getInstance().putInt(LEFT_ID_KEY, leftID);
+    } else {
+      leftID = Preferences.getInstance().getInt(LEFT_ID_KEY, LEFT_VICTOR);
+    }
+    
+    if (!keys.contains(RIGHT_ID_KEY)) {
+      rightID = RIGHT_VICTOR;
+      Preferences.getInstance().putInt(RIGHT_ID_KEY, rightID);
+    } else {
+      rightID = Preferences.getInstance().getInt(RIGHT_ID_KEY, RIGHT_VICTOR);
+    }
+    
+    if (!keys.contains(THROTTLE_RATIO_KEY)) {
+      m_throttleRatio = 1.0;
+      Preferences.getInstance().putDouble(THROTTLE_RATIO_KEY, m_throttleRatio);
+    } else {
+      m_throttleRatio = Preferences.getInstance().getDouble(THROTTLE_RATIO_KEY, 1.0);
+    }
+        
+    if (controllerType == CANSparkMax.class.getSimpleName()) {
       m_leftMotor = new CANSparkMax(leftID, MotorType.kBrushless);
       m_rightMotor = new CANSparkMax(rightID, MotorType.kBrushless);
     } 
-    else if (controllerType == WPI_TalonSRX.class.getName()) {
+    else if (controllerType == WPI_TalonSRX.class.getSimpleName()) {
       m_leftMotor = new WPI_TalonSRX(leftID);
       m_rightMotor = new WPI_TalonSRX(rightID);
     }
@@ -57,17 +99,14 @@ public class Robot extends TimedRobot {
       m_leftMotor = new Victor(leftID);
       m_rightMotor = new Victor(rightID);
     }
-    m_myRobot = new DifferentialDrive(m_leftMotor, m_rightMotor);
-    m_gamepad = new Joystick(0);
-    
   }
 
   @Override
   public void teleopPeriodic() {
-    m_myRobot.tankDrive(m_gamepad.getY()*m_throttleRatio, m_gamepad.getThrottle()*m_throttleRatio);
+    m_myRobot.tankDrive(m_gamepad.getY()*m_throttleRatio, m_gamepad.getThrottle()*m_throttleRatio, false);
     SmartDashboard.putNumber ("LeftMotorVoltage", m_leftMotor.get());
     SmartDashboard.putNumber ("RightMotorVoltage", m_rightMotor.get());
-    SmartDashboard.putString ("MotorType", m_leftMotor.getClass().getName());
+    SmartDashboard.putString ("MotorType", m_leftMotor.getClass().getSimpleName());
     SmartDashboard.putNumber ("ThrottleRatio", m_throttleRatio);
   }
 }
