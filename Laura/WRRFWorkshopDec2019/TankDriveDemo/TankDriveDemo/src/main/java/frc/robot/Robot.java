@@ -24,11 +24,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * it contains the code necessary to operate a robot with tank drive.
  */
 public class Robot extends TimedRobot {
-  // private static final boolean IS_VICTOR = true;
-  // private static final boolean IS_NEO = false;
-  // private static final boolean IS_TALON_SRX = false;
-  // private static final int LEFT_VICTOR = 2;
-  // private static final int RIGHT_VICTOR = 3;
+  private static final int LEFT_VICTOR = 2;
+  private static final int RIGHT_VICTOR = 3;
   // private static final int LEFT_NEO = 1;
   // private static final int RIGHT_NEO =15;
   // private static final int LEFT_TALON_SRX = 0;
@@ -44,8 +41,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     String controllerType = Preferences.getInstance().getString("SpeedControllerType", "Victor");
-    int leftID = Preferences.getInstance().getInt("LeftID", 2);
-    int rightID = Preferences.getInstance().getInt("RightID", 3);
+    int leftID = Preferences.getInstance().getInt("LeftID", LEFT_VICTOR);
+    int rightID = Preferences.getInstance().getInt("RightID", RIGHT_VICTOR);
     m_throttleRatio = Preferences.getInstance().getDouble("ThrottleRatio", 1.0);
     
     if (controllerType == CANSparkMax.class.getName()) {
