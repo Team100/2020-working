@@ -87,11 +87,11 @@ public class Robot extends TimedRobot {
       m_throttleRatio = Preferences.getInstance().getDouble(THROTTLE_RATIO_KEY, 1.0);
     }
         
-    if (controllerType == CANSparkMax.class.getSimpleName()) {
+    if (controllerType.compareTo(CANSparkMax.class.getSimpleName()) == 0) {
       m_leftMotor = new CANSparkMax(leftID, MotorType.kBrushless);
       m_rightMotor = new CANSparkMax(rightID, MotorType.kBrushless);
     } 
-    else if (controllerType == WPI_TalonSRX.class.getSimpleName()) {
+    else if (controllerType.compareTo(WPI_TalonSRX.class.getSimpleName())  == 0){
       m_leftMotor = new WPI_TalonSRX(leftID);
       m_rightMotor = new WPI_TalonSRX(rightID);
     }
@@ -99,6 +99,11 @@ public class Robot extends TimedRobot {
       m_leftMotor = new Victor(leftID);
       m_rightMotor = new Victor(rightID);
     }
+  }
+
+  @Override
+  public void teleopInit() {
+    m_throttleRatio = Preferences.getInstance().getDouble(THROTTLE_RATIO_KEY, 1.0);
   }
 
   @Override
