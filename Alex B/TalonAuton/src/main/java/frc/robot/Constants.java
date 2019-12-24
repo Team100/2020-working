@@ -27,7 +27,7 @@ public class Constants {
         public static final double WHEEL_DIAMETER = 0.25; // Feet
 
 
-        public static final double KP = 0.0027;
+        public static final double KP = 0.0027; //0.0027
         public static final double KI = 0;
         public static final double KD = 0;
         public static final double KF = 0;

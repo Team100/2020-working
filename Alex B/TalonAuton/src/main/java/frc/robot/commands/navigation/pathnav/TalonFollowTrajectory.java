@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.Constants.LeftFollower;
@@ -124,15 +125,19 @@ public class TalonFollowTrajectory extends Command {
     double time = Timer.getFPGATimestamp();
     followerdt = (time-lastTime);
     lastTime = time;
-    double gyroHeading = Pathfinder.d2r(-1*Robot.drivetrain.getGyroValue());
+    double gyroHeading =-1*Robot.drivetrain.getGyroValue();
     //double gyroHeading = 0;
-    double desiredHeading = Pathfinder.r2d(lFollower.getHeading() - startingAngle);
+    double desiredHeading =Pathfinder.r2d(lFollower.getHeading() - startingAngle); //d2r
     angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
+    SmartDashboard.putNumber("DT Desired Heading", desiredHeading);
+    SmartDashboard.putNumber("Angle Difference", angleDifference);
     double turn = Constants.DTConstants.KP*angleDifference;
     leftFeedforward = lFollower.getSegment().velocity * Constants.DTConstants.KV;
     rightFeedforward = rFollower.getSegment().velocity * Constants.DTConstants.KV;
     leftSetpoint = lFollower.calculate();
     rightSetpoint = rFollower.calculate();
+
+    
     if(!this.isFinished()){
       if(!backwards){
         Robot.drivetrain.positionPDauxF(leftSetpoint, Constants.LeftLeader.KF, rightSetpoint, Constants.RightLeader.KF);
