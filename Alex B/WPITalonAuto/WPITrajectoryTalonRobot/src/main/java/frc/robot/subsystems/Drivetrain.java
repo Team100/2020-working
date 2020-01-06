@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.SPI;
 
+import com.kauailabs.navx.frc.AHRS;
+
 
 public class Drivetrain extends SubsystemBase {
   public TalonSRX leftLeader;
@@ -24,6 +26,7 @@ public class Drivetrain extends SubsystemBase {
   public TalonSRX rightLeader;
   //public VictorSPX rightFollower;
   public ADXRS450_Gyro gyro;
+  public AHRS ahrs;
 
   /**
    * Creates a new Drivetrain.
@@ -126,14 +129,13 @@ public class Drivetrain extends SubsystemBase {
     rightLeader.setNeutralMode(NeutralMode.Brake);
 
 
-    gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-    gyro.reset();
-
+    ahrs = new AHRS(SPI.Port.kMXP);
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
 }
