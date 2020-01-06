@@ -1,0 +1,20 @@
+{
+  "horizontal_degrees_per_pixel": 0.09531,
+  "image_center": {
+    "x": 319.5,
+    "y": 239.5
+  },
+  "camera": {
+    "port": 4,
+    "height": 1
+  },
+  "debug": true,
+  "hsv": {
+    "hue": [0.0, 86],
+    "sat": [107, 255.0],
+    "val": [45, 255.0]
+  },
+  "filters": {
+    "min_area": 200
+  }
+}
