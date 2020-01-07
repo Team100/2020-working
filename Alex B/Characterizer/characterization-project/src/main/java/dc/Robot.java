@@ -73,8 +73,8 @@ public class Robot extends TimedRobot {
     leftMaster.setNeutralMode(NeutralMode.Brake);
 
     rightMaster = new WPI_TalonSRX(15);
-    rightMaster.setInverted(false);
-    rightMaster.setSensorPhase(false);
+    rightMaster.setInverted(true);
+    rightMaster.setSensorPhase(true);
     rightMaster.setNeutralMode(NeutralMode.Brake);
 
 
@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
 
     // Note that the angle from the NavX and all implementors of wpilib Gyro
     // must be negated because getAngle returns a clockwise positive angle
-    Gyro gyro = new ADXRS450_Gyro(SPI.Port.kMXP);
+    Gyro gyro = new ADXRS450_Gyro();
     gyroAngleRadians = () -> -1 * Math.toRadians(gyro.getAngle());
 
     //
