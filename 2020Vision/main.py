@@ -2,7 +2,7 @@ import calculations
 from collections import namedtuple
 from copy import deepcopy
 import cv2
-from json import load as parse_json, JSONDecodeError
+from json import dumps as stringify_json, load as parse_json, JSONDecodeError
 from os import system as execute
 import pipeline
 from watchdog.observers import Observer
@@ -75,8 +75,11 @@ while True:
         cy = int(m["m01"] / m["m00"])
         debug_draw(lambda: cv2.circle(frame, (cx, cy), 5, (255, 255, 255)))
 
-        angle = calculations.angle(config, cx)
-        debug_draw(lambda: cv2.putText(frame, f"Angle: {angle}", (25, 400), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1))
+        h_angle = calculations.horizontal_angle(config, cx)
+        debug_draw(lambda: cv2.putText(frame, f"Horizontal Angle: {h_angle}", (25, 400), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1))
+
+        v_angle = calculations.vertical_angle(config, cy)
+        debug_draw(lambda: cv2.putText(frame, f"Vertical Angle: {v_angle}", (25, 415), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1))
 
         distance = calculations.distance(config, 1)
         debug_draw(lambda: cv2.putText(frame, f"Distance: {distance}", (25, 430), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1))
