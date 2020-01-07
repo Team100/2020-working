@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message Message {
+    double distance = 1;
+    double v_angle = 2;
+    double h_angle = 3;
+}

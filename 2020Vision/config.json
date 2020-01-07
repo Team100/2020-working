@@ -16,5 +16,10 @@
   },
   "filters": {
     "min_area": 200
+  },
+  "socket": {
+    "enabled": false,
+    "host": "10.1.0.2",
+    "port": 5810
   }
 }
