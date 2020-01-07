@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -15,7 +16,15 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.RightLeader;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -27,6 +36,11 @@ public class Drivetrain extends SubsystemBase {
   //public VictorSPX rightFollower;
   public ADXRS450_Gyro gyro;
   public AHRS ahrs;
+
+  public DifferentialDriveOdometry odometry;
+  public DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(Constants.DTConstants.KTRACK_WIDTH);
+
+
 
   /**
    * Creates a new Drivetrain.
@@ -130,12 +144,54 @@ public class Drivetrain extends SubsystemBase {
 
 
     ahrs = new AHRS(SPI.Port.kMXP);
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(ahrs.getCompassHeading()));
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    odometry.update(Rotation2d.fromDegrees(ahrs.getCompassHeading()), leftLeader.getSelectedSensorPosition(), rightLeader.getSelectedSensorPosition());
     
   }
+
+  public Pose2d getPose(){
+    return odometry.getPoseMeters();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    return new DifferentialDriveWheelSpeeds(leftLeader.getSelectedSensorVelocity(), rightLeader.getSelectedSensorVelocity());//TODO Check that the values returned by the talons are M/S or convert to M/S
+  }
+
+  public void resetOdometry(Pose2d pose){
+    resetEncoders();
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(ahrs.getCompassHeading()));
+  }
+
+  public void tankDriveVolts(double leftVolts, double rightVolts){
+    leftLeader.set(ControlMode.Current, leftVolts);
+    rightLeader.set(ControlMode.Current, -rightVolts);
+  }
+
+  public void resetEncoders(){
+    leftLeader.setSelectedSensorPosition(0);
+    rightLeader.setSelectedSensorPosition(0);
+  }
+
+  public double getAverageEncoderDistance(){
+    return (leftLeader.getSelectedSensorPosition() + rightLeader.getSelectedSensorPosition())/2.0;
+  }
+  public void zeroHeading() {
+    ahrs.reset();
+  }
+
+  public double getHeading(){
+    return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
+
+  }
+  public double getTurnRate(){
+    return ahrs.getRate();
+  }
+
+  
 }

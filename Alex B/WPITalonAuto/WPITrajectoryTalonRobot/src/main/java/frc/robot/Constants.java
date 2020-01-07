@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public class Constants {
     public class RobotCharacteristics {
@@ -16,23 +16,32 @@ public class Constants {
 
     public class Auto {
         public static final double DT = 0.05;
-        public static final double MAX_VELOCITY =1;
+        public static final double MAX_VELOCITY =7;
         public static final double MAX_ACCELERATION = .25;
         public static final double MAX_JERK = .25;
     }
 
-    public class DTConstants {
-        public static final int TICKS_PER_REV = 3072;//8192
+    public static class DTConstants {
+        public static final int TICKS_PER_REV = 3072;// 8192
         public static final double WHEEL_DIAMETER = 0.333; // Feet
 
-        public static final double KP = 0.0175; //0.0027
+        public static final double KP = 0.00194; // 0.0027
         public static final double KI = 0;
-        public static final double KD = 0.001;
+        public static final double KD = 0;
         public static final double KF = 0;
 
-        public static final double KV = 1 / Auto.MAX_VELOCITY;
-        public static final double KA = Auto.MAX_ACCELERATION;
+        public static final double KS = 0.922;
+        public static final double KV = 0.271;
+        public static final double KTRACK_WIDTH = 3.970136;
+        public static final double KA = 0.0388;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
+
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+                KTRACK_WIDTH);
+
+        public static final double RAMSETE_B = 2; // From WPILib Docs
+        public static final double RAMSETE_ZETA = 0.7; // From WPILib Docs
+
     }
 
     public class LeftLeader {
