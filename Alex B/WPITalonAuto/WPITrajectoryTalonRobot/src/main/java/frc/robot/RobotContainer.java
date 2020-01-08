@@ -71,7 +71,14 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    Pose2d start = new Pose2d(0,0,new Rotation2d(0));
+    List<Translation2d> waypoints = List.of(
+      new Translation2d(1,1),
+      new Translation2d(2,-1)
+    );
+    Pose2d end = new Pose2d(3, 0, new Rotation2d(0));
+    return this.createAutoNavigationCommand(start, waypoints, end);
+
   }
 
   public Command createAutoNavigationCommand(Pose2d start, List<Translation2d> waypoints, Pose2d end) {
