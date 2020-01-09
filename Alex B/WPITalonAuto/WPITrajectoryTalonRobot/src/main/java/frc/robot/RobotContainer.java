@@ -73,16 +73,16 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     Pose2d start = new Pose2d(0,0,new Rotation2d(0));
     List<Translation2d> waypoints = List.of(
-      new Translation2d(1,1),
-      new Translation2d(2,-1)
+      new Translation2d(2,0),
+      new Translation2d(4,0)
     );
-    Pose2d end = new Pose2d(3, 0, new Rotation2d(0));
+    Pose2d end = new Pose2d(0, 6, new Rotation2d(0));
     return this.createAutoNavigationCommand(start, waypoints, end);
 
   }
 
   public Command createAutoNavigationCommand(Pose2d start, List<Translation2d> waypoints, Pose2d end) {
-
+    System.out.println("Creating Auto Command");
     var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(Constants.DTConstants.KS, Constants.DTConstants.KV, Constants.DTConstants.KA),
         Constants.DTConstants.kDriveKinematics, 10);
@@ -96,7 +96,7 @@ public class RobotContainer {
 
     // An example trajectory to follow. All units in meters.
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config);
-
+    System.out.println("Generated Trajectory");
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, m_drivetrain::getPose,
         new RamseteController(Constants.DTConstants.RAMSETE_B, Constants.DTConstants.RAMSETE_ZETA),
 
@@ -108,6 +108,7 @@ public class RobotContainer {
         m_drivetrain::tankDriveVolts, m_drivetrain);
 
     // Run path following command, then stop at the end.
+    System.out.println("Finished Creating Auto Command");
     return ramseteCommand.andThen(() -> m_drivetrain.tankDriveVolts(0, 0));
   }
 }

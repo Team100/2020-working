@@ -169,8 +169,14 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts){
+    System.out.println(leftVolts + ","+ rightVolts);  
     leftLeader.set(ControlMode.Current, leftVolts);
     rightLeader.set(ControlMode.Current, -rightVolts);
+  }
+
+  public void tankDriveVelocity(double leftVel, double rightVel){
+    this.leftLeader.set(ControlMode.Velocity, leftVel);
+    this.rightLeader.set(ControlMode.Velocity, rightVel);
   }
 
   public void resetEncoders(){
