@@ -10,12 +10,17 @@ def horizontal_angle(config, x):
 
 # Get the vertical angle to a point rounded to 4 decimal places
 def vertical_angle(config, y):
-    return round((y - (config.camera.height/2) - 0.5) * (config.camera.fov.vertical / config.camera.height), 4)
+    return -round((y - (config.camera.height/2) - 0.5) * (config.camera.fov.vertical / config.camera.height), 4)
 
 
-# Get the distance to the target
-# This is going to be replaced by the Intel RealSense
-def distance(config, y_from_horizontal):
-    # Convert to radians
-    rad_horizontal = y_from_horizontal / 6 / 57.3
-    return round((config.camera.height / math.tan(rad_horizontal)), 4)
+# Get the distance to a point
+def distance(depth, x, y):
+    return depth.get_distance(x, y)
+
+
+# Get average of array
+def average(array):
+    s = 0
+    for i in array:
+        s += i
+    return s / len(array)

@@ -10,7 +10,7 @@ To transport the data between the coprocessor and RoboRIO, we use a raw TCP sock
 We opted to use protocol buffers over JSON or just sending text because they are smaller and can be serialized/deserialized faster.
 The message definition can be found in [`message.proto`](./message.proto), and the classes for Python and Java can be generated with the following command:
 ```shell script
-protoc --java_out=. --python_out=. message.proto
+protoc --java_out=./java --python_out=. message.proto
 ```
 
 ## Configuration
@@ -19,9 +19,10 @@ To get the horizontal and vertical FOV, take the diagonal FOV and aspect ratio f
 
 | Key | Type | Description |
 |-----------------------|------------------|-----------------------------------------------------|
-| camera.port | integer | Which port the camera to use is on |
+| camera.frame_rate | integer | The rate at which to pull RBG frames |
 | camera.width | integer | The width in pixels of the image |
 | camera.height | integer | The height in pixels of the image |
+| camera.exposure | integer | How much to expose each frame |
 | camera.fov.horizontal | float | The horizontal FOV of the image |
 | camera.fov.vertical | float | The vertical FOV of the image |
 | debug | boolean | Whether to enable debug mode or not |

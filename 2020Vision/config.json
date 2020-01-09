@@ -1,21 +1,24 @@
 {
   "camera": {
-    "port": 4,
     "width": 640,
     "height": 480,
+    "frame_rate": 30,
     "fov": {
-      "horizontal": 61,
-      "vertical": 34.3
-    }
+      "horizontal": 69.4,
+      "vertical": 42.5
+    },
+    "exposure": 5
   },
   "debug": true,
   "hsv": {
-    "hue": [0.0, 86],
+    "hue": [0, 86],
     "saturation": [107, 255.0],
     "value": [45, 255.0]
   },
   "filters": {
-    "min_area": 200
+    "min_area": 200,
+    "hu_distance": 3,
+    "rolling_average_frames": 7
   },
   "socket": {
     "enabled": false,
