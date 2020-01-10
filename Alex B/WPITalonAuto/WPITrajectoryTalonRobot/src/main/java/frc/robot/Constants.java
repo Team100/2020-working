@@ -25,15 +25,15 @@ public class Constants {
         public static final int TICKS_PER_REV = 3072;// 8192
         public static final double WHEEL_DIAMETER = 0.333; // Feet
 
-        public static final double KP = 0.00841; // 0.0027
+        public static final double KP = 0; // 0.0027
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 0;
+        public static final double KF = 1;
 
-        public static final double KS = 0.922;
-        public static final double KV = 0.271;
+        public static final double KS = 0.922*3;
+        public static final double KV = 0.271*3;
         public static final double KTRACK_WIDTH = 3.970136;
-        public static final double KA = 0.0388;
+        public static final double KA = 0.0388*3;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
 
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(

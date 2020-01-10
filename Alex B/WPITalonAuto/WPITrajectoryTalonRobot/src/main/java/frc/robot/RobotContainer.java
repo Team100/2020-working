@@ -100,12 +100,9 @@ public class RobotContainer {
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, m_drivetrain::getPose,
         new RamseteController(Constants.DTConstants.RAMSETE_B, Constants.DTConstants.RAMSETE_ZETA),
 
-        new SimpleMotorFeedforward(Constants.DTConstants.KS, Constants.DTConstants.KV, Constants.DTConstants.KA),
-
-        Constants.DTConstants.kDriveKinematics, m_drivetrain::getWheelSpeeds,
-        new PIDController(Constants.DTConstants.KP, 0, 0), new PIDController(Constants.DTConstants.KP, 0, 0),
-        // RamseteCommand passes volts to the callback
-        m_drivetrain::tankDriveVolts, m_drivetrain);
+        Constants.DTConstants.kDriveKinematics,
+       
+        m_drivetrain::tankDriveVelocity, m_drivetrain);
 
     // Run path following command, then stop at the end.
     System.out.println("Finished Creating Auto Command");

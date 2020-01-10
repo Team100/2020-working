@@ -175,6 +175,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void tankDriveVelocity(double leftVel, double rightVel){
+    System.out.println(leftVel + ","+ rightVel);  
+
     this.leftLeader.set(ControlMode.Velocity, leftVel);
     this.rightLeader.set(ControlMode.Velocity, rightVel);
   }
