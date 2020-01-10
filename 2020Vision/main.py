@@ -9,6 +9,7 @@ import pipeline
 import pyrealsense2 as rs
 import socket
 import subprocess
+import sys
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
@@ -22,6 +23,10 @@ def set_exposure():
         properties = {property_string.split("=")[0]: property_string.split("=")[1] for property_string in subprocess.run(f"udevadm info -n {device} -q property", stdout=subprocess.PIPE, shell=True).stdout.decode("utf-8").strip().split("\n")}
         if properties["ID_VENDOR_ID"] == "8086" and properties["MAJOR"] == "81":
             realsense.append(device)
+
+    if len(realsense) == 0:
+        print("No RealSense camera connected! Please connect one and restart.")
+        sys.exit(1)
 
     subprocess.run(f"v4l2-ctl --device /dev/video{realsense[-2][-1]} --set-ctrl=exposure_auto=1", shell=True, check=True)
     subprocess.run(f"v4l2-ctl --device /dev/video{realsense[-2][-1]} --set-ctrl=exposure_absolute={config.camera.exposure}", shell=True, check=True)
@@ -135,7 +140,7 @@ try:
             bottom = contour[contour[:, :, 1].argmax()][0][1]
 
             # Retrieve distance to target
-            if len(distances) > config.filters.rolling_average_frames:
+            while len(distances) > config.filters.rolling_average_frames:
                 distances.pop(0)
             distances.append(calculations.distance(depth, cx, bottom))
             distance = calculations.average(distances)
@@ -147,7 +152,11 @@ try:
                 msg.v_angle = v_angle
                 msg.h_angle = h_angle
                 msg.distance = distance
-                robot_socket.sendall(msg.SerializeToString())
+                encoded = msg.SerializeToString()
+                try:
+                    robot_socket.sendall(bytes([len(encoded)]) + encoded)
+                except ConnectionRefusedError:
+                    pass
 
         # Display image frame for debugging
         if config.debug:

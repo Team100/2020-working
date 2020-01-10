@@ -21,8 +21,8 @@
     "rolling_average_frames": 7
   },
   "socket": {
-    "enabled": false,
-    "host": "10.1.0.2",
+    "enabled": true,
+    "host": "127.0.0.1",
     "port": 5810
   }
 }
