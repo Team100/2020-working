@@ -43,7 +43,7 @@ import frc.robot.Constants.DTConstants;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain m_drivetrain = new Drivetrain();
+  public final Drivetrain m_drivetrain = new Drivetrain();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
