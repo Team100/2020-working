@@ -1,9 +1,0 @@
-[
-  {
-    "artifact": "frcJava (in project Nika_First_Project)",
-    "target": "roborio",
-    "debugfile": "frcJava_roborio.debugconfig",
-    "project": "Nika_First_Project",
-    "language": "java"
-  }
-]
