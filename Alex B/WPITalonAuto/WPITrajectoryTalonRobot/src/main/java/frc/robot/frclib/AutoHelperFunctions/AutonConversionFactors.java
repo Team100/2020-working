@@ -7,7 +7,6 @@
 
 package frc.robot.frclib.AutoHelperFunctions;
 
-import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
 /**
  * Add your docs here.
@@ -76,5 +75,12 @@ public class AutonConversionFactors {
         double metersPerTick = circumference/ticksPerRevolution;
         result = result * metersPerTick;
         return result;
+    }
+
+    public static double convertFeetToMeters(double value){
+        return value * 0.3048;
+    }
+    public static double convertMetersToFeet(double value){
+        return value * 1/0.3048;
     }
 }

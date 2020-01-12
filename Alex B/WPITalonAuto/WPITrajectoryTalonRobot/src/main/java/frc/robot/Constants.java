@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import frc.robot.frclib.AutoHelperFunctions.AutonConversionFactors;
 
 public class Constants {
     public class RobotCharacteristics {
@@ -28,7 +29,8 @@ public class Constants {
         public static final double KP = 0; // 0.0027
         public static final double KI = 0;
         public static final double KD = 0;
-        public static final double KF = 11.41199782;
+        public static final double KF = 1;
+        //public static final double KF = 11.41199782;
 
         public static final double KS = 0.699;
         public static final double KV = 0.694;
