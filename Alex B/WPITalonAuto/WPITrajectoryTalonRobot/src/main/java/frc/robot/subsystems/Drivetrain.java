@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -152,6 +153,8 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     odometry.update(Rotation2d.fromDegrees(ahrs.getCompassHeading()), leftLeader.getSelectedSensorPosition(), rightLeader.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Left Sensor Velocity",this.leftLeader.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Right Sensor Velocity", this.rightLeader.getSelectedSensorVelocity());
     
   }
 

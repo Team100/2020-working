@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.frclib.AutoHelperFunctions.CustomRamseteControllerAbstraction;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -76,7 +77,7 @@ public class RobotContainer {
       new Translation2d(2,0),
       new Translation2d(4,0)
     );
-    Pose2d end = new Pose2d(0, 6, new Rotation2d(0));
+    Pose2d end = new Pose2d(6, 0, new Rotation2d(0));
     return this.createAutoNavigationCommand(start, waypoints, end);
 
   }
@@ -98,7 +99,7 @@ public class RobotContainer {
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config);
     System.out.println("Generated Trajectory");
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, m_drivetrain::getPose,
-        new RamseteController(Constants.DTConstants.RAMSETE_B, Constants.DTConstants.RAMSETE_ZETA),
+        new CustomRamseteControllerAbstraction(Constants.DTConstants.RAMSETE_B, Constants.DTConstants.RAMSETE_ZETA),
 
         Constants.DTConstants.kDriveKinematics,
        

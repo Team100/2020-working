@@ -48,6 +48,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("DT Left Ticks", this.m_robotContainer.m_drivetrain.leftLeader.getSelectedSensorPosition());
+    SmartDashboard.putNumber("DT Right Ticks", this.m_robotContainer.m_drivetrain.rightLeader.getSelectedSensorPosition());
   }
 
   /**
@@ -59,8 +61,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    SmartDashboard.putNumber("DT Left Ticks", this.m_robotContainer.m_drivetrain.leftLeader.getSelectedSensorPosition());
-    SmartDashboard.putNumber("DT Right Ticks", this.m_robotContainer.m_drivetrain.rightLeader.getSelectedSensorPosition());
+
   }
 
   /**
