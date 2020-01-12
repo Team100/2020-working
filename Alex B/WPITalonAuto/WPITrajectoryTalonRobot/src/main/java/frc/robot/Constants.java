@@ -30,14 +30,13 @@ public class Constants {
         public static final double KD = 0;
         public static final double KF = 11.41199782;
 
-        public static final double KS = 0.652;
-        public static final double KV = 0.691;
+        public static final double KS = 0.699;
+        public static final double KV = 0.694;
         public static final double KTRACK_WIDTH = 1.5082966671798224;
-        public static final double KA = 0.0627;
+        public static final double KA = 0.0993;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
 
-        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
-                KTRACK_WIDTH);
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(KTRACK_WIDTH);
 
         public static final double RAMSETE_B = 2; // From WPILib Docs
         public static final double RAMSETE_ZETA = 0.7; // From WPILib Docs

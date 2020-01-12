@@ -7,6 +7,8 @@
 
 package frc.robot.frclib.AutoHelperFunctions;
 
+import javax.swing.text.DefaultStyledDocument.ElementSpec;
+
 /**
  * Add your docs here.
  */
@@ -57,6 +59,22 @@ public class AutonConversionFactors {
         result = result * ticksPerMeter;
         result = result * .1;
         
+        return result;
+    }
+
+
+    public static double convertTalonEncoderTicksToMeters(int ticks, double diameter, double ticksPerRevolution, boolean givenMetric){
+        double result = ticks;
+        double circumference = 0;
+        if(givenMetric){
+            circumference = Math.PI *diameter;
+        }
+        else{
+            double diameterInMeters = diameter*0.3048;
+            circumference = Math.PI*diameterInMeters;
+        }
+        double metersPerTick = circumference/ticksPerRevolution;
+        result = result * metersPerTick;
         return result;
     }
 }

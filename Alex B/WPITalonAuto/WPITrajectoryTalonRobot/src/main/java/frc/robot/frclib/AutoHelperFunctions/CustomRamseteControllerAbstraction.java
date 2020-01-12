@@ -58,6 +58,9 @@ public class CustomRamseteControllerAbstraction extends RamseteController{
                 final double vRef = linearVelocityRefMeters;
                 final double omegaRef = angularVelocityRefRadiansPerSecond;
 
+                SmartDashboard.putNumber("Current X", currentPose.getTranslation().getX());
+                SmartDashboard.putNumber("Reference X", poseRef.getTranslation().getX());
+
                 SmartDashboard.putNumber("eX", eX);
                 SmartDashboard.putNumber("eY", eY);
                 SmartDashboard.putNumber("eTheta", eTheta);

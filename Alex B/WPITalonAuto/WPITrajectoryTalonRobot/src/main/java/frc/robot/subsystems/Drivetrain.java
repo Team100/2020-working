@@ -153,7 +153,10 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    odometry.update(Rotation2d.fromDegrees(ahrs.getCompassHeading()), leftLeader.getSelectedSensorPosition(), rightLeader.getSelectedSensorPosition());
+    double leftLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(leftLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
+    double rightLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(rightLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
+
+    odometry.update(Rotation2d.fromDegrees(ahrs.getCompassHeading()), leftLeaderDistance, rightLeaderDistance);
     SmartDashboard.putNumber("Left Sensor Velocity",this.leftLeader.getSelectedSensorVelocity());
     SmartDashboard.putNumber("Right Sensor Velocity", this.rightLeader.getSelectedSensorVelocity());
     
