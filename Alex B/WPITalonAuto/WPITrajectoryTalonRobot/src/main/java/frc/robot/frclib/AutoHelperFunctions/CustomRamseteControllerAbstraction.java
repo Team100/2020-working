@@ -72,6 +72,8 @@ public class CustomRamseteControllerAbstraction extends RamseteController{
                 SmartDashboard.putNumber("vX [m/s]",vRef * m_poseError.getRotation().getCos() + k * eX);
                 SmartDashboard.putNumber("vY [m/s]", 0.0);
                 SmartDashboard.putNumber("vOmega [rad/s]", omegaRef + k * eTheta + m_b * vRef * sinc(eTheta) * eY);
+
+                SmartDashboard.putNumber("vX [t/100ms]", AutonConversionFactors.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(vRef * m_poseError.getRotation().getCos() + k * eX, Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV));
             
                 return new ChassisSpeeds(vRef * m_poseError.getRotation().getCos() + k * eX,
                                          0.0,

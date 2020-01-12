@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.RightLeader;
+import frc.robot.frclib.AutoHelperFunctions.AutonConversionFactors;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -163,7 +164,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-    return new DifferentialDriveWheelSpeeds(leftLeader.getSelectedSensorVelocity(), rightLeader.getSelectedSensorVelocity());//TODO Check that the values returned by the talons are M/S or convert to M/S
+    return new DifferentialDriveWheelSpeeds(AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.leftLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV), AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.rightLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV));
   }
 
   public void resetOdometry(Pose2d pose){
@@ -180,8 +181,11 @@ public class Drivetrain extends SubsystemBase {
   public void tankDriveVelocity(double leftVel, double rightVel){
     System.out.println(leftVel + ","+ rightVel);  
 
-    this.leftLeader.set(ControlMode.Velocity, leftVel);
-    this.rightLeader.set(ControlMode.Velocity, rightVel);
+    double leftLeaderNativeVelocity = AutonConversionFactors.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(leftVel, Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV);
+    double rightLeaderNativeVelocity = AutonConversionFactors.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(rightVel, Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV);
+
+    this.leftLeader.set(ControlMode.Velocity, leftLeaderNativeVelocity);
+    this.rightLeader.set(ControlMode.Velocity, rightLeaderNativeVelocity);
   }
 
   public void resetEncoders(){
