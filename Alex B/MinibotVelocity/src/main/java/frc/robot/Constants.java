@@ -26,10 +26,10 @@ public class Constants {
         public static final int TICKS_PER_REV = 8192;// 8192
         public static final double WHEEL_DIAMETER = 0.333; // Feet
 
-        public static final double KP = 0.017; // 0.0027
+        public static final double KP = 0.00254; // 0.0027
         public static final double KI = 0;
-        public static final double KD = 20;
-        public static final double KF = 0.085;
+        public static final double KD = 0;
+        public static final double KF = 0.08;
         //public static final double KF = 11.41199782;
 
         public static final double KS = 0.699;

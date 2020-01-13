@@ -48,6 +48,15 @@ public class Drivetrain extends SubsystemBase {
    * Creates a new Drivetrain.
    */
   public Drivetrain() {
+      SmartDashboard.putNumber("Velocity", 0);
+      SmartDashboard.putNumber("kP", 0);
+      SmartDashboard.putNumber("kI", 0);
+      SmartDashboard.putNumber("kD", 0);
+      SmartDashboard.putNumber("kF", 0);
+
+
+
+
     leftLeader = new TalonSRX(Constants.LeftLeader.CAN_ID);
     //leftFollower = new VictorSPX(Constants.//LeftFollower.CAN_ID);
 
@@ -153,12 +162,38 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double leftLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(leftLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
-    double rightLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(rightLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
-
-    odometry.update(Rotation2d.fromDegrees(ahrs.getCompassHeading()), leftLeaderDistance, rightLeaderDistance);
+    if(SmartDashboard.getNumber("Velocity", 0) == 3000 && Math.abs(leftLeader.getSelectedSensorVelocity()-3000)<20){
+        SmartDashboard.putNumber("Velocity", 4000);
+    }
+    else if(SmartDashboard.getNumber("Velocity", 0) == 4000 && Math.abs(leftLeader.getSelectedSensorVelocity()-4000)<20){
+        SmartDashboard.putNumber("Velocity", 2000);
+    }
+    else if(SmartDashboard.getNumber("Velocity", 0) == 2000 && Math.abs(leftLeader.getSelectedSensorVelocity()-2000)<20){
+        SmartDashboard.putNumber("Velocity", 0);
+    }
+    leftLeader.set(ControlMode.Velocity, SmartDashboard.getNumber("Velocity", 0));
+    rightLeader.set(ControlMode.Velocity, SmartDashboard.getNumber("Velocity", 0));
     SmartDashboard.putNumber("Left Sensor Velocity",this.leftLeader.getSelectedSensorVelocity());
     SmartDashboard.putNumber("Right Sensor Velocity", this.rightLeader.getSelectedSensorVelocity());
+
+    leftLeader.config_kP(0, SmartDashboard.getNumber("kP", 0));
+    leftLeader.config_kI(0, SmartDashboard.getNumber("kI", 0));
+    leftLeader.config_kD(0, SmartDashboard.getNumber("kD", 0));
+    leftLeader.config_kF(0, SmartDashboard.getNumber("kF", 0));
+
+    rightLeader.config_kP(0, SmartDashboard.getNumber("kP", 0));
+    rightLeader.config_kI(0, SmartDashboard.getNumber("kI", 0));
+    rightLeader.config_kD(0, SmartDashboard.getNumber("kD", 0));
+    rightLeader.config_kF(0, SmartDashboard.getNumber("kF", 0));
+
+    SmartDashboard.putNumber("Left Voltage Output", leftLeader.getMotorOutputVoltage());
+
+
+
+
+
+
+
     
   }
 
