@@ -145,8 +145,9 @@ public class Drivetrain extends SubsystemBase {
     rightLeader.setNeutralMode(NeutralMode.Brake);
 
 
-    ahrs = new AHRS(SPI.Port.kMXP);
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(ahrs.getCompassHeading()));
+    //ahrs = new AHRS(SPI.Port.kMXP);
+    gyro = new ADXRS450_Gyro();
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
   }
 
@@ -155,8 +156,8 @@ public class Drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
     double leftLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(leftLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
     double rightLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(rightLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
-
-    odometry.update(Rotation2d.fromDegrees(ahrs.getCompassHeading()), leftLeaderDistance, rightLeaderDistance);
+    SmartDashboard.putNumber("Current Compass",Rotation2d.fromDegrees(getHeading()).getRadians());
+    odometry.update(Rotation2d.fromDegrees(getHeading()), leftLeaderDistance, rightLeaderDistance);
     SmartDashboard.putNumber("Left Sensor Velocity",this.leftLeader.getSelectedSensorVelocity());
     SmartDashboard.putNumber("Right Sensor Velocity", this.rightLeader.getSelectedSensorVelocity());
     
@@ -170,9 +171,10 @@ public class Drivetrain extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.leftLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV), AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.rightLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV));
   }
 
+
   public void resetOdometry(Pose2d pose){
     resetEncoders();
-    odometry.resetPosition(pose, Rotation2d.fromDegrees(ahrs.getCompassHeading()));
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts){
@@ -203,16 +205,19 @@ public class Drivetrain extends SubsystemBase {
     return (leftLeader.getSelectedSensorPosition() + rightLeader.getSelectedSensorPosition())/2.0;
   }
   public void zeroHeading() {
-    ahrs.reset();
+    gyro.reset();
   }
 
   public double getHeading(){
-    return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
+    //return Math.IEEEremainder(gyro.getAngle(), 360);
+    return -1 * Math.IEEEremainder(gyro.getAngle(),360);
 
   }
   public double getTurnRate(){
-    return ahrs.getRate();
+    return gyro.getRate();
   }
 
   
 }
+
+ 

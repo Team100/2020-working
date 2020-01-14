@@ -66,6 +66,7 @@ public class CustomRamseteControllerAbstraction extends RamseteController{
                 SmartDashboard.putNumber("eTheta", eTheta);
                 SmartDashboard.putNumber("vRef", vRef);
                 SmartDashboard.putNumber("omegaRef", omegaRef);
+                
 
             
                 double k = 2.0 * m_zeta * Math.sqrt(Math.pow(omegaRef, 2) + m_b * Math.pow(vRef, 2));
