@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
  * This is a simple example to show how the REV Color Sensor V3 can be used to
@@ -27,8 +28,8 @@ public class Robot extends TimedRobot {
    * Change the I2C port below to match the connection of your color sensor
    */
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private Victor m_motor = new Victor(2);
-  private boolean runMotor = false;
+  private WPI_TalonSRX m_motor = new WPI_TalonSRX(1);
+  private boolean runMotor = true;
 
   /**
    * A Rev Color Sensor V3 object is constructed with an I2C port as a parameter.
@@ -109,25 +110,25 @@ public class Robot extends TimedRobot {
     if (gameData.length() > 0) {
       switch (gameData.charAt(0)) {
       case 'B':
-        if(match.color == kBlueTarget){
+        if(match.color == kRedTarget){
           runMotor=false;
         }
         // Blue case code
         break;
       case 'G':
-      if(match.color == kGreenTarget){
+      if(match.color == kYellowTarget){
         runMotor=false;
       }
         // Green case code
         break;
       case 'R':
-        if(match.color == kRedTarget){
+        if(match.color == kBlueTarget){
           runMotor=false;
         }
         // Red case code
         break;
       case 'Y':
-      if(match.color == kYellowTarget){
+      if(match.color == kGreenTarget){
         runMotor=false;
       }
         // Yellow case code
