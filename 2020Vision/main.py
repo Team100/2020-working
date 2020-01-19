@@ -99,6 +99,11 @@ try:
         contours = list(filter(lambda c: cv2.matchShapes(matching_contour, c, cv2.CONTOURS_MATCH_I3, 0) < config.filters.hu_distance, contours))
         debug_draw(lambda: cv2.drawContours(frame, contours, -1, (255, 0, 0), 2))
 
+        # Distance and angles
+        distance = -1
+        v_angle = 0
+        h_angle = 0
+
         # Ensure contours exist
         if len(contours) == 0:
             frame_tracking_skip_count += 1
@@ -146,17 +151,17 @@ try:
             distance = calculations.average(distances)
             debug_draw(lambda: cv2.putText(frame, f"Distance: {distance}", (25, 440), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1))
 
-            # Serialize and send data to robot
-            if config.socket.enabled and robot_socket:
-                msg = Message()
-                msg.v_angle = v_angle
-                msg.h_angle = h_angle
-                msg.distance = distance
-                encoded = msg.SerializeToString()
-                try:
-                    robot_socket.sendall(bytes([len(encoded)]) + encoded)
-                except ConnectionRefusedError:
-                    pass
+        # Serialize and send data to robot
+        if config.socket.enabled and robot_socket:
+            msg = Message()
+            msg.v_angle = v_angle
+            msg.h_angle = h_angle
+            msg.distance = distance
+            encoded = msg.SerializeToString()
+            try:
+                robot_socket.sendall(bytes([len(encoded)]) + encoded)
+            except ConnectionRefusedError:
+                pass
 
         # Display image frame for debugging
         if config.debug:
