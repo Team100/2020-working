@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -15,7 +16,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.RightLeader;
+import frc.robot.frclib.AutoHelperFunctions.AutonConversionFactors;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.kauailabs.navx.frc.AHRS;
 
 
 public class Drivetrain extends SubsystemBase {
@@ -24,6 +37,12 @@ public class Drivetrain extends SubsystemBase {
   public TalonSRX rightLeader;
   //public VictorSPX rightFollower;
   public ADXRS450_Gyro gyro;
+  public AHRS ahrs;
+
+  public DifferentialDriveOdometry odometry;
+  public DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(Constants.DTConstants.KTRACK_WIDTH);
+
+
 
   /**
    * Creates a new Drivetrain.
@@ -126,14 +145,79 @@ public class Drivetrain extends SubsystemBase {
     rightLeader.setNeutralMode(NeutralMode.Brake);
 
 
-    gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-    gyro.reset();
-
+    //ahrs = new AHRS(SPI.Port.kMXP);
+    gyro = new ADXRS450_Gyro();
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    double leftLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(leftLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
+    double rightLeaderDistance = AutonConversionFactors.convertTalonEncoderTicksToMeters(rightLeader.getSelectedSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV, false);
+    SmartDashboard.putNumber("Current Compass",Rotation2d.fromDegrees(getHeading()).getRadians());
+    odometry.update(Rotation2d.fromDegrees(getHeading()), leftLeaderDistance, rightLeaderDistance);
+    SmartDashboard.putNumber("Left Sensor Velocity",this.leftLeader.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Right Sensor Velocity", this.rightLeader.getSelectedSensorVelocity());
+    
   }
+
+  public Pose2d getPose(){
+    return odometry.getPoseMeters();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    return new DifferentialDriveWheelSpeeds(AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.leftLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV), AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.rightLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV));
+  }
+
+
+  public void resetOdometry(Pose2d pose){
+    resetEncoders();
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+  }
+
+  public void tankDriveVolts(double leftVolts, double rightVolts){
+    System.out.println(leftVolts + ","+ rightVolts);  
+    leftLeader.set(ControlMode.Current, leftVolts);
+    rightLeader.set(ControlMode.Current, -rightVolts);
+  }
+
+  public void tankDriveVelocity(double leftVel, double rightVel){
+    System.out.println(leftVel + ","+ rightVel);  
+
+    double leftLeaderNativeVelocity = AutonConversionFactors.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(leftVel, Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV);
+    double rightLeaderNativeVelocity = AutonConversionFactors.convertWPILibTrajectoryUnitsToTalonSRXNativeUnits(rightVel, Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV);
+
+    this.leftLeader.set(ControlMode.Velocity, leftLeaderNativeVelocity);
+    this.rightLeader.set(ControlMode.Velocity, rightLeaderNativeVelocity);
+
+    SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
+    SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftLeader.getSelectedSensorVelocity());
+  }
+
+  public void resetEncoders(){
+    leftLeader.setSelectedSensorPosition(0);
+    rightLeader.setSelectedSensorPosition(0);
+  }
+
+  public double getAverageEncoderDistance(){
+    return (leftLeader.getSelectedSensorPosition() + rightLeader.getSelectedSensorPosition())/2.0;
+  }
+  public void zeroHeading() {
+    gyro.reset();
+  }
+
+  public double getHeading(){
+    //return Math.IEEEremainder(gyro.getAngle(), 360);
+    return -1 * Math.IEEEremainder(gyro.getAngle(),360);
+
+  }
+  public double getTurnRate(){
+    return gyro.getRate();
+  }
+
+  
 }
+
+ 
