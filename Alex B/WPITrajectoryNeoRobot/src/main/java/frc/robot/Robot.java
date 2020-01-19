@@ -5,6 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                          //
+// Hello                                                                                                    //
+//                                                                                                          //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                          //
+// This project is for autonomous navigation of a minibot using NEO motors with Spark MAX controllers       //
+// It is similar to the Talon Minibot example.                                                              //
+//                                                                                                          //
+// Make sure that you read the documentation, including single line, JavaDoc, multiline, and comment boxes. //
+//                                                                                                          //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;

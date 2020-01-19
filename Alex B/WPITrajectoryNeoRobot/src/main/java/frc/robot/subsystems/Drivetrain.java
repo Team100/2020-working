@@ -12,6 +12,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.frclib.AutoHelperFunctions.NeoCollection;
+
 
 public class Drivetrain extends SubsystemBase {
 
@@ -28,34 +30,21 @@ public class Drivetrain extends SubsystemBase {
 ////////////////////////////////////////////////////////////
 
 
-  public CANSparkMax leftMaster;
-  public CANSparkMax rightMaster;
+  /**
+   * A collection of motor controller, encoder, and PID for the left master motor
+   */
+  public NeoCollection leftMaster;
+
+  /**
+   * A collection of motor controller, encoder, and PID for the right master motor
+   */
+  public NeoCollection rightMaster;
   /**
    * Creates a new Drivetrain.
    */
   public Drivetrain() {
-
-    ///////////////////////////////////////////////////////////////
-    // WARNING                                                   //
-    ///////////////////////////////////////////////////////////////
-    // DO NOT CHANGE THE MOTOR TYPE IN HERE                      //
-    // IT WILL RESULT IN CATASTROPHIC EFFECTS                    //
-    // TODO MAKE SURE THAT THESE VALUES ARE MotorType.kBrushless //
-    ///////////////////////////////////////////////////////////////
-
-    leftMaster = new CANSparkMax(Constants.LeftLeader.CAN_ID, MotorType.kBrushless);
-    rightMaster = new CANSparkMax(Constants.RightLeader.CAN_ID, MotorType.kBrushless);
-
-    ///////////////////////////////////////////////////////////////
-    // INFO                                                      //
-    ///////////////////////////////////////////////////////////////
-    // This code will configure a Spark MAX Motor Controller.    //
-    // It uses Constants.java as the base for the configuration. //
-    // Please make any changes in Constants.java                 //
-    ///////////////////////////////////////////////////////////////
-
-
-
+    leftMaster = new NeoCollection(Constants.LeftLeader.CAN_ID, Constants.LeftLeader.KP, Constants.LeftLeader.KI, Constants.LeftLeader.KD, Constants.LeftLeader.KIZ, Constants.LeftLeader.KF, -1, 1, 100);
+    rightMaster = new NeoCollection(Constants.RightLeader.CAN_ID, Constants.RightLeader.KP, Constants.RightLeader.KI, Constants.RightLeader.KD, Constants.RightLeader.KIZ, Constants.RightLeader.KF, -1, 1, 100);
   }
 
   @Override

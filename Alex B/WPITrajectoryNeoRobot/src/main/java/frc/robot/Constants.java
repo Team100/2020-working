@@ -31,6 +31,7 @@ public class Constants {
 
         public static final double KP = 0.017; // 0.0027
         public static final double KI = 0;
+        public static final double KIZ = 0;
         public static final double KD = 20;
         public static final double KF = 0.085;
         //public static final double KF = 11.41199782;
@@ -53,6 +54,7 @@ public class Constants {
 
         public static final double KP = DTConstants.KP;
         public static final double KI = DTConstants.KI;
+        public static final double KIZ = DTConstants.KIZ;
         public static final double KD = DTConstants.KD;
         public static final double KF = DTConstants.KF;
         public static final double KV = DTConstants.KV;
@@ -98,6 +100,7 @@ public class Constants {
 
         public static final double KP = DTConstants.KP;
         public static final double KI = DTConstants.KI;
+        public static final double KIZ = DTConstants.KIZ;
         public static final double KD = DTConstants.KD;
         public static final double KF = DTConstants.KF;
         public static final double KV = DTConstants.KV;
