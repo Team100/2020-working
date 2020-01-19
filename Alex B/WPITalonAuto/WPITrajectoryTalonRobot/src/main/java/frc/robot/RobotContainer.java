@@ -75,10 +75,12 @@ public class RobotContainer {
     Pose2d start = new Pose2d(0,0,new Rotation2d(0));
     List<Translation2d> waypoints = List.of(
       new Translation2d(1,.5),
-      new Translation2d(5,1)
+      new Translation2d(5,1),
+      new Translation2d(7,0),
+      new Translation2d(6,0)
 
     );
-    Pose2d end = new Pose2d(7, 0, Rotation2d.fromDegrees(-90));
+    Pose2d end = new Pose2d(6, 3, Rotation2d.fromDegrees(-90));
     return this.createAutoNavigationCommand(start, waypoints, end);
 
   }

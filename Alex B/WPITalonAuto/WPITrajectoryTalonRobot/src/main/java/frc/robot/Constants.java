@@ -12,7 +12,7 @@ import frc.robot.frclib.AutoHelperFunctions.AutonConversionFactors;
 
 public class Constants {
     public class RobotCharacteristics {
-        public static final double WHEELBASE_WIDTH = 1.5; // Feet
+    public static final double WHEELBASE_WIDTH = 0.4572; // Meters
     }
 
     public class Auto {
