@@ -7,12 +7,18 @@
 
 package frc.robot.subsystems;
 
-
 import com.revrobotics.ControlType;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.frclib.AutoHelperFunctions.AutonConversionFactors;
 import frc.robot.frclib.AutoHelperFunctions.NeoCollection;
 
 
@@ -40,6 +46,21 @@ public class Drivetrain extends SubsystemBase {
    * A collection of motor controller, encoder, and PID for the right master motor
    */
   public NeoCollection rightMaster;
+
+  /**
+   * The Minibot Gyro
+   */
+  public ADXRS450_Gyro gyro;
+
+  /**
+   * The current odometry of the robot
+   */
+  public DifferentialDriveOdometry odometry;
+
+  /**
+   * Information regarding the feedback from the Drivetrain
+   */
+  public DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(Constants.RobotCharacteristics.WHEELBASE_WIDTH);
   
   /**
    * Creates a new Drivetrain.
@@ -80,5 +101,57 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Current Velocity", leftMaster.encoder.getVelocity());
     
 
+  }
+
+
+  public Pose2d getPose(){
+    return odometry.getPoseMeters();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    return new DifferentialDriveWheelSpeeds(AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.leftLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV), AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.rightLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV));
+  }
+
+
+  public void resetOdometry(Pose2d pose){
+    resetEncoders();
+    odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+  }
+
+ 
+
+  public void tankDriveVelocity(double leftVel, double rightVel){
+    System.out.println(leftVel + ","+ rightVel);  
+
+    double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+    double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+
+
+    this.leftMaster.setVelocity(leftLeaderNativeVelocity);
+    this.rightMaster.setVelocity(rightLeaderNativeVelocity);
+
+    SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
+    SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftLeader.getSelectedSensorVelocity());
+  }
+
+  public void resetEncoders(){
+    leftLeader.setSelectedSensorPosition(0);
+    rightLeader.setSelectedSensorPosition(0);
+  }
+
+  public double getAverageEncoderDistance(){
+    return (leftLeader.getSelectedSensorPosition() + rightLeader.getSelectedSensorPosition())/2.0;
+  }
+  public void zeroHeading() {
+    gyro.reset();
+  }
+
+  public double getHeading(){
+    //return Math.IEEEremainder(gyro.getAngle(), 360);
+    return -1 * Math.IEEEremainder(gyro.getAngle(),360);
+
+  }
+  public double getTurnRate(){
+    return gyro.getRate();
   }
 }

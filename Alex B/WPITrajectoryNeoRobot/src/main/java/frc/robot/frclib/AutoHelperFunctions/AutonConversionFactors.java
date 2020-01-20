@@ -51,7 +51,9 @@ public class AutonConversionFactors {
 	 * @return					the velocity from Trajectory in Revolutions per Minute (NEO)
 	 */
 	public static final double convertMpSToRPM(double metersPerSecond, double wheelDiameter, double gearingRatio){
-		return 0;
+		double radius = 0.5*wheelDiameter;
+		double result = (60/(2*Math.PI*radius))*metersPerSecond;	
+		return result;
 	}
 
 

@@ -166,5 +166,13 @@ public class NeoCollection {
         this.pidController.setReference(velocity, ControlType.kVelocity);
     }
 
+    /**
+     * Get the current velocity
+     * @return sensor velocity in RPM
+     */
+    public double getSensorVelocity(){
+        return this.encoder.getVelocity();
+    }
+
     
 }
