@@ -7,18 +7,18 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExampleSubsystem extends SubsystemBase {
-  PWM doughnuts;
+  Servo doughnuts;
 
   /**
    * Creates a new ExampleSubsystem
    */
   public ExampleSubsystem() {
-doughnuts = new PWM(1);
+doughnuts = new Servo(1);
 
 SmartDashboard.putNumber("Steak", 0);
 
@@ -27,6 +27,7 @@ SmartDashboard.putNumber("Steak", 0);
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    doughnuts.setRaw((int)SmartDashboard.getNumber("Steak", -60));
+    doughnuts.setAngle((int)SmartDashboard.getNumber("Steak", -60));
+    SmartDashboard.putNumber("servo output", doughnuts.getAngle());
   }
 }
