@@ -7,11 +7,8 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import frc.robot.frclib.AutoHelperFunctions.AutonConversionFactors;
 
 public class Constants {
     public class RobotCharacteristics {
@@ -29,20 +26,19 @@ public class Constants {
         public static final int TICKS_PER_REV = 8192;// 8192
         public static final double WHEEL_DIAMETER = 0.333; // Feet
 
-        public static final double KP = 0; // 0.0027
+        public static final double KP = 0.0001; // 0.0027
         public static final double KI = 0;
         public static final double KIZ = 0;
         public static final double KD = 0;
-        public static final double KF = 0;
+        public static final double KF = 0.00016;
         //public static final double KF = 11.41199782;
 
         public static final double KS = 0.699;
         public static final double KV = 0.694;
-        public static final double KTRACK_WIDTH = 1.5082966671798224;
         public static final double KA = 0.0993;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
 
-        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(KTRACK_WIDTH);
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(RobotCharacteristics.WHEELBASE_WIDTH);
 
         public static final double RAMSETE_B = 2; // From WPILib Docs
         public static final double RAMSETE_ZETA = 0.7; // From WPILib Docs
@@ -50,7 +46,7 @@ public class Constants {
     }
 
     public class LeftLeader {
-        public static final int CAN_ID = 0;
+        public static final int CAN_ID = 1;
 
         public static final double KP = DTConstants.KP;
         public static final double KI = DTConstants.KI;
@@ -68,7 +64,6 @@ public class Constants {
         public static final int MAX_VELOCITY = 1;
 
         public class Feedback {
-            // Specify the encoder type in `Drivetrain.java`
             public static final int PORT = 0;
             public static final boolean SENSOR_PHASE = false;
         }

@@ -27,6 +27,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Acts as an unifier of the several components needed for NEO control
  */
@@ -76,7 +78,7 @@ public class NeoCollection {
         this.kI = kI;
         this.kD = kD;
         this.kIz = kIz;
-        this.kFF = kFF;
+        this.kFF = kFF; 
         this.kMaxOutput = kMaxOutput;
         this.kMinOutput = kMinOutput;
         this.maxRPM = maxRPM;
@@ -123,6 +125,13 @@ public class NeoCollection {
         pidController.setIZone(this.kIz);
         pidController.setFF(this.kFF);
         pidController.setOutputRange(this.kMinOutput, this.kMaxOutput);
+        
+
+        SmartDashboard.putNumber("PID Controller kP", pidController.getP());
+        SmartDashboard.putNumber("PID Controller kI", pidController.getI());
+        SmartDashboard.putNumber("PID Controller kD", pidController.getD());
+        SmartDashboard.putNumber("PID Controller kF", pidController.getFF());
+        
     }
 
 
@@ -133,8 +142,8 @@ public class NeoCollection {
      * @param kD            Derivative Constant
      * @param kIz           Integral Zone Constant
      * @param kFF           Feedforward Constant
-     * @param kMaxOutput    Maximum Output
      * @param kMinOutput    Minimum Output
+     * @param kMaxOutput    Maximum Output
      * @param maxRPM        The Max velocity in RPM
      */
     public void configPIDController(double kP, double kI, double kD, double kIz, double kFF, double kMinOutput, double kMaxOutput, double maxRPM){
@@ -146,6 +155,7 @@ public class NeoCollection {
         this.kMaxOutput = kMaxOutput;
         this.kMinOutput = kMinOutput;
         this.maxRPM = maxRPM;
+        this.configPIDController();
     }
 
     /**
