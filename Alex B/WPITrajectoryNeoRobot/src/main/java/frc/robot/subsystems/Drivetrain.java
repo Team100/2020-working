@@ -109,7 +109,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-    return new DifferentialDriveWheelSpeeds(AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.leftLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV), AutonConversionFactors.convertTalonSRXNativeUnitsToWPILibTrajecoryUnits(this.rightLeader.getSelectedSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, false, Constants.DTConstants.TICKS_PER_REV));
+    return new DifferentialDriveWheelSpeeds(AutonConversionFactors.convertRPMToMpS(this.leftMaster.getSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV), AutonConversionFactors.convertRPMToMpS(this.rightMaster.getSensorVelocity(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV));
   }
 
 
@@ -118,29 +118,32 @@ public class Drivetrain extends SubsystemBase {
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
   }
 
- 
+  public void tankDriveSpeed(double leftSpeed, double rightSpeed){
+    this.leftMaster.setSpeed(leftSpeed);
+    this.rightMaster.setSpeed(rightSpeed);
+  }
 
   public void tankDriveVelocity(double leftVel, double rightVel){
     System.out.println(leftVel + ","+ rightVel);  
 
-    double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
-    double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+    double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
+    double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
 
 
     this.leftMaster.setVelocity(leftLeaderNativeVelocity);
     this.rightMaster.setVelocity(rightLeaderNativeVelocity);
 
     SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
-    SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftLeader.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftMaster.getSensorVelocity());
   }
 
   public void resetEncoders(){
-    leftLeader.setSelectedSensorPosition(0);
-    rightLeader.setSelectedSensorPosition(0);
+    leftMaster.encoder.setPosition(0);
+    rightMaster.encoder.setPosition(0);
   }
 
   public double getAverageEncoderDistance(){
-    return (leftLeader.getSelectedSensorPosition() + rightLeader.getSelectedSensorPosition())/2.0;
+    return (leftMaster.getSensorPosition() + leftMaster.getSensorPosition())/2.0;
   }
   public void zeroHeading() {
     gyro.reset();

@@ -40,6 +40,8 @@ public class Constants {
 
         //public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(RobotCharacteristics.WHEELBASE_WIDTH);
 
+        public static final double GEARING_RATIO = 1/6;//motor to wheel
+
         public static final double RAMSETE_B = 2; // From WPILib Docs
         public static final double RAMSETE_ZETA = 0.7; // From WPILib Docs
 

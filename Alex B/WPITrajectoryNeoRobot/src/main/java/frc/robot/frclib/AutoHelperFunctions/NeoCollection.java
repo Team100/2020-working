@@ -159,6 +159,14 @@ public class NeoCollection {
     }
 
     /**
+     * Set the speed of a NEO motor
+     * @param speed speed of robot (-1 to 1)
+     */
+    public void setSpeed(double speed){
+        this.motor.set(speed);
+    }
+
+    /**
      * Set the velocity to a NEO Motor
      * @param velocity the velocity to set (in RPM)
      */
@@ -172,6 +180,14 @@ public class NeoCollection {
      */
     public double getSensorVelocity(){
         return this.encoder.getVelocity();
+    }
+
+    /**
+     * Get the current position
+     * @return encoder position in ticks
+     */
+    public double getSensorPosition(){
+        return this.encoder.getPosition();
     }
 
     

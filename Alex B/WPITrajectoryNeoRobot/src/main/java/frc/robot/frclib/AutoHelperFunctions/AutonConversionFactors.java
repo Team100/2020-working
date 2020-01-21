@@ -52,7 +52,8 @@ public class AutonConversionFactors {
 	 */
 	public static final double convertMpSToRPM(double metersPerSecond, double wheelDiameter, double gearingRatio){
 		double radius = 0.5*wheelDiameter;
-		double result = (60/(2*Math.PI*radius))*metersPerSecond;	
+		double result = (60/(2*Math.PI*radius))*metersPerSecond;
+		result = result * 1/gearingRatio; //TODO check that this is the correct math	
 		return result;
 	}
 
