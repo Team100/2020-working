@@ -8,7 +8,6 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public class Constants {
     public class RobotCharacteristics {
