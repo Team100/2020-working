@@ -103,9 +103,29 @@ public class Navigation extends SubsystemBase {
     /* Connectivity Debugging Support */
     SmartDashboard.putNumber("IMU_Byte_Count", m_ahrs.getByteCount());
     SmartDashboard.putNumber("IMU_Update_Count", m_ahrs.getUpdateCount());
+
+
+
+cornerUp();
   }
 
   public void zeroYaw() {
     m_ahrs.zeroYaw();
+  }
+
+  public void cornerUp() {
+
+    if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
+      SmartDashboard.putString("CornerUp", "back left");
+    }
+    if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()>3){//front left
+      SmartDashboard.putString("CornerUp", "front left");
+    }
+    if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()<-3){//back right
+      SmartDashboard.putString("CornerUp", "back right");
+    }
+    if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()<-3){//front right
+      SmartDashboard.putString("CornerUp", "front right");
+    } 
   }
 }
