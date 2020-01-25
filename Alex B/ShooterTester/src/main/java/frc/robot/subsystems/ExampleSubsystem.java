@@ -10,11 +10,30 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExampleSubsystem extends SubsystemBase {
+
+  ///////////////////////////////////////////////////////////////////////////////////
+  //                                                                               //
+  // Information About Robot Configuration                                         //
+  //                                                                               //
+  ///////////////////////////////////////////////////////////////////////////////////
+  //                                                                               //
+  // The robot settings were originally set with the ShooterBringup project        //
+  //                                                                               //
+  // The ports are as follow:                                                      //
+  // - shooterMaster (14)                                                          //
+  // - shooterFollower (2)                                                         //
+  //                                                                               //
+  // In addition, the following changes were made from the standard configuration: //
+  // - sensorPhase = true                                                          //
+  // - follower.inverted = true                                                    //
+  //                                                                               //
+  ///////////////////////////////////////////////////////////////////////////////////
 
   public TalonSRX shooterMaster;
 
@@ -22,10 +41,13 @@ public class ExampleSubsystem extends SubsystemBase {
 
   public Preferences preferences;
 
+  public PowerDistributionPanel pdp = new PowerDistributionPanel();
+
   public class NetworkTableNames {
     public static final String SD_PERCENT_OUTPUT = "SD Percent Output";
     public static final String SD_Flush = "SD Flush SD";
     public static final String SD_Velocity = "SD Sensor Velocity";
+    public static final String SD_Current = "SD Master Current";
     public static final String SD_Burn = "SD Burn and Flush P";
 
     public static final String P_MASTER_CAN_ID = "P Master CAN ID";
@@ -43,7 +65,10 @@ public class ExampleSubsystem extends SubsystemBase {
     shooterMaster = new TalonSRX(14);
     shooterFollower = new TalonSRX(2);
 
+    shooterMaster.setSensorPhase(true);
+
     shooterFollower.follow(shooterMaster);
+    shooterFollower.setInverted(true);
     /*if (SmartDashboard.getNumber(NetworkTableNames.SD_PERCENT_OUTPUT, -32767) == -32767) {
       publishSettingsToSmartDashboard();
     }*/
@@ -53,7 +78,7 @@ public class ExampleSubsystem extends SubsystemBase {
       updateSmartDashboardFromPreferences();
     }*/
 
-    updateSmartDashboardFromPreferences();
+    //updateSmartDashboardFromPreferences();
   }
 
   public void publishSettingsToRobotPreferences() {
@@ -76,6 +101,7 @@ public class ExampleSubsystem extends SubsystemBase {
 
   public void syncVelocityWithSmartDashboard() {
     SmartDashboard.putNumber(NetworkTableNames.SD_Velocity, shooterMaster.getSelectedSensorVelocity());
+    SmartDashboard.putNumber(NetworkTableNames.SD_Current, pdp.getCurrent(14));
   }
 
   public void updateSmartDashboardFromPreferences() {
@@ -148,10 +174,10 @@ public class ExampleSubsystem extends SubsystemBase {
     if (SmartDashboard.getBoolean(NetworkTableNames.SD_Flush, false)) {
       this.flushSmartDashboard();
     }
-
+/*
     if (SmartDashboard.getBoolean(NetworkTableNames.SD_Burn, false)){
       this.flushAndBurnPreferences();
-    }
+    }*/
 
 
     syncVelocityWithSmartDashboard();
