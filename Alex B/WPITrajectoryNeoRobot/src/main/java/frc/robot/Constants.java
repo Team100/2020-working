@@ -22,10 +22,10 @@ public class Constants {
     }
 
     public static class DTConstants {
-        public static final int TICKS_PER_REV = 8192;// 8192
+        public static final int TICKS_PER_REV = 42;// 8192
         public static final double WHEEL_DIAMETER = 0.1016; // Meters
 
-        public static final double KP = 0.0001; // 0.0001
+        public static final double KP = 0; // 0.0001
         public static final double KI = 0;
         public static final double KIZ = 0;
         public static final double KD = 0;
