@@ -68,8 +68,9 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
     leftMaster = new NeoCollection(Constants.LeftLeader.CAN_ID, Constants.LeftLeader.KP, Constants.LeftLeader.KI, Constants.LeftLeader.KD, Constants.LeftLeader.KIZ, Constants.LeftLeader.KF, -1, 1, 5777);
     rightMaster = new NeoCollection(Constants.RightLeader.CAN_ID, Constants.RightLeader.KP, Constants.RightLeader.KI, Constants.RightLeader.KD, Constants.RightLeader.KIZ, Constants.RightLeader.KF, -1, 1, 5777);
-
-
+    gyro = new ADXRS450_Gyro();
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
+    this.tankDriveSpeed(0, 0);
 
   }
 
@@ -119,16 +120,17 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void tankDriveSpeed(double leftSpeed, double rightSpeed){
+    System.out.println("Left Speed" +leftSpeed);
+    System.out.println("Right Speed"+rightSpeed);
     this.leftMaster.setSpeed(leftSpeed);
     this.rightMaster.setSpeed(rightSpeed);
   }
 
   public void tankDriveVelocity(double leftVel, double rightVel){
-    System.out.println(leftVel + ","+ rightVel);  
 
     double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
     double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
-
+    System.out.println(leftLeaderNativeVelocity + ","+ rightLeaderNativeVelocity);  
 
     this.leftMaster.setVelocity(leftLeaderNativeVelocity);
     this.rightMaster.setVelocity(rightLeaderNativeVelocity);
