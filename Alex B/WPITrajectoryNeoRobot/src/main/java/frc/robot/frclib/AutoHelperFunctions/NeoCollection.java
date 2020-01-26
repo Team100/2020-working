@@ -60,6 +60,8 @@ public class NeoCollection {
      */
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
+    public int inverted = 1;
+
     /**
      * Creates a NeoCollection object given the control parameters
      * @param id            The CANBus ID of the Motor
@@ -183,7 +185,7 @@ public class NeoCollection {
      * @return sensor velocity in RPM
      */
     public double getSensorVelocity(){
-        return this.encoder.getVelocity();
+        return this.encoder.getVelocity()*this.inverted;
     }
 
     /**
@@ -191,7 +193,7 @@ public class NeoCollection {
      * @return encoder position in ticks
      */
     public int getSensorPosition(){
-        return (int)this.encoder.getPosition()*Constants.DTConstants.TICKS_PER_REV;
+        return (int)(this.encoder.getPosition()*Constants.DTConstants.TICKS_PER_REV*this.inverted);
     }
 
     

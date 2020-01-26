@@ -71,6 +71,9 @@ public class Drivetrain extends SubsystemBase {
     gyro = new ADXRS450_Gyro();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
     this.tankDriveSpeed(0, 0);
+    resetEncoders();
+
+    leftMaster.inverted = -1;
 
   }
 
@@ -93,6 +96,7 @@ public class Drivetrain extends SubsystemBase {
       double vel = SmartDashboard.getNumber("vel", 0);
 
       leftMaster.pidController.setReference(vel, ControlType.kVelocity);
+      
       //leftMaster.motor.set(vel);
 
       SmartDashboard.putBoolean("UPDATE", false);
@@ -150,6 +154,7 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.encoder.setPosition(0);
   }
 
+ 
   public double getAverageEncoderDistance(){
     return (leftMaster.getSensorPosition() + leftMaster.getSensorPosition())/2.0;
   }
