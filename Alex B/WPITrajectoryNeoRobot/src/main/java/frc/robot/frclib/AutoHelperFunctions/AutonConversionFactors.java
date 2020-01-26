@@ -57,6 +57,14 @@ public class AutonConversionFactors {
 		return result;
 	}
 
+	public static final double convertTicksToMeters(int ticks, double wheelDiameter, int ticksPerRev){
+		double result = ticks;
+		double circumference = Math.PI*wheelDiameter;
+		double metersPerTick = circumference/ticksPerRev;
+		result = result * metersPerTick;
+		return result;
+	}
+
 
     
 }

@@ -25,9 +25,11 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 /**
  * Acts as an unifier of the several components needed for NEO control
@@ -111,6 +113,8 @@ public class NeoCollection {
         motor.restoreFactoryDefaults();
         pidController = motor.getPIDController();
         encoder = motor.getEncoder();
+
+        motor.setIdleMode(IdleMode.kBrake);
         this.configPIDController();
 
     }
@@ -186,8 +190,8 @@ public class NeoCollection {
      * Get the current position
      * @return encoder position in ticks
      */
-    public double getSensorPosition(){
-        return this.encoder.getPosition();
+    public int getSensorPosition(){
+        return (int)this.encoder.getPosition()*Constants.DTConstants.TICKS_PER_REV;
     }
 
     

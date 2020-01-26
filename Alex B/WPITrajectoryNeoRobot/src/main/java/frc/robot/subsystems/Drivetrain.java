@@ -97,6 +97,11 @@ public class Drivetrain extends SubsystemBase {
 
       SmartDashboard.putBoolean("UPDATE", false);
     }
+
+    double leftLeaderDistance = AutonConversionFactors.convertTicksToMeters(leftMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+    double rightLeaderDistance = AutonConversionFactors.convertTicksToMeters(rightMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+    odometry.update(Rotation2d.fromDegrees(getHeading()),leftLeaderDistance, rightLeaderDistance);
+
     
 
     SmartDashboard.putNumber("Current Velocity", leftMaster.encoder.getVelocity());
@@ -136,6 +141,7 @@ public class Drivetrain extends SubsystemBase {
     this.rightMaster.setVelocity(rightLeaderNativeVelocity);
 
     SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
+    SmartDashboard.putNumber("LeftSensorVelocity", this.leftMaster.getSensorVelocity());
     SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftMaster.getSensorVelocity());
   }
 

@@ -23,7 +23,7 @@ public class Constants {
 
     public static class DTConstants {
         public static final int TICKS_PER_REV = 8192;// 8192
-        public static final double WHEEL_DIAMETER = 0.333; // Feet
+        public static final double WHEEL_DIAMETER = 0.1016; // Meters
 
         public static final double KP = 0.0001; // 0.0027
         public static final double KI = 0;
@@ -32,9 +32,9 @@ public class Constants {
         public static final double KF = 0.00016;
         //public static final double KF = 11.41199782;
 
-        public static final double KS = 0.699;
-        public static final double KV = 0.694;
-        public static final double KA = 0.0993;
+        public static final double KS = 0.0759;
+        public static final double KV = 0.0199;
+        public static final double KA = 0.0017;
         public static final double VELOCITY_PER_100_MS_CONVERSION_FACTOR = 0;
 
         //public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(RobotCharacteristics.WHEELBASE_WIDTH);
