@@ -75,6 +75,8 @@ public class Drivetrain extends SubsystemBase {
 
     leftMaster.inverted = -1;
     rightMaster.inverted = 1;
+    tankDriveVelocity(10, 10);
+
 
   }
 
@@ -120,7 +122,6 @@ public class Drivetrain extends SubsystemBase {
     double rightLeaderDistance = AutonConversionFactors.convertTicksToMeters(rightMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
     odometry.update(Rotation2d.fromDegrees(getHeading()),leftLeaderDistance, rightLeaderDistance);
 
-    tankDriveVelocity(10, 10);
     
 
     SmartDashboard.putNumber("Current Velocity", leftMaster.encoder.getVelocity());
