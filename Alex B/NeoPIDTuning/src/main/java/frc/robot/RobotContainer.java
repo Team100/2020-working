@@ -7,23 +7,12 @@
 
 package frc.robot;
 
-import java.util.List;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.frclib.AutoHelperFunctions.CustomRamseteControllerAbstraction;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -65,32 +54,5 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
-  }
-  public Command createAutoNavigationCommand(Pose2d start, List<Translation2d> waypoints, Pose2d end) {
-    System.out.println("Creating Auto Command");
-    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(Constants.DTConstants.KS, Constants.DTConstants.KV, Constants.DTConstants.KA),
-        m_drivetrain.driveKinematics, 10);
-
-    // Create config for trajectory
-    TrajectoryConfig config = new TrajectoryConfig(Constants.Auto.MAX_VELOCITY, Constants.Auto.MAX_ACCELERATION)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(m_drivetrain.driveKinematics)
-        // Apply the voltage constraint
-        .addConstraint(autoVoltageConstraint);
-
-    // An example trajectory to follow. All units in meters.
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config);
-    System.out.println("Generated Trajectory");
-    RamseteCommand ramseteCommand = new RamseteCommand(trajectory, m_drivetrain::getPose,
-        new CustomRamseteControllerAbstraction(Constants.DTConstants.RAMSETE_B, Constants.DTConstants.RAMSETE_ZETA),
-
-        m_drivetrain.driveKinematics,
-       
-        m_drivetrain::tankDriveVelocity, m_drivetrain);
-
-    // Run path following command, then stop at the end.
-    System.out.println("Finished Creating Auto Command");
-    return ramseteCommand.andThen(() -> m_drivetrain.tankDriveSpeed(0, 0));
   }
 }
