@@ -169,6 +169,7 @@ public class NeoCollection {
      * @param speed speed of robot (-1 to 1)
      */
     public void setSpeed(double speed){
+        System.out.println("SETTING SPEED TO: "+speed);
         this.motor.set(speed);
     }
 

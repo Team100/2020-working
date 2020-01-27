@@ -132,20 +132,21 @@ public class Drivetrain extends SubsystemBase {
 
   public void tankDriveVelocity(double leftVel, double rightVel){
 
-    double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
-    double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
+    //double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
+    //double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
     //System.out.println(leftLeaderNativeVelocity + ","+ rightLeaderNativeVelocity);  
 
     //this.leftMaster.setVelocity(leftLeaderNativeVelocity);
     //this.rightMaster.setVelocity(rightLeaderNativeVelocity);
     this.leftMaster.setVelocity(leftVel);
     this.rightMaster.setVelocity(rightVel);
-    SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
+    
+    //SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
     SmartDashboard.putNumber("LeftSensorVelocity", this.leftMaster.getSensorVelocity());
     SmartDashboard.putNumber("RighttSensorVelocity", this.rightMaster.getSensorVelocity());
     SmartDashboard.putNumber("Left Applied Output", this.leftMaster.motor.getAppliedOutput());
 
-    SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftMaster.getSensorVelocity());
+    //SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftMaster.getSensorVelocity());
   }
 
   public void resetEncoders(){
