@@ -60,7 +60,7 @@ public class AutonConversionFactors {
 		double circumference = Math.PI*wheelDiameter;
 		double metersPerTick = circumference/ticksPerRev;
 		result = result * metersPerTick;
-		return result;
+		return result/4;
 	}
 
 
