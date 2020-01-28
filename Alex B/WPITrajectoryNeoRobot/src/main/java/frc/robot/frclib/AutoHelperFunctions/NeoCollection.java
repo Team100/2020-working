@@ -75,8 +75,8 @@ public class NeoCollection {
      * @param maxRPM        The Max velocity in RPM
      */
 
-    public NeoCollection(int id, double kP, double kI, double kD, double kIz, double kFF, double kMaxOutput,
-            double kMinOutput, double maxRPM) {
+    public NeoCollection(int id, double kP, double kI, double kD, double kIz, double kFF, double kMinOutput,
+            double kMaxOutput, double maxRPM) {
         this.id = id;
         this.kP = kP;
         this.kI = kI;
@@ -131,6 +131,7 @@ public class NeoCollection {
         pidController.setIZone(this.kIz);
         pidController.setFF(this.kFF);
         pidController.setOutputRange(this.kMinOutput, this.kMaxOutput);
+        System.out.println("Min Output"+this.kMinOutput);
         
 
         SmartDashboard.putNumber("PID Controller kP", pidController.getP());
@@ -178,7 +179,7 @@ public class NeoCollection {
      * @param velocity the velocity to set (in RPM)
      */
     public void setVelocity(double velocity){
-        this.pidController.setReference(velocity, ControlType.kVelocity);
+        this.pidController.setReference(velocity*this.inverted, ControlType.kVelocity);
     }
 
     /**

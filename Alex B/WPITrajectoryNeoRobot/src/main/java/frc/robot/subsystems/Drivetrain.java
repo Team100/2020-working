@@ -73,9 +73,8 @@ public class Drivetrain extends SubsystemBase {
     this.tankDriveSpeed(0, 0);
     resetEncoders();
 
-    leftMaster.inverted = 1;
+    leftMaster.inverted = -1;
     rightMaster.inverted = 1;
-    tankDriveVelocity(.5, .5);
 
 
   }
@@ -95,7 +94,6 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
-    this.tankDriveVelocity(0.5, 0.5);
 
     double leftLeaderDistance = AutonConversionFactors.convertTicksToMeters(leftMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
     double rightLeaderDistance = AutonConversionFactors.convertTicksToMeters(rightMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
@@ -132,14 +130,14 @@ public class Drivetrain extends SubsystemBase {
 
   public void tankDriveVelocity(double leftVel, double rightVel){
 
-    //double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
-    //double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
-    //System.out.println(leftLeaderNativeVelocity + ","+ rightLeaderNativeVelocity);  
+    double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
+    double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
+    System.out.println(leftLeaderNativeVelocity + ","+ rightLeaderNativeVelocity);  
 
-    //this.leftMaster.setVelocity(leftLeaderNativeVelocity);
-    //this.rightMaster.setVelocity(rightLeaderNativeVelocity);
-    this.leftMaster.setVelocity(leftVel);
-    this.rightMaster.setVelocity(rightVel);
+    this.leftMaster.setVelocity(leftLeaderNativeVelocity);
+    this.rightMaster.setVelocity(rightLeaderNativeVelocity);
+    //this.leftMaster.setVelocity(leftVel);
+    //this.rightMaster.setVelocity(rightVel);
     
     //SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
     SmartDashboard.putNumber("LeftSensorVelocity", this.leftMaster.getSensorVelocity());

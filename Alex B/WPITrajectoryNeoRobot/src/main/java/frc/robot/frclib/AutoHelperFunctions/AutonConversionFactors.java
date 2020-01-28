@@ -28,6 +28,7 @@ public class AutonConversionFactors {
 	///////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
+	 * 
 	 * Convert velocities from Revolutions per Minute to Meters per Second
 	 * @param neoVelocity 	the native velocity of a NEO in RPM
 	 * @param wheelDiameter the width of the wheel in meters
@@ -35,12 +36,8 @@ public class AutonConversionFactors {
 	 * @return 				the velocity of the Neo in Meters per Second (WPILib Trajectory)
 	 */
 	public static final double convertRPMToMpS(double neoVelocity, double wheelDiameter, double gearingRatio){
-		neoVelocity = neoVelocity * gearingRatio;
-		double angularSpeed = 2 * Math.PI * (neoVelocity/60);
-		double radius = 0.5*wheelDiameter;
-		double linearSpeed = radius * angularSpeed;
-		return linearSpeed;
-
+		double result = (neoVelocity * Math.PI * wheelDiameter)/(60*gearingRatio);
+		return result;
 	}
 
 	/**
@@ -51,9 +48,10 @@ public class AutonConversionFactors {
 	 * @return					the velocity from Trajectory in Revolutions per Minute (NEO)
 	 */
 	public static final double convertMpSToRPM(double metersPerSecond, double wheelDiameter, double gearingRatio){
-		double radius = 0.5*wheelDiameter;
-		double result = (60/(2*Math.PI*radius))*metersPerSecond;
-		result = result * 1/gearingRatio; //TODO check that this is the correct math	
+		double result = (metersPerSecond/(Math.PI*wheelDiameter))*gearingRatio*60;
+			// meters/sec * gearRatio * 60
+			//-------------------------------
+			//         pi * diameter
 		return result;
 	}
 
