@@ -16,4 +16,6 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final int LEFT_SPX_CANID = 1; //Type: CAN ID
+    public static final int RIGHT_SPX_CANID = 2; //Type: CAN ID
 }
