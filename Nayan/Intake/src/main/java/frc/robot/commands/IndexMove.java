@@ -3,20 +3,21 @@ package frc.robot.commands;
 
 import frc.robot.*;
 import frc.robot.subsystems.Indexer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
 public class IndexMove extends CommandBase {
-  private final Indexer m_subsystem;
+  // private final Indexer m_subsystem;
 
 
-  public IndexMove(Indexer subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
-  }
+  // public IndexMove(Indexer subsystem) {
+  //   m_subsystem = subsystem;
+  //   // Use addRequirements() here to declare subsystem dependencies.
+  //   addRequirements(subsystem);
+  // }
 
   // Called when the command is initially scheduled.
   @Override
@@ -27,6 +28,7 @@ public class IndexMove extends CommandBase {
   @Override
   public void execute() {
       Indexer.foward();
+      SmartDashboard.putString("MoveFowardCalled", "yes");
   }
 
   // Called once the command ends or is interrupted.
