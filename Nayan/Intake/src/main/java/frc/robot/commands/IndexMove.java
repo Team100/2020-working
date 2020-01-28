@@ -1,6 +1,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.*;
 import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -8,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * An example command that uses an example subsystem.
  */
 public class IndexMove extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Indexer m_subsystem;
 
 
@@ -26,6 +26,7 @@ public class IndexMove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+      Indexer.foward();
   }
 
   // Called once the command ends or is interrupted.
