@@ -24,6 +24,7 @@ public class Indexer extends SubsystemBase {
   public static void foward() {
     leftSpx.set(ControlMode.PercentOutput, 50);
     rightSpx.set(ControlMode.PercentOutput, 50);
+    SmartDashboard.putString("fowardCall", "yes");
   }
 
   @Override
