@@ -111,12 +111,14 @@ public class NeoCollection {
         // It uses Constants.java as the base for the configuration. //
         // Please make any changes in Constants.java                 //
         ///////////////////////////////////////////////////////////////
-
         motor.restoreFactoryDefaults();
         pidController = motor.getPIDController();
         encoder = motor.getEncoder();
 
+        motor.setIdleMode(IdleMode.kCoast);
+        motor.burnFlash();
         motor.setIdleMode(IdleMode.kBrake);
+
         this.configPIDController();
 
     }
@@ -131,6 +133,7 @@ public class NeoCollection {
         pidController.setIZone(this.kIz);
         pidController.setFF(this.kFF);
         pidController.setOutputRange(this.kMinOutput, this.kMaxOutput);
+        
         System.out.println("Min Output"+this.kMinOutput);
         
 

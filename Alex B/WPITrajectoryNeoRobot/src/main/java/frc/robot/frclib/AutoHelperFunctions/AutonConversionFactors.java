@@ -12,6 +12,7 @@ package frc.robot.frclib.AutoHelperFunctions;
  * Handles conversions between NEO/Spark MAX, WPILib, and Real World units
  */
 public class AutonConversionFactors {
+	public static final double conversionFactor = 6;
     ///////////////////////////////////////////////////////////////////////////////////////////
 	//                                                                                       //
 	// Understanding WPILib and Spark MAX Units                                              //
@@ -36,7 +37,7 @@ public class AutonConversionFactors {
 	 * @return 				the velocity of the Neo in Meters per Second (WPILib Trajectory)
 	 */
 	public static final double convertRPMToMpS(double neoVelocity, double wheelDiameter, double gearingRatio){
-		double result = (neoVelocity * Math.PI * wheelDiameter)/(60*gearingRatio);
+		double result = (neoVelocity * Math.PI * wheelDiameter)/(60*gearingRatio)/4;
 		return result;
 	}
 
@@ -48,7 +49,7 @@ public class AutonConversionFactors {
 	 * @return					the velocity from Trajectory in Revolutions per Minute (NEO)
 	 */
 	public static final double convertMpSToRPM(double metersPerSecond, double wheelDiameter, double gearingRatio){
-		double result = (metersPerSecond/(Math.PI*wheelDiameter))*gearingRatio*60;
+		double result = (metersPerSecond/(Math.PI*wheelDiameter))*gearingRatio*60*conversionFactor;
 			// meters/sec * gearRatio * 60
 			//-------------------------------
 			//         pi * diameter
@@ -60,7 +61,7 @@ public class AutonConversionFactors {
 		double circumference = Math.PI*wheelDiameter;
 		double metersPerTick = circumference/ticksPerRev;
 		result = result * metersPerTick;
-		return result/4;
+		return result/conversionFactor;
 	}
 
 
