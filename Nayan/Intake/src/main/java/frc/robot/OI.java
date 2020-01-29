@@ -22,7 +22,7 @@ public class OI {
         stick = new Joystick(0);
         IndexMove = new JoystickButton(stick, 1);
 
-        IndexMove.whenPressed(new IndexMove());
+        IndexMove.whileHeld(new IndexMove());
     }
 
     public Joystick stick() {

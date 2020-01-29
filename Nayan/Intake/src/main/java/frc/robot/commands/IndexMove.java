@@ -21,21 +21,18 @@ public class IndexMove extends CommandBase {
   // }
 
   public IndexMove() {
-    Indexer.foward();
-    SmartDashboard.putString("MoveFowardCalled", "yes");
+    //Indexer.foward();
 }
 
 // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putString("initialized", "yes");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
       Indexer.foward();
-      SmartDashboard.putString("MoveFowardCalled", "yes");
   }
 
   // Called once the command ends or is interrupted.

@@ -17,22 +17,20 @@ public class Indexer extends SubsystemBase {
     leftSpx.configPeakOutputForward(0.5);
     leftSpx.configPeakOutputReverse(-0.5);
 
-    // rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
-    rightSpx = new WPI_VictorSPX(0);
+    rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
     rightSpx.configPeakOutputForward(0.5);
     rightSpx.configPeakOutputReverse(-0.5);
   }
 
   public static void foward() {
-    leftSpx.set(ControlMode.PercentOutput, 50);
-    rightSpx.set(ControlMode.PercentOutput, 50);
-    SmartDashboard.putString("fowardCall", "yes");
+    leftSpx.set(ControlMode.PercentOutput, 0.15);
+    rightSpx.set(ControlMode.PercentOutput, 0.15);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putString("periodic", "yes");
-    
+    leftSpx.set(ControlMode.PercentOutput, 0.00);
+    rightSpx.set(ControlMode.PercentOutput, 0.00);
 
   }
 }
