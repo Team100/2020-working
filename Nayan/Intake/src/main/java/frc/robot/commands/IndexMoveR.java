@@ -1,4 +1,3 @@
-
 package frc.robot.commands;
 
 import frc.robot.*;
@@ -9,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class IndexMove extends CommandBase {
+public class IndexMoveR extends CommandBase {
   // private final Indexer m_subsystem;
 
 
@@ -20,8 +19,8 @@ public class IndexMove extends CommandBase {
     
   // }
 
-  public IndexMove() {
-    //Indexer.foward();
+  public IndexMoveR() {
+    Indexer.RightFoward();
 }
 
 // Called when the command is initially scheduled.
@@ -32,7 +31,7 @@ public class IndexMove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Indexer.LeftFoward();
+    Indexer.RightFoward();
   }
   // Called once the command ends or is interrupted.
   @Override

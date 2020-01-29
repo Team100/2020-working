@@ -22,10 +22,13 @@ public class Indexer extends SubsystemBase {
     rightSpx.configPeakOutputReverse(-0.5);
   }
 
-  public static void foward() {
-    leftSpx.set(ControlMode.PercentOutput, 0.15);
-    rightSpx.set(ControlMode.PercentOutput, 0.15);
+  public static void LeftFoward() {
+    leftSpx.set(ControlMode.PercentOutput, 0.30);
   }
+
+public static void RightFoward() {
+  rightSpx.set(ControlMode.PercentOutput, 0.30);
+}
 
   @Override
   public void periodic() {
