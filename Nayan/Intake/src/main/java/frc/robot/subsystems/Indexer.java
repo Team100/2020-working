@@ -10,13 +10,15 @@ import frc.robot.Constants;
 public class Indexer extends SubsystemBase {
   private static WPI_VictorSPX leftSpx;
   private static WPI_VictorSPX rightSpx;
+  
 
   public Indexer() {
     leftSpx = new WPI_VictorSPX(Constants.LEFT_SPX_CANID);
     leftSpx.configPeakOutputForward(0.5);
     leftSpx.configPeakOutputReverse(-0.5);
 
-    rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
+    // rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
+    rightSpx = new WPI_VictorSPX(0);
     rightSpx.configPeakOutputForward(0.5);
     rightSpx.configPeakOutputReverse(-0.5);
   }
@@ -29,6 +31,8 @@ public class Indexer extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putString("periodic", "yes");
+    
+
   }
 }

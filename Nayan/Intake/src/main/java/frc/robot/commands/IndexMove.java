@@ -14,14 +14,21 @@ public class IndexMove extends CommandBase {
 
 
   // public IndexMove(Indexer subsystem) {
-  //   m_subsystem = subsystem;
-  //   // Use addRequirements() here to declare subsystem dependencies.
+  // //   m_subsystem = subsystem;
+  // //   // Use addRequirements() here to declare subsystem dependencies.
   //   addRequirements(subsystem);
+    
   // }
 
-  // Called when the command is initially scheduled.
+  public IndexMove() {
+    Indexer.foward();
+    SmartDashboard.putString("MoveFowardCalled", "yes");
+}
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putString("initialized", "yes");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

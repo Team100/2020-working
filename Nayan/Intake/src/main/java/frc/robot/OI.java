@@ -15,11 +15,14 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class OI {
 
-    Joystick stick = new Joystick(0);
-    Button IndexMove = new JoystickButton(stick, 1);
+    private Joystick stick;
+    private JoystickButton IndexMove;
 
     public OI() {
-        IndexMove.whileHeld(new IndexMove());
+        stick = new Joystick(0);
+        IndexMove = new JoystickButton(stick, 1);
+
+        IndexMove.whenPressed(new IndexMove());
     }
 
     public Joystick stick() {
