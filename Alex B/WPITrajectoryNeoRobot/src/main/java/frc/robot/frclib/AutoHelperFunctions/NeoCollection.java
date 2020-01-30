@@ -25,9 +25,11 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 /**
  * Acts as an unifier of the several components needed for NEO control
@@ -58,6 +60,8 @@ public class NeoCollection {
      */
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
+    public int inverted = 1;
+
     /**
      * Creates a NeoCollection object given the control parameters
      * @param id            The CANBus ID of the Motor
@@ -71,8 +75,8 @@ public class NeoCollection {
      * @param maxRPM        The Max velocity in RPM
      */
 
-    public NeoCollection(int id, double kP, double kI, double kD, double kIz, double kFF, double kMaxOutput,
-            double kMinOutput, double maxRPM) {
+    public NeoCollection(int id, double kP, double kI, double kD, double kIz, double kFF, double kMinOutput,
+            double kMaxOutput, double maxRPM) {
         this.id = id;
         this.kP = kP;
         this.kI = kI;
@@ -107,10 +111,14 @@ public class NeoCollection {
         // It uses Constants.java as the base for the configuration. //
         // Please make any changes in Constants.java                 //
         ///////////////////////////////////////////////////////////////
-
         motor.restoreFactoryDefaults();
         pidController = motor.getPIDController();
         encoder = motor.getEncoder();
+
+        motor.setIdleMode(IdleMode.kCoast);
+        motor.burnFlash();
+        motor.setIdleMode(IdleMode.kBrake);
+
         this.configPIDController();
 
     }
@@ -125,6 +133,8 @@ public class NeoCollection {
         pidController.setIZone(this.kIz);
         pidController.setFF(this.kFF);
         pidController.setOutputRange(this.kMinOutput, this.kMaxOutput);
+        
+        System.out.println("Min Output"+this.kMinOutput);
         
 
         SmartDashboard.putNumber("PID Controller kP", pidController.getP());
@@ -163,6 +173,7 @@ public class NeoCollection {
      * @param speed speed of robot (-1 to 1)
      */
     public void setSpeed(double speed){
+        System.out.println("SETTING SPEED TO: "+speed);
         this.motor.set(speed);
     }
 
@@ -171,7 +182,7 @@ public class NeoCollection {
      * @param velocity the velocity to set (in RPM)
      */
     public void setVelocity(double velocity){
-        this.pidController.setReference(velocity, ControlType.kVelocity);
+        this.pidController.setReference(velocity*this.inverted, ControlType.kVelocity);
     }
 
     /**
@@ -179,15 +190,15 @@ public class NeoCollection {
      * @return sensor velocity in RPM
      */
     public double getSensorVelocity(){
-        return this.encoder.getVelocity();
+        return this.encoder.getVelocity()*this.inverted;
     }
 
     /**
      * Get the current position
      * @return encoder position in ticks
      */
-    public double getSensorPosition(){
-        return this.encoder.getPosition();
+    public int getSensorPosition(){
+        return (int)(this.encoder.getPosition()*Constants.DTConstants.TICKS_PER_REV*this.inverted);
     }
 
     

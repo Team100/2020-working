@@ -12,6 +12,7 @@ package frc.robot.frclib.AutoHelperFunctions;
  * Handles conversions between NEO/Spark MAX, WPILib, and Real World units
  */
 public class AutonConversionFactors {
+	public static final double conversionFactor = 4;
     ///////////////////////////////////////////////////////////////////////////////////////////
 	//                                                                                       //
 	// Understanding WPILib and Spark MAX Units                                              //
@@ -28,6 +29,7 @@ public class AutonConversionFactors {
 	///////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
+	 * 
 	 * Convert velocities from Revolutions per Minute to Meters per Second
 	 * @param neoVelocity 	the native velocity of a NEO in RPM
 	 * @param wheelDiameter the width of the wheel in meters
@@ -35,12 +37,10 @@ public class AutonConversionFactors {
 	 * @return 				the velocity of the Neo in Meters per Second (WPILib Trajectory)
 	 */
 	public static final double convertRPMToMpS(double neoVelocity, double wheelDiameter, double gearingRatio){
-		neoVelocity = neoVelocity * gearingRatio;
-		double angularSpeed = 2 * Math.PI * (neoVelocity/60);
-		double radius = 0.5*wheelDiameter;
-		double linearSpeed = radius * angularSpeed;
-		return linearSpeed;
-
+		double rpmAtWheel = neoVelocity * (1/gearingRatio);
+		double rotationsPerSecond = rpmAtWheel * (1/60);
+		double mps = rotationsPerSecond * wheelDiameter;
+		return mps;
 	}
 
 	/**
@@ -51,10 +51,24 @@ public class AutonConversionFactors {
 	 * @return					the velocity from Trajectory in Revolutions per Minute (NEO)
 	 */
 	public static final double convertMpSToRPM(double metersPerSecond, double wheelDiameter, double gearingRatio){
-		double radius = 0.5*wheelDiameter;
-		double result = (60/(2*Math.PI*radius))*metersPerSecond;
-		result = result * 1/gearingRatio; //TODO check that this is the correct math	
+		//double result = ((metersPerSecond*60*conversionFactor)/(Math.PI*wheelDiameter*gearingRatio));
+			// meters/sec * gearRatio * 60
+			//-------------------------------
+			//         pi * diameter
+
+		double result = (metersPerSecond)*(60/1)*(1/(Math.PI*wheelDiameter))*gearingRatio;
+
+		// (m/s)*(s/min)*(rev/m)*(motorTurn/wheelTurn)
 		return result;
+	}
+
+	public static final double convertTicksToMeters(int ticks, double wheelDiameter, int ticksPerRev){
+		double circumference = Math.PI*wheelDiameter;
+		double gearingRatio = 6;
+		double revolutionsAtMotor = ticks * 1/ticksPerRev;
+		double revolutionsAtWheel = revolutionsAtMotor * 1/gearingRatio;
+		double meters = revolutionsAtWheel * circumference;
+		return meters;
 	}
 
 

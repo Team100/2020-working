@@ -68,7 +68,13 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
     leftMaster = new NeoCollection(Constants.LeftLeader.CAN_ID, Constants.LeftLeader.KP, Constants.LeftLeader.KI, Constants.LeftLeader.KD, Constants.LeftLeader.KIZ, Constants.LeftLeader.KF, -1, 1, 5777);
     rightMaster = new NeoCollection(Constants.RightLeader.CAN_ID, Constants.RightLeader.KP, Constants.RightLeader.KI, Constants.RightLeader.KD, Constants.RightLeader.KIZ, Constants.RightLeader.KF, -1, 1, 5777);
-
+    gyro = new ADXRS450_Gyro();
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
+    this.tankDriveSpeed(0, 0);
+    resetEncoders();
+    zeroHeading();
+    leftMaster.inverted = -1;
+    rightMaster.inverted = 1;
 
 
   }
@@ -78,24 +84,21 @@ public class Drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
     if(SmartDashboard.getBoolean("UPDATE", false)){
       System.out.println("UPDATING");
-      double kP     = SmartDashboard.getNumber("kP"   , 0);
-      double kI     = SmartDashboard.getNumber("kI"   , 0);
-      double kD     = SmartDashboard.getNumber("kD"   , 0);
-      double kIz    = SmartDashboard.getNumber("kIz"  , 0);
-      double kF     = SmartDashboard.getNumber("kF"   , 0);
-      double kMIN   = SmartDashboard.getNumber("min"  , 0);
-      double kMAX   = SmartDashboard.getNumber("max"  , 0);
-      double kRPM_M = SmartDashboard.getNumber("RPM_M", 0); //MAX RPM
-
-      leftMaster.configPIDController(kP, kI, kD, kIz, kF, kMIN, kMAX, kRPM_M);
-      rightMaster.configPIDController(kP, kI, kD, kIz, kF, kMIN, kMAX, kRPM_M);
+  
       double vel = SmartDashboard.getNumber("vel", 0);
 
-      leftMaster.pidController.setReference(vel, ControlType.kVelocity);
+      
       //leftMaster.motor.set(vel);
 
       SmartDashboard.putBoolean("UPDATE", false);
+
     }
+
+
+    double leftLeaderDistance = AutonConversionFactors.convertTicksToMeters(leftMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+    double rightLeaderDistance = AutonConversionFactors.convertTicksToMeters(rightMaster.getSensorPosition(), Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.TICKS_PER_REV);
+    odometry.update(Rotation2d.fromDegrees(getHeading()),leftLeaderDistance, rightLeaderDistance);
+
     
 
     SmartDashboard.putNumber("Current Velocity", leftMaster.encoder.getVelocity());
@@ -119,22 +122,29 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void tankDriveSpeed(double leftSpeed, double rightSpeed){
+    System.out.println("Left Speed" +leftSpeed);
+    System.out.println("Right Speed"+rightSpeed);
     this.leftMaster.setSpeed(leftSpeed);
     this.rightMaster.setSpeed(rightSpeed);
   }
 
   public void tankDriveVelocity(double leftVel, double rightVel){
-    System.out.println(leftVel + ","+ rightVel);  
 
     double leftLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(leftVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
     double rightLeaderNativeVelocity = AutonConversionFactors.convertMpSToRPM(rightVel, Constants.DTConstants.WHEEL_DIAMETER, Constants.DTConstants.GEARING_RATIO);
-
+    System.out.println(leftLeaderNativeVelocity + ","+ rightLeaderNativeVelocity);  
 
     this.leftMaster.setVelocity(leftLeaderNativeVelocity);
     this.rightMaster.setVelocity(rightLeaderNativeVelocity);
+    //this.leftMaster.setVelocity(leftVel);
+    //this.rightMaster.setVelocity(rightVel);
+    
+    //SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
+    SmartDashboard.putNumber("LeftSensorVelocity", this.leftMaster.getSensorVelocity());
+    SmartDashboard.putNumber("RighttSensorVelocity", this.rightMaster.getSensorVelocity());
+    SmartDashboard.putNumber("Left Applied Output", this.leftMaster.motor.getAppliedOutput());
 
-    SmartDashboard.putNumber("LeftIntentedVelocity", leftLeaderNativeVelocity);
-    SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftMaster.getSensorVelocity());
+    //SmartDashboard.putNumber("LeftIntendedVsActual", leftLeaderNativeVelocity-this.leftMaster.getSensorVelocity());
   }
 
   public void resetEncoders(){
@@ -142,6 +152,7 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.encoder.setPosition(0);
   }
 
+ 
   public double getAverageEncoderDistance(){
     return (leftMaster.getSensorPosition() + leftMaster.getSensorPosition())/2.0;
   }
