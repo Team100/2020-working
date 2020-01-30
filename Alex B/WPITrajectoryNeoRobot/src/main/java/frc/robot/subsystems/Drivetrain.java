@@ -72,7 +72,7 @@ public class Drivetrain extends SubsystemBase {
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(this.getHeading()));
     this.tankDriveSpeed(0, 0);
     resetEncoders();
-
+    zeroHeading();
     leftMaster.inverted = -1;
     rightMaster.inverted = 1;
 
