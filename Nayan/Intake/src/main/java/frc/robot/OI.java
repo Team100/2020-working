@@ -21,16 +21,19 @@ public class OI {
     private JoystickButton IndexMoveL;
     private JoystickButton IndexMoveR;
     private JoystickButton IndexMoveEnd;
+    private JoystickButton IndexMoveUp;
 
     public OI() {
         stick = new Joystick(0);
         IndexMoveL = new JoystickButton(stick, 1);
         IndexMoveR = new JoystickButton(stick, 2);
         IndexMoveEnd = new JoystickButton(stick, 3);
+        IndexMoveUp = new JoystickButton(stick, 4);
 
         IndexMoveR.whileHeld(new IndexMoveR());
         IndexMoveL.whileHeld(new IndexMove());
         IndexMoveEnd.whenPressed(new IndexMoveEnd());
+        IndexMoveUp.whenPressed(new IndexMoveEnd());
     }
 
     public Joystick stick() {

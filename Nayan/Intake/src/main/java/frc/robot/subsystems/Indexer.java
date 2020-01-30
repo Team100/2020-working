@@ -43,12 +43,27 @@ public class Indexer extends SubsystemBase {
 
   public static void TillStop() {
     while (outSensor.get()) {
-  leftSpx.set(ControlMode.PercentOutput, 0.3);
-  rightSpx.set(ControlMode.PercentOutput, 0.3);
+      leftSpx.set(ControlMode.PercentOutput, 0.3);
+      rightSpx.set(ControlMode.PercentOutput, 0.3);
+    }
+    leftSpx.set(ControlMode.PercentOutput, 0.0);
+    rightSpx.set(ControlMode.PercentOutput, 0.0);
   }
-  leftSpx.set(ControlMode.PercentOutput, 0.0);
-  rightSpx.set(ControlMode.PercentOutput, 0.0);
+
+  public static void MoveUp() {
+
+    leftSpx.set(ControlMode.PercentOutput, 0.3);
+    rightSpx.set(ControlMode.PercentOutput, 0.3);
+    try {
+      Thread.sleep(100);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+leftSpx.set(ControlMode.PercentOutput, 0.0);
+rightSpx.set(ControlMode.PercentOutput, 0.0);
 }
+
 
   @Override
   public void periodic() {
