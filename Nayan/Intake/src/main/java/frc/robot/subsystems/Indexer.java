@@ -11,8 +11,8 @@ import frc.robot.Constants;
 public class Indexer extends SubsystemBase {
   private static WPI_VictorSPX leftSpx;
   private static WPI_VictorSPX rightSpx;
-  DigitalInput frontSensor = new DigitalInput(1);
-  DigitalInput outSensor = new DigitalInput(0);
+  static DigitalInput frontSensor = new DigitalInput(1);
+  static DigitalInput outSensor = new DigitalInput(0);
 
   public Indexer() {
     leftSpx = new WPI_VictorSPX(Constants.LEFT_SPX_CANID);
@@ -32,9 +32,22 @@ public class Indexer extends SubsystemBase {
     leftSpx.set(ControlMode.PercentOutput, leftSpeed);
   }
 
-public static void RightFoward() {
-  double rightSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
-  rightSpx.set(ControlMode.PercentOutput, rightSpeed);
+  public static void RightFoward() {
+    double rightSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
+    rightSpx.set(ControlMode.PercentOutput, rightSpeed);
+  }
+
+  public static void FowardOne() {
+
+  }
+
+  public static void TillStop() {
+    while (outSensor.get()) {
+  leftSpx.set(ControlMode.PercentOutput, 0.3);
+  rightSpx.set(ControlMode.PercentOutput, 0.3);
+  }
+  leftSpx.set(ControlMode.PercentOutput, 0.0);
+  rightSpx.set(ControlMode.PercentOutput, 0.0);
 }
 
   @Override

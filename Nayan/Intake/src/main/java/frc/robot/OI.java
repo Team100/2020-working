@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexMove;
 import frc.robot.commands.IndexMoveR;
+import frc.robot.commands.IndexMoveEnd;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,14 +20,17 @@ public class OI {
     private Joystick stick;
     private JoystickButton IndexMoveL;
     private JoystickButton IndexMoveR;
+    private JoystickButton IndexMoveEnd;
 
     public OI() {
         stick = new Joystick(0);
         IndexMoveL = new JoystickButton(stick, 1);
         IndexMoveR = new JoystickButton(stick, 2);
+        IndexMoveEnd = new JoystickButton(stick, 3);
 
         IndexMoveR.whileHeld(new IndexMoveR());
         IndexMoveL.whileHeld(new IndexMove());
+        IndexMoveEnd.whenPressed(new IndexMoveEnd());
     }
 
     public Joystick stick() {
