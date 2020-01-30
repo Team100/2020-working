@@ -20,14 +20,19 @@ public class Indexer extends SubsystemBase {
     rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
     rightSpx.configPeakOutputForward(0.5);
     rightSpx.configPeakOutputReverse(-0.5);
+
+    SmartDashboard.putNumber("PercentOutLeft", 0.3);
+    SmartDashboard.putNumber("PercentOutRight", 0.3);
   }
 
   public static void LeftFoward() {
-    leftSpx.set(ControlMode.PercentOutput, 0.30);
+    double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
+    leftSpx.set(ControlMode.PercentOutput, leftSpeed);
   }
 
 public static void RightFoward() {
-  rightSpx.set(ControlMode.PercentOutput, 0.30);
+  double rightSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
+  rightSpx.set(ControlMode.PercentOutput, rightSpeed);
 }
 
   @Override
