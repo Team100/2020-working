@@ -12,7 +12,7 @@ package frc.robot.frclib.AutoHelperFunctions;
  * Handles conversions between NEO/Spark MAX, WPILib, and Real World units
  */
 public class AutonConversionFactors {
-	public static final double conversionFactor = 1;
+	public static final double conversionFactor = 4;
     ///////////////////////////////////////////////////////////////////////////////////////////
 	//                                                                                       //
 	// Understanding WPILib and Spark MAX Units                                              //
@@ -37,8 +37,10 @@ public class AutonConversionFactors {
 	 * @return 				the velocity of the Neo in Meters per Second (WPILib Trajectory)
 	 */
 	public static final double convertRPMToMpS(double neoVelocity, double wheelDiameter, double gearingRatio){
-		double result = (neoVelocity * Math.PI * wheelDiameter)/(60*gearingRatio)/conversionFactor;
-		return result;
+		double rpmAtWheel = neoVelocity * (1/gearingRatio);
+		double rotationsPerSecond = rpmAtWheel * (1/60);
+		double mps = rotationsPerSecond * wheelDiameter;
+		return mps;
 	}
 
 	/**
@@ -49,19 +51,24 @@ public class AutonConversionFactors {
 	 * @return					the velocity from Trajectory in Revolutions per Minute (NEO)
 	 */
 	public static final double convertMpSToRPM(double metersPerSecond, double wheelDiameter, double gearingRatio){
-		double result = (metersPerSecond/(Math.PI*wheelDiameter*gearingRatio))*60*conversionFactor;
+		//double result = ((metersPerSecond*60*conversionFactor)/(Math.PI*wheelDiameter*gearingRatio));
 			// meters/sec * gearRatio * 60
 			//-------------------------------
 			//         pi * diameter
+
+		double result = (metersPerSecond)*(60/1)*(1/(Math.PI*wheelDiameter))*gearingRatio;
+
+		// (m/s)*(s/min)*(rev/m)*(motorTurn/wheelTurn)
 		return result;
 	}
 
 	public static final double convertTicksToMeters(int ticks, double wheelDiameter, int ticksPerRev){
-		double result = ticks;
 		double circumference = Math.PI*wheelDiameter;
-		double metersPerTick = circumference/ticksPerRev;
-		result = result * metersPerTick;
-		return result/conversionFactor;
+		double gearingRatio = 6;
+		double revolutionsAtMotor = ticks * 1/ticksPerRev;
+		double revolutionsAtWheel = revolutionsAtMotor * 1/gearingRatio;
+		double meters = revolutionsAtWheel * circumference;
+		return meters;
 	}
 
 
