@@ -6,6 +6,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexMove;
 import frc.robot.commands.IndexMoveR;
 import frc.robot.commands.IndexMoveEnd;
+import frc.robot.commands.IndexMoveUp;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.Command;
