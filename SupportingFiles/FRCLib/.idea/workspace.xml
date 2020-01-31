@@ -13,6 +13,13 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -26,6 +33,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateBuilderDialog.RecentsKey">
+      <recent name="frc.robot.FRCLib.Motors.talonsrx" />
       <recent name="frc.robot.FRCLib.Motors" />
     </key>
   </component>
@@ -52,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1580457122926</updated>
       <workItem from="1580457128434" duration="771000" />
-      <workItem from="1580457967970" duration="1353000" />
+      <workItem from="1580457967970" duration="2248000" />
     </task>
     <servers />
   </component>
