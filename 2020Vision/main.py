@@ -8,28 +8,11 @@ import numpy as np
 import pipeline
 import pyrealsense2 as rs
 import socket
-import subprocess
-import sys
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
 config = parse_json(open("config.json"), object_hook=lambda d: namedtuple("Config", d.keys())(*d.values()))
-
-
-def set_exposure():
-    devices = subprocess.run("ls /dev/video*", stdout=subprocess.PIPE, shell=True).stdout.decode("utf-8").strip().split("\n")
-    realsense = []
-    for device in devices:
-        properties = {property_string.split("=")[0]: property_string.split("=")[1] for property_string in subprocess.run(f"udevadm info -n {device} -q property", stdout=subprocess.PIPE, shell=True).stdout.decode("utf-8").strip().split("\n")}
-        if properties["ID_VENDOR_ID"] == "8086" and properties["MAJOR"] == "81":
-            realsense.append(device)
-
-    if len(realsense) == 0:
-        print("No RealSense camera connected! Please connect one and restart.")
-        sys.exit(1)
-
-    subprocess.run(f"v4l2-ctl --device /dev/video{realsense[-2][-1]} --set-ctrl=exposure_auto=1", shell=True, check=True)
-    subprocess.run(f"v4l2-ctl --device /dev/video{realsense[-2][-1]} --set-ctrl=exposure_absolute={config.camera.exposure}", shell=True, check=True)
+color_sensor = None
 
 
 # Create live config updater
@@ -45,7 +28,8 @@ class FileWatcher(PatternMatchingEventHandler):
         except JSONDecodeError:
             config = temp_cfg
 
-        set_exposure()
+        if color_sensor is not None:
+            color_sensor.set_option(rs.option.exposure, config.camera.exposure)
 
 
 def debug_draw(f):
@@ -59,12 +43,19 @@ observer.schedule(FileWatcher(), path=".", recursive=False)
 observer.start()
 
 # Configure camera streamer
-set_exposure()
 camera_config = rs.config()
 camera_config.enable_stream(rs.stream.depth, config.camera.width, config.camera.height, rs.format.z16, config.camera.frame_rate)
 camera_config.enable_stream(rs.stream.color, config.camera.width, config.camera.height, rs.format.bgr8, config.camera.frame_rate)
 camera = rs.pipeline()
-camera.start(camera_config)
+profile = camera.start(camera_config)  # type: rs.pipeline_profile
+
+# Set camera exposure
+for sensor in profile.get_device().sensors:
+    if sensor.is_depth_sensor():
+        continue
+
+    color_sensor = sensor
+    sensor.set_option(rs.option.exposure, config.camera.exposure)
 
 # Connect to socket transmission socket
 robot_socket = None

@@ -7,7 +7,7 @@
       "horizontal": 69.4,
       "vertical": 42.5
     },
-    "exposure": 3
+    "exposure": 5
   },
   "debug": true,
   "hsv": {
@@ -22,7 +22,7 @@
   },
   "socket": {
     "enabled": true,
-    "host": "169.254.147.247",
+    "host": "169.254.173.230",
     "port": 5810
   }
 }
