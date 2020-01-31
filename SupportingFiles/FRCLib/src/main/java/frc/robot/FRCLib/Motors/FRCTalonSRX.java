@@ -7,10 +7,7 @@
 
 package frc.robot.FRCLib.Motors;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
@@ -18,16 +15,21 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class FRCTalonSRX {
 
-
-
-
-
-
-
-
-
-
-
+    public void driveVelocity(double velocity){
+        this.motor.set(ControlMode.Velocity, velocity);
+    }
+    public void drivePercentOutput(double percentOutput){
+        this.motor.set(ControlMode.PercentOutput, percentOutput);
+    }
+    public void driveMotionMagic(double setpoint){
+        this.motor.set(ControlMode.MotionProfile, setpoint);
+    }
+    public void drivePosition(double setpoint){
+        this.motor.set(ControlMode.Position, setpoint);
+    }
+    public void driveCurrent(double current){
+        this.motor.set(ControlMode.Current, current);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     /**
@@ -237,6 +239,11 @@ public class FRCTalonSRX {
 
     public void updatePIDController(){
         motor.config_kP(0,this.getkP());
+        motor.config_kI(0, this.getkI());
+        motor.config_kD(0, this.getkD());
+        motor.config_kF(0, this.getkF());
+
+
 
     }
     public FRCTalonSRX configure(){
@@ -574,43 +581,43 @@ public class FRCTalonSRX {
 
 
     public static final class FRCTalonSRXBuilder {
-        private int canID;
-        private boolean inverted;
+        private int canID = 0;
+        private boolean inverted = false;
         private int feedbackPort = 0;
         private int timeout = 10;
-        private boolean sensorPhase;
-        private double kP;
-        private double kI;
-        private double kD;
-        private double kF;
-        private int allowableClosedLoopError;
-        private StatusFrameEnhanced statusFrameType;
-        private int statusFrame;
-        private boolean currentLimitEnabled;
-        private int currentLimit;
-        private NeutralMode neutralMode;
-        private boolean smartDashboardPutEnabled;
-        private String smartDashboardPath;
-        private double openLoopRampRate;
-        private double closedLoopRampRate;
-        private double nominalOutputForward;
-        private double nominalOutputReverse;
-        private double peakOutputForward;
-        private double peakOutputReverse;
-        private double neutralDeadband;
-        private double voltageCompensationSaturation;
-        private VelocityMeasPeriod velocityMeasurementPeriod;
-        private int velocityMeasurementWindow;
-        private boolean forwardSoftLimitEnabled;
-        private int forwardSoftLimitThreshold;
-        private boolean reverseSoftLimitEnabled;
-        private int reverseSoftLimitThreshold;
-        private boolean auxPIDPolarity;
-        private int motionCruiseVelocity;
-        private int motionAcceleration;
-        private int motionCurveStrength;
-        private int motionProfileTrajectoryPeriod;
-        private boolean feedbackNotContinuous;
+        private boolean sensorPhase = false;
+        private double kP = 0;
+        private double kI = 0;
+        private double kD = 0;
+        private double kF = 0;
+        private int allowableClosedLoopError = 0;
+        private StatusFrameEnhanced statusFrameType = StatusFrameEnhanced.Status_13_Base_PIDF0;
+        private int statusFrame  = 0;
+        private boolean currentLimitEnabled = false;
+        private int currentLimit = 0;
+        private NeutralMode neutralMode = NeutralMode.Coast;
+        private boolean smartDashboardPutEnabled = false;
+        private String smartDashboardPath = "";
+        private double openLoopRampRate = 0;
+        private double closedLoopRampRate = 0;
+        private double nominalOutputForward = 1;
+        private double nominalOutputReverse = -1;
+        private double peakOutputForward = 1;
+        private double peakOutputReverse = -1;
+        private double neutralDeadband = 0;
+        private double voltageCompensationSaturation = 12;
+        private VelocityMeasPeriod velocityMeasurementPeriod = null;
+        private int velocityMeasurementWindow = 0;
+        private boolean forwardSoftLimitEnabled = false;
+        private int forwardSoftLimitThreshold = 0;
+        private boolean reverseSoftLimitEnabled = false;
+        private int reverseSoftLimitThreshold = 0;
+        private boolean auxPIDPolarity = false;
+        private int motionCruiseVelocity = 1000;
+        private int motionAcceleration = 1000;
+        private int motionCurveStrength = 1000;
+        private int motionProfileTrajectoryPeriod = 0;
+        private boolean feedbackNotContinuous = false;
 
         private FRCTalonSRXBuilder() {
         }
