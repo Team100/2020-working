@@ -46,11 +46,12 @@ public class Indexer extends SubsystemBase {
 
   public static void TillStop() {
 
+
+    while(outSensor.get()) {
       leftSpx.set(ControlMode.PercentOutput, 0.3);
       rightSpx.set(ControlMode.PercentOutput, 0.3);
-    if (!outSensor.get()) {
-stop();
     }
+    stop();
   }
 
   public static void MoveUp() {
