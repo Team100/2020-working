@@ -33,8 +33,8 @@ public class OI {
 
         IndexMoveR.whileHeld(new IndexMoveR());
         IndexMoveL.whileHeld(new IndexMove());
-        IndexMoveEnd.whenPressed(new IndexMoveEnd());
-        IndexMoveUp.whenPressed(new IndexMoveUp());
+        IndexMoveEnd.whileHeld(new IndexMoveEnd());
+        IndexMoveUp.whileHeld(new IndexMoveUp());
     }
 
     public Joystick stick() {

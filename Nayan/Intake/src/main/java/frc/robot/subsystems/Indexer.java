@@ -45,12 +45,12 @@ public class Indexer extends SubsystemBase {
   }
 
   public static void TillStop() {
-    while (outSensor.get()) {
+
       leftSpx.set(ControlMode.PercentOutput, 0.3);
       rightSpx.set(ControlMode.PercentOutput, 0.3);
+    if (!outSensor.get()) {
+stop();
     }
-    leftSpx.set(ControlMode.PercentOutput, 0.0);
-    rightSpx.set(ControlMode.PercentOutput, 0.0);
   }
 
   public static void MoveUp() {
@@ -58,20 +58,22 @@ public class Indexer extends SubsystemBase {
     leftSpx.set(ControlMode.PercentOutput, 0.3);
     rightSpx.set(ControlMode.PercentOutput, 0.3);
     try {
-      Thread.sleep(300);
+      Thread.sleep(3000);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-leftSpx.set(ControlMode.PercentOutput, 0.0);
-rightSpx.set(ControlMode.PercentOutput, 0.0);
-}
+    stop();
+  }
 
+  public static void stop(){
+    leftSpx.set(ControlMode.PercentOutput, 0.00);
+    rightSpx.set(ControlMode.PercentOutput, 0.00);
+  }
 
   @Override
   public void periodic() {
-    leftSpx.set(ControlMode.PercentOutput, 0.00);
-    rightSpx.set(ControlMode.PercentOutput, 0.00);
+    stop();
 
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
