@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class IndexMoveR extends CommandBase {
+public class IndexMoveUnJam extends CommandBase {
   // private final Indexer m_subsystem;
 
 
@@ -19,7 +19,7 @@ public class IndexMoveR extends CommandBase {
     
   // }
 
-  public IndexMoveR() {
+  public IndexMoveUnJam() {
     Indexer.unJam();
 }
 

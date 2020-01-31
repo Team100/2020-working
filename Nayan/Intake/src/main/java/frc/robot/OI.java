@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexMove;
-import frc.robot.commands.IndexMoveR;
+import frc.robot.commands.IndexMoveUnJam;
 import frc.robot.commands.IndexMoveEnd;
 import frc.robot.commands.IndexMoveUp;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -20,19 +20,19 @@ public class OI {
 
     private Joystick stick;
     private JoystickButton IndexMoveFoward;
-    private JoystickButton IndexMoveBackwards;
+    private JoystickButton IndexMoveUnJam;
     private JoystickButton IndexMoveEnd;
     private JoystickButton IndexMoveUp;
 
     public OI() {
         stick = new Joystick(0);
         IndexMoveFoward = new JoystickButton(stick, 1);
-        IndexMoveBackwards = new JoystickButton(stick, 2);
+        IndexMoveUnJam = new JoystickButton(stick, 2);
         IndexMoveEnd = new JoystickButton(stick, 3);
         IndexMoveUp = new JoystickButton(stick, 4);
 
-        IndexMoveFoward.whileHeld(new IndexMoveR());
-        IndexMoveBackwards.whileHeld(new IndexMove());
+        IndexMoveFoward.whileHeld(new IndexMove());
+        IndexMoveUnJam.whileHeld(new IndexMoveUnJam());
         IndexMoveEnd.whileHeld(new IndexMoveEnd());
         IndexMoveUp.whileHeld(new IndexMoveUp());
     }
