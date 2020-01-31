@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -13,6 +14,8 @@ public class Indexer extends SubsystemBase {
   private static WPI_VictorSPX rightSpx;
   static DigitalInput frontSensor = new DigitalInput(1);
   static DigitalInput outSensor = new DigitalInput(0);
+
+  PowerDistributionPanel PDP = new PowerDistributionPanel(0);
 
   public Indexer() {
     leftSpx = new WPI_VictorSPX(Constants.LEFT_SPX_CANID);
@@ -55,7 +58,7 @@ public class Indexer extends SubsystemBase {
     leftSpx.set(ControlMode.PercentOutput, 0.3);
     rightSpx.set(ControlMode.PercentOutput, 0.3);
     try {
-      Thread.sleep(100);
+      Thread.sleep(300);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -72,5 +75,8 @@ rightSpx.set(ControlMode.PercentOutput, 0.0);
 
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
+
+    SmartDashboard.putNumber("Current Draw Can 0", PDP.getCurrent(0));
+    SmartDashboard.putNumber("Current Draw Can 1", PDP.getCurrent(1));
   }
 }
