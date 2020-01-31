@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class IndexMove extends CommandBase {
+public class IndexMoveFoward extends CommandBase {
   // private final Indexer m_subsystem;
 
 
@@ -20,7 +20,7 @@ public class IndexMove extends CommandBase {
     
   // }
 
-  public IndexMove() {
+  public IndexMoveFoward() {
     //Indexer.foward();
 }
 

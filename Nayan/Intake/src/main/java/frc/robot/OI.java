@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.IndexMove;
+import frc.robot.commands.IndexMoveFoward;
 import frc.robot.commands.IndexMoveUnJam;
 import frc.robot.commands.IndexMoveEnd;
 import frc.robot.commands.IndexMoveUp;
@@ -31,7 +31,7 @@ public class OI {
         IndexMoveEnd = new JoystickButton(stick, 3);
         IndexMoveUp = new JoystickButton(stick, 4);
 
-        IndexMoveFoward.whileHeld(new IndexMove());
+        IndexMoveFoward.whileHeld(new IndexMoveFoward());
         IndexMoveUnJam.whileHeld(new IndexMoveUnJam());
         IndexMoveEnd.whileHeld(new IndexMoveEnd());
         IndexMoveUp.whileHeld(new IndexMoveUp());
