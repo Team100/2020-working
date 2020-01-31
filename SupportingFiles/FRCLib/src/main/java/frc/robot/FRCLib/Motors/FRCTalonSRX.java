@@ -9,6 +9,7 @@ package frc.robot.FRCLib.Motors;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -34,6 +35,8 @@ public class FRCTalonSRX {
      */
     private TalonSRX motor;
     ///////////////////////////////////////////////////////////////////////////
+
+
     /**
      * The Can ID of the selected motor
      */
@@ -109,7 +112,7 @@ public class FRCTalonSRX {
     private boolean currentLimitEnabled;
 
     /**
-     * The current limit set
+     * The current limit set (amps)
      *
      * currentLimitEnabled must be set for this to activate
      */
@@ -232,9 +235,36 @@ public class FRCTalonSRX {
      */
     private boolean feedbackNotContinuous;
 
+    public void updatePIDController(){
+        motor.config_kP(0,this.getkP());
+
+    }
     public FRCTalonSRX configure(){
         motor = new TalonSRX(this.getCanID());
         motor.setInverted(this.isInverted());
+        motor.enableCurrentLimit(this.isCurrentLimitEnabled());
+        motor.configContinuousCurrentLimit(this.getCurrentLimit());
+        motor.configFeedbackNotContinuous(this.isFeedbackNotContinuous(), this.getTimeout());
+        motor.configForwardSoftLimitEnable(this.isForwardSoftLimitEnabled());
+        motor.configForwardSoftLimitThreshold(this.getForwardSoftLimitThreshold());
+        motor.configMotionAcceleration(this.getMotionAcceleration());
+        motor.configMotionCruiseVelocity(this.getMotionCruiseVelocity());
+        motor.configMotionSCurveStrength(this.getMotionCurveStrength());
+        motor.setNeutralMode(this.getNeutralMode());
+        motor.configNominalOutputForward(this.getNominalOutputForward());
+        motor.configNominalOutputReverse(this.getNominalOutputReverse());
+        motor.configOpenloopRamp(this.getOpenLoopRampRate());
+        motor.configPeakOutputForward(this.getPeakOutputForward());
+        motor.configPeakOutputForward(this.getPeakOutputReverse());
+        motor.configReverseSoftLimitEnable(this.isReverseSoftLimitEnabled());
+        motor.configReverseSoftLimitThreshold(this.getReverseSoftLimitThreshold());
+        motor.setSensorPhase(this.isSensorPhase());
+        motor.getStatusFramePeriod(this.getStatusFrameType(), this.getStatusFrame());
+        motor.configVelocityMeasurementPeriod(this.getVelocityMeasurementPeriod());
+        motor.configVelocityMeasurementWindow(this.getVelocityMeasurementWindow());
+        motor.configVoltageCompSaturation(this.getVoltageCompensationSaturation());
+
+        updatePIDController();
         return this;
     }
 
@@ -813,7 +843,7 @@ public class FRCTalonSRX {
             fRCTalonSRX.kD = this.kD;
             fRCTalonSRX.kI = this.kI;
             fRCTalonSRX.kP = this.kP;
-            return fRCTalonSRX;
+            return fRCTalonSRX.configure();
         }
     }
 }
