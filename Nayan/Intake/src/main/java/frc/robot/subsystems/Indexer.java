@@ -30,19 +30,20 @@ public class Indexer extends SubsystemBase {
     SmartDashboard.putNumber("PercentOutRight", 0.3);
   }
 
-  public static void LeftFoward() {
+  public static void moveFoward() {
     double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
-    leftSpx.set(ControlMode.PercentOutput, leftSpeed);
+    double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
+    rightSpx.set(ControlMode.PercentOutput, (rightSpeed));
+    leftSpx.set(ControlMode.PercentOutput, (leftSpeed));
   }
 
-  public static void RightFoward() {
-    double rightSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
-    rightSpx.set(ControlMode.PercentOutput, rightSpeed);
+  public static void unJam() {
+    double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
+    double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
+    rightSpx.set(ControlMode.PercentOutput, -(rightSpeed));
+    leftSpx.set(ControlMode.PercentOutput, -(leftSpeed));
   }
 
-  public static void FowardOne() {
-
-  }
 
   public static void TillStop() {
 
@@ -59,7 +60,7 @@ public class Indexer extends SubsystemBase {
     leftSpx.set(ControlMode.PercentOutput, 0.3);
     rightSpx.set(ControlMode.PercentOutput, 0.3);
     try {
-      Thread.sleep(3000);
+      Thread.sleep(500);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

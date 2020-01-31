@@ -20,7 +20,7 @@ public class IndexMoveR extends CommandBase {
   // }
 
   public IndexMoveR() {
-    Indexer.RightFoward();
+    Indexer.unJam();
 }
 
 // Called when the command is initially scheduled.
@@ -31,7 +31,7 @@ public class IndexMoveR extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Indexer.RightFoward();
+    Indexer.unJam();
   }
   // Called once the command ends or is interrupted.
   @Override

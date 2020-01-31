@@ -19,20 +19,20 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
     private Joystick stick;
-    private JoystickButton IndexMoveL;
-    private JoystickButton IndexMoveR;
+    private JoystickButton IndexMoveFoward;
+    private JoystickButton IndexMoveBackwards;
     private JoystickButton IndexMoveEnd;
     private JoystickButton IndexMoveUp;
 
     public OI() {
         stick = new Joystick(0);
-        IndexMoveL = new JoystickButton(stick, 1);
-        IndexMoveR = new JoystickButton(stick, 2);
+        IndexMoveFoward = new JoystickButton(stick, 1);
+        IndexMoveBackwards = new JoystickButton(stick, 2);
         IndexMoveEnd = new JoystickButton(stick, 3);
         IndexMoveUp = new JoystickButton(stick, 4);
 
-        IndexMoveR.whileHeld(new IndexMoveR());
-        IndexMoveL.whileHeld(new IndexMove());
+        IndexMoveFoward.whileHeld(new IndexMoveR());
+        IndexMoveBackwards.whileHeld(new IndexMove());
         IndexMoveEnd.whileHeld(new IndexMoveEnd());
         IndexMoveUp.whileHeld(new IndexMoveUp());
     }
