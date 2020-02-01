@@ -86,17 +86,17 @@ public class Drivetrain extends Subsystem implements PIDOutput {
         rightMaster.set(ControlMode.PercentOutput, rightPower);
     }
 
-    public double getTurnRate(){
-        return ahrs.getRate();
-    }
+    // public double getTurnRate(){
+    //     return ahrs.getRate();
+    // }
 
-    public void zeroHeading(){
-        ahrs.reset();
-    }
+    // public void zeroHeading(){
+    //     ahrs.reset();
+    // }
 
-    public double getHeading(){
-        return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
-    }
+    // public double getHeading(){
+    //     return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
+    // }
     public void pidTurn(){
         //turn(turnPID.get(), turnPID.get());
     }
@@ -124,15 +124,15 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     }
 
     public void drive(){
-        //System.out.println("DRIVE");
-       // if(!Constants.EXPO_MODE){
-           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad(Hand.kLeft).getX());
-      //  }
-       // else{
-            //System.out.println("IN EXPO MODE");
-           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
+        System.out.println("DRIVE");
+       if(!Constants.EXPO_MODE){
+           differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad().getX(Hand.kLeft));
+       }
+       else{
+            System.out.println("IN EXPO MODE");
+           differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
 
-      //  }
+       }
     }
 
 	@Override
@@ -144,21 +144,21 @@ public class Drivetrain extends Subsystem implements PIDOutput {
 
     public void cornerUp() {
 
-        if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
-          SmartDashboard.putString("CornerUp", "back left");
-        }
-        if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()>3){//front left
-          SmartDashboard.putString("CornerUp", "front left");
-        }
-        if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()<-3){//back right
-          SmartDashboard.putString("CornerUp", "back right");
-        }
-        if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()<-3){//front right
-          SmartDashboard.putString("CornerUp", "front right");
-        } 
-        if(m_ahrs.getPitch()>-3&&m_ahrs.getPitch()<3&&m_ahrs.getRoll()>-3&&m_ahrs.getRoll()<3){//flat
-            SmartDashboard.putString("CornerUp", "FLAT!!!!!");
-          } 
+        // if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
+        //   SmartDashboard.putString("CornerUp", "back left");
+        // }
+        // if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()>3){//front left
+        //   SmartDashboard.putString("CornerUp", "front left");
+        // }
+        // if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()<-3){//back right
+        //   SmartDashboard.putString("CornerUp", "back right");
+        // }
+        // if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()<-3){//front right
+        //   SmartDashboard.putString("CornerUp", "front right");
+        // } 
+        // if(m_ahrs.getPitch()>-3&&m_ahrs.getPitch()<3&&m_ahrs.getRoll()>-3&&m_ahrs.getRoll()<3){//flat
+        //     SmartDashboard.putString("CornerUp", "FLAT!!!!!");
+        //   } 
       }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
