@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
         //cargoHatchScore = new CargoHatchScore();
         global = new Global();
         ras = new RobotAutoSwitch();
+        controlPanelSpinner = new ControlPanelSpinner();
 
 
         // OI must be constructed after subsystems. If the OI creates Commands

@@ -14,14 +14,14 @@ package org.usfirst.frc100.Team100Robot.subsystems;
 import org.usfirst.frc100.Team100Robot.Constants;
 import org.usfirst.frc100.Team100Robot.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
  */
 public class Shifter extends Subsystem {
 
-    private Solenoid driveTrainShifter;
+   // private Solenoid driveTrainShifter;
 
     public Shifter() {
        // driveTrainShifter = new Solenoid(Constants.PCM_CANID, Constants.DRIVETRAIN_SHIFTER_PCMID);
@@ -39,9 +39,9 @@ public class Shifter extends Subsystem {
 
     }
 
-    public Solenoid getShifter(){
-        return driveTrainShifter;
-    }
+   // public Solenoid getShifter(){
+       // return driveTrainShifter;
+   // }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

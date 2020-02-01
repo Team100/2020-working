@@ -19,6 +19,7 @@ import org.usfirst.frc100.Team100Robot.commands.Drivetrain.Shift.ShiftToLow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
@@ -103,7 +104,7 @@ public class OI {
         //SmartDashboard.putData("LowGear", new LowGear());
     }
 
-    public Joystick getGamepad() {
+    public Joystick getGamepad(Hand kleft) {
         return gamepad;
     }
 

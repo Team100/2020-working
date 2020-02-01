@@ -19,7 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import org.usfirst.frc100.Team100Robot.Constants;
 
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  *
@@ -27,15 +27,15 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class Climber extends Subsystem {
 
     private WPI_TalonSRX climberMaster;
-    private Solenoid deploy;
+  //  private Solenoid deploy;
     private WPI_VictorSPX climberFollower;
 
     public Climber() {
         climberMaster = new WPI_TalonSRX(Constants.CLIMBER_MASTER_CANID);
         climberMaster.configPeakOutputForward(0.25);
         climberMaster.configPeakOutputReverse(-0.25);
-        deploy = new Solenoid(Constants.PCM_CANID, Constants.CLIMBER_DEPLOY_PCMID);
-        addChild("Deploy",deploy);
+      //  deploy = new Solenoid(Constants.PCM_CANID, Constants.CLIMBER_DEPLOY_PCMID);
+       // addChild("Deploy",deploy);
         
         climberFollower = new WPI_VictorSPX(Constants.CLIMBER_FOLLOWER_CANID);
 

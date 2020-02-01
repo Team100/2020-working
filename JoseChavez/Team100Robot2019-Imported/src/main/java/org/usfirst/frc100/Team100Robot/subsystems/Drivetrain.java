@@ -8,7 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package org.usfirst.frc100.Team100Robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -23,7 +22,8 @@ import org.usfirst.frc100.Team100Robot.commands.Drivetrain.Drive;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,13 +39,13 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     private WPI_VictorSPX leftFollower;
     private WPI_VictorSPX rightFollower;
     public PIDController turnPID;
-    public Solenoid shift;
+   // public Solenoid shift;
     public AHRS ahrs;
 
     private final AHRS m_ahrs = new AHRS(SerialPort.Port.kUSB);
 
     public Drivetrain() {
-        shift = new Solenoid(Constants.PCM_CANID,Constants.DRIVETRAIN_SHIFTER_PCMID);
+       // shift = new Solenoid(Constants.PCM_CANID,Constants.DRIVETRAIN_SHIFTER_PCMID);
         leftMaster = new WPI_TalonSRX(Constants.DRIVE_TRAIN_LEFT_MASTER_CANID);
         rightMaster = new WPI_TalonSRX(Constants.DRIVE_TRAIN_RIGHT_MASTER_CANID);
         
@@ -125,14 +125,14 @@ public class Drivetrain extends Subsystem implements PIDOutput {
 
     public void drive(){
         //System.out.println("DRIVE");
-        if(!Constants.EXPO_MODE){
-            differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad(Hand.kLeft).getX());
-        }
-        else{
+       // if(!Constants.EXPO_MODE){
+           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad(Hand.kLeft).getX());
+      //  }
+       // else{
             //System.out.println("IN EXPO MODE");
-            differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
+           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
 
-        }
+      //  }
     }
 
 	@Override
