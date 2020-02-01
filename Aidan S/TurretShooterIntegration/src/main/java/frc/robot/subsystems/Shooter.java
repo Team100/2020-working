@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,11 +27,15 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         master = new TalonSRX(15);
         follower = new TalonSRX(13);
+        TalonSRX[] t = {master, follower};
 
-        master.configPeakOutputForward(Constants.Shooter.PEAK_OUTPUT);
-        follower.configPeakOutputForward(Constants.Shooter.PEAK_OUTPUT);
-        master.configPeakOutputReverse(-Constants.Shooter.PEAK_OUTPUT);
-        follower.configPeakOutputReverse(-Constants.Shooter.PEAK_OUTPUT);
+        for (TalonSRX mc: t) {
+            mc.configFactoryDefault();
+            mc.setNeutralMode(NeutralMode.Coast);
+            mc.configPeakOutputForward(Constants.Shooter.PEAK_OUTPUT);
+            mc.configPeakOutputReverse(-Constants.Shooter.PEAK_OUTPUT);
+        }
+
         follower.follow(master);
         follower.setInverted(InvertType.OpposeMaster);
     }
@@ -53,7 +58,12 @@ public class Shooter extends SubsystemBase {
                                                                         ** of the wheel. */
                                                                         /* Final number from all this ^^ is the velocity 
                                                                         ** of the ball in units per second. */
-    }
+                SmartDashboard.putNumber("Shooter RPM", (
+                    master.getSensorCollection().getQuadratureVelocity() /  //Encoder ticks per 100ms
+                    Constants.Shooter.ENCODER_CPR *                         // Revolutions per 100ms
+                    10 * 60));                                              // Revolutions per minute
+                    
+            }
 
     public void set(double s) {
         shooterSetpoint = s;

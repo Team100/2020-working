@@ -9,12 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class Shoot extends CommandBase {
   private Shooter shooter;
   private Joystick joystick;
+  private JoystickButton half;
+  private JoystickButton full;
+  private JoystickButton off;
+  private JoystickButton toggle;
+  private boolean useButtons = false;
+  private double sp = 0;
 
   /**
    * Creates a new Shoot.
@@ -22,6 +30,19 @@ public class Shoot extends CommandBase {
   public Shoot(Shooter s, Joystick j) {
     shooter = s;
     joystick = j;
+
+    half = new JoystickButton(joystick, 5);
+    full = new JoystickButton(joystick, 6);
+    off = new JoystickButton(joystick, 3);
+    toggle = new JoystickButton(joystick, 2);
+
+    toggle.whenPressed(new InstantCommand(() -> {
+      useButtons = !useButtons;
+      sp = Math.floor(sp * 10) / 10;
+    }));
+    full.whenPressed(new InstantCommand(() -> { if (useButtons && sp < 0.9) { sp += 0.1; } }));
+    half.whenPressed(new InstantCommand(() -> { if (useButtons && sp > 0.1) { sp -= 0.1; } }));
+    off.whenPressed(new InstantCommand(() -> sp = 0));
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
@@ -35,7 +56,8 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.set(-joystick.getRawAxis(3)*Constants.Shooter.PEAK_OUTPUT);
+    if (!useButtons) sp = -joystick.getRawAxis(3)*Constants.Shooter.PEAK_OUTPUT;
+    shooter.set(sp);
   }
 
   // Called once the command ends or is interrupted.

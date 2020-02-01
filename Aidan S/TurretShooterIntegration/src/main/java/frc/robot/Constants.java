@@ -34,9 +34,9 @@ public final class Constants {
     }
 
     public final class Shooter {
-        public static final double PEAK_OUTPUT = 0.5;
-        public static final double ENCODER_CPR = -2048;
-        public static final double RAMP_RATE = 3; //seconds to full velocity
+        public static final double PEAK_OUTPUT = 1;
+        public static final double ENCODER_CPR = -4096;
+        public static final double RAMP_RATE = 0; //seconds to full velocity
         public static final double WHEEL_RADIUS = 0.098/2; // Feet per second
     }
 }
