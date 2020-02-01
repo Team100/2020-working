@@ -52,7 +52,7 @@ public class ControlPanelSpinner extends Subsystem {
     private final Color kRedTarget = ColorMatch.makeColor(0.483, 0.371, 0.148);
     private final Color kYellowTarget = ColorMatch.makeColor(0.301, 0.550, 0.148);
 
-    private final VictorSPX m_motor = new VictorSPX(12);
+    private final VictorSPX m_motor = new VictorSPX(5);
   @Override
   protected void initDefaultCommand() {
     m_colorMatcher.addColorMatch(kBlueTarget);

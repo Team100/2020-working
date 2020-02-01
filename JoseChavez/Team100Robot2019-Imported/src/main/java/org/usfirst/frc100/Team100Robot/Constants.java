@@ -38,8 +38,8 @@ public class Constants {
     public static final int HATCH_PICKUP_TILT_CANID = 10; //Type: CAN ID
 	public static final int CARGO_HATCH_SCORER_TOP_CANID = 5; //Type: CAN ID
     public static final int CARGO_HATCH_SCORER_BOTTOM_CANID = 4; //Type: CAN ID
-	public static final int CLIMBER_MASTER_CANID = 14; //Type: CAN ID
-	public static final int CLIMBER_FOLLOWER_CANID = 12; //Type: CAN ID
+	//public static final int CLIMBER_MASTER_CANID = 14; //Type: CAN ID
+	//public static final int CLIMBER_FOLLOWER_CANID = 12; //Type: CAN ID
     /* 
      * PNEUMATICS SOLENOID PCM IDs
      */
@@ -50,7 +50,7 @@ public class Constants {
     public static final int HATCH_FLIPPER_PCMID = 2; //Type: PCM ID
     public static final int EMPTY2_PCMID = 4; //Type: PCM ID DOESN'T EXIST
 	public static final int HATCH_SCORER_PCMID = 3; //Type: PCM ID
-    public static final int CLIMBER_DEPLOY_PCMID = 0; //Type: PCM ID
+    //public static final int CLIMBER_DEPLOY_PCMID = 0; //Type: PCM ID
 
     /*
      * Drivetrain

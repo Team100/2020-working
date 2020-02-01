@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static Drivetrain drivetrain;
     public static Shifter shifter;
-    public static Climber climber;
+   // public static Climber climber;
     //public static CargoHatchScore cargoHatchScore;
     public static double currentHeading;
     //public static AHRS ahrs;
@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
 
         drivetrain = new Drivetrain();
         shifter = new Shifter();
-        climber = new Climber();
+       // climber = new Climber();
         //cargoHatchScore = new CargoHatchScore();
         global = new Global();
         //ras = new RobotAutoSwitch();
