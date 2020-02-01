@@ -82,8 +82,8 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     }
 
     public void turn(double leftPower, double rightPower){
-        leftMaster.set(ControlMode.PercentOutput, leftPower);
-        rightMaster.set(ControlMode.PercentOutput, rightPower);
+        leftMaster.set((ControlMode.PercentOutput), leftPower/4);
+        rightMaster.set((ControlMode.PercentOutput), rightPower/4);
     }
 
     // public double getTurnRate(){
@@ -98,7 +98,7 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     //     return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
     // }
     public void pidTurn(){
-        //turn(turnPID.get(), turnPID.get());
+        turn(turnPID.get(), turnPID.get());
     }
 
 
@@ -126,19 +126,19 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     public void drive(){
         System.out.println("DRIVE");
        if(!Constants.EXPO_MODE){
-           differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad().getX(Hand.kLeft));
+           differentialDrive.arcadeDrive(-(Robot.oi.getGamepad().getY(Hand.kLeft)), (Robot.oi.getGamepad().getX(Hand.kLeft)));
        }
        else{
             System.out.println("IN EXPO MODE");
-           differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
+           differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*0.5, Robot.oi.getGamepad().getX(Hand.kRight)*0.5);
 
        }
     }
 
 	@Override
 	public void pidWrite(double output) {
-        leftMaster.set(ControlMode.PercentOutput, output*Constants.DT_TURN_MOTOR_OUTPUT);
-        rightMaster.set(ControlMode.PercentOutput, output*Constants.DT_TURN_MOTOR_OUTPUT);
+        leftMaster.set(ControlMode.PercentOutput, output*0.5);
+        rightMaster.set(ControlMode.PercentOutput, output*0.5);
     }
 
 
