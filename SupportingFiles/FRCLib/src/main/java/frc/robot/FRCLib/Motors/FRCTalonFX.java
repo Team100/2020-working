@@ -382,6 +382,7 @@ public class FRCTalonFX {
 
     public void setkP(double kP) {
         this.kP = kP;
+        this.updatePIDController();
     }
 
     public double getkI() {
@@ -390,6 +391,7 @@ public class FRCTalonFX {
 
     public void setkI(double kI) {
         this.kI = kI;
+        this.updatePIDController();
     }
 
     public double getkD() {
@@ -398,6 +400,7 @@ public class FRCTalonFX {
 
     public void setkD(double kD) {
         this.kD = kD;
+        this.updatePIDController();
     }
 
     public double getkF() {
@@ -406,6 +409,7 @@ public class FRCTalonFX {
 
     public void setkF(double kF) {
         this.kF = kF;
+        this.updatePIDController();
     }
 
     public int getAllowableClosedLoopError() {
@@ -672,7 +676,7 @@ public class FRCTalonFX {
         private int motionProfileTrajectoryPeriod;
         private boolean feedbackNotContinuous;
 
-        private FRCTalonFXBuilder() {
+        public FRCTalonFXBuilder() {
         }
 
         public static FRCTalonFXBuilder aFRCTalonFX() {
