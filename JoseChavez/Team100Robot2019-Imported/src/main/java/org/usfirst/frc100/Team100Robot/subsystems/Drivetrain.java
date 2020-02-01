@@ -124,15 +124,15 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     }
 
     public void drive(){
-        //System.out.println("DRIVE");
-       // if(!Constants.EXPO_MODE){
-           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad(Hand.kLeft).getX());
-      //  }
-       // else{
-            //System.out.println("IN EXPO MODE");
-           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
+      System.out.println("DRIVE");
+     if(!Constants.EXPO_MODE){
+             differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft)/2, Robot.oi.getGamepad().getX(Hand.kLeft)/2);
+         }
+         else{
+             System.out.println("IN EXPO MODE");
+             differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
 
-      //  }
+         }
     }
 
 	@Override
