@@ -104,9 +104,15 @@ public class OI {
         //SmartDashboard.putData("LowGear", new LowGear());
     }
 
-    public Joystick getGamepad(Hand kleft) {
+    public Joystick getGamepad() {
         return gamepad;
     }
+
+    
+    // public Joystick getGamepad() {
+    //     return gamepad;
+    // }
+
 
     
 
