@@ -59,6 +59,8 @@ public class OI {
     
     private JoystickButton shiftLow;
     private JoystickButton shiftHigh;
+    private JoystickButton riseSpinner;
+    private JoystickButton lowerSpinner;
 
     // ButtonBoard
 
@@ -88,8 +90,11 @@ public class OI {
         shiftHigh = new JoystickButton(gamepad, 4);
         shiftHigh.whenPressed(new ShiftToHigh());
 
-       
-      
+        riseSpinner = new JoystickButton(gamepad, 1);
+        riseSpinner.whileHeld(new riseSpinerWheel());
+
+        lowerSpinner = new JoystickButton(gamepad, 2);
+        lowerSpinner.whileHeld(new lowerSpinerWheel());
 
         // //SmartDashboard Buttons
         //SmartDashboard.putData("Autonomous Command", new AutonomousCommand());

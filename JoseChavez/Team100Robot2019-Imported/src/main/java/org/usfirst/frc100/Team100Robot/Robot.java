@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
     public static AHRS ahrs;
     public static Global global;
     public static RobotAutoSwitch ras;
+    public static ControlPanelSpinner controlPanelSpinner;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.

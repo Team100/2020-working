@@ -9,7 +9,6 @@ package org.usfirst.frc100.Team100Robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,10 +17,12 @@ import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.*;
 /**
  * Add your docs here.
  */
-public class ColorSensor extends Subsystem {
+public class ControlPanelSpinner extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
  
@@ -30,7 +31,7 @@ public class ColorSensor extends Subsystem {
      */
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
    // private final WPI_TalonSRX m_motor = new WPI_TalonSRX(1);
-    private boolean runMotor = true;
+  
     private int redCounter = 0;
     private int yellowCounter = 0;
     private int blueCounter = 0;
@@ -50,7 +51,8 @@ public class ColorSensor extends Subsystem {
     private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
     private final Color kRedTarget = ColorMatch.makeColor(0.483, 0.371, 0.148);
     private final Color kYellowTarget = ColorMatch.makeColor(0.301, 0.550, 0.148);
-  
+
+    private final TalonSRX m_motor = new TalonSRX(4);
   @Override
   protected void initDefaultCommand() {
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -58,6 +60,9 @@ public class ColorSensor extends Subsystem {
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
 
+  }
+  public void spin(double speed) {
+    m_motor.set(ControlMode.PercentOutput, speed);
   }
   public void periodic() {
     final Color detectedColor = m_colorSensor.getColor();
@@ -96,7 +101,6 @@ public class ColorSensor extends Subsystem {
    
     gameData = DriverStation.getInstance().getGameSpecificMessage();
    
-    runMotor=true;
     
     if(match.color == kRedTarget){
       if (redController){
@@ -146,25 +150,25 @@ public class ColorSensor extends Subsystem {
       switch (gameData.charAt(0)) {
       case 'B':
         if(match.color == kRedTarget){
-          runMotor=false;
+         
         }
         // Blue case code
         break;
       case 'G':
       if(match.color == kYellowTarget){
-        runMotor=false;
+       
       }
         // Green case code
         break;
       case 'R':
         if(match.color == kBlueTarget){
-          runMotor=false;
+          
         }
         // Red case code
         break;
       case 'Y':
       if(match.color == kGreenTarget){
-        runMotor=false;
+       
       }
         // Yellow case code
         break;
