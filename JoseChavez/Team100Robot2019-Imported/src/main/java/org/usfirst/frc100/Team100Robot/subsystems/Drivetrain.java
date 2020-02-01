@@ -40,9 +40,9 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     private WPI_VictorSPX rightFollower;
     public PIDController turnPID;
    // public Solenoid shift;
-    public AHRS ahrs;
+   // public AHRS ahrs;
 
-    private final AHRS m_ahrs = new AHRS(SerialPort.Port.kUSB);
+   // private final AHRS m_ahrs = new AHRS(SerialPort.Port.kUSB);
 
     public Drivetrain() {
        // shift = new Solenoid(Constants.PCM_CANID,Constants.DRIVETRAIN_SHIFTER_PCMID);
@@ -86,17 +86,17 @@ public class Drivetrain extends Subsystem implements PIDOutput {
         rightMaster.set(ControlMode.PercentOutput, rightPower);
     }
 
-    public double getTurnRate(){
-        return ahrs.getRate();
-    }
+   // public double getTurnRate(){
+     //   return ahrs.getRate();
+  //  }
 
     public void zeroHeading(){
-        ahrs.reset();
+       // ahrs.reset();
     }
 
-    public double getHeading(){
-        return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
-    }
+   // public double getHeading(){
+      //  return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
+  //  }
     public void pidTurn(){
         //turn(turnPID.get(), turnPID.get());
     }
@@ -144,21 +144,21 @@ public class Drivetrain extends Subsystem implements PIDOutput {
 
     public void cornerUp() {
 
-        if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
-          SmartDashboard.putString("CornerUp", "back left");
-        }
-        if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()>3){//front left
-          SmartDashboard.putString("CornerUp", "front left");
-        }
-        if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()<-3){//back right
-          SmartDashboard.putString("CornerUp", "back right");
-        }
-        if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()<-3){//front right
-          SmartDashboard.putString("CornerUp", "front right");
-        } 
-        if(m_ahrs.getPitch()>-3&&m_ahrs.getPitch()<3&&m_ahrs.getRoll()>-3&&m_ahrs.getRoll()<3){//flat
-            SmartDashboard.putString("CornerUp", "FLAT!!!!!");
-          } 
+     //   if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
+       //   SmartDashboard.putString("CornerUp", "back left");
+        //}
+        //if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()>3){//front left
+         // SmartDashboard.putString("CornerUp", "front left");
+        //}
+        //if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()<-3){//back right
+          //SmartDashboard.putString("CornerUp", "back right");
+        //}
+        //if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()<-3){//front right
+          //SmartDashboard.putString("CornerUp", "front right");
+        //} 
+        //if(m_ahrs.getPitch()>-3&&m_ahrs.getPitch()<3&&m_ahrs.getRoll()>-3&&m_ahrs.getRoll()<3){//flat
+          //  SmartDashboard.putString("CornerUp", "FLAT!!!!!");
+          //} 
       }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

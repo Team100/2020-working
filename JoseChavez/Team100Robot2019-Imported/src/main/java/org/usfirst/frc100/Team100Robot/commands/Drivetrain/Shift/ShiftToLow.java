@@ -22,7 +22,7 @@ public class ShiftToLow extends Command {
   @Override
   protected void initialize() {
     System.out.println("ShiftToLow");
-    Robot.drivetrain.shift.set(false);
+   // Robot.drivetrain.shift.set(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
