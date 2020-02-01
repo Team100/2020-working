@@ -82,11 +82,10 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     }
 
     public void turn(double leftPower, double rightPower){
-        leftMaster.set((ControlMode.PercentOutput), leftPower/4);
-        rightMaster.set((ControlMode.PercentOutput), rightPower/4);
+        leftMaster.set(ControlMode.PercentOutput, leftPower);
+        rightMaster.set(ControlMode.PercentOutput, rightPower);
     }
 
-<<<<<<< HEAD
    // public double getTurnRate(){
      //   return ahrs.getRate();
   //  }
@@ -98,21 +97,8 @@ public class Drivetrain extends Subsystem implements PIDOutput {
    // public double getHeading(){
       //  return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
   //  }
-=======
-    // public double getTurnRate(){
-    //     return ahrs.getRate();
-    // }
-
-    // public void zeroHeading(){
-    //     ahrs.reset();
-    // }
-
-    // public double getHeading(){
-    //     return Math.IEEEremainder(ahrs.getCompassHeading(), 360);
-    // }
->>>>>>> bb790a89d69029cefa0d747d1c1e8b4d8f7aa0db
     public void pidTurn(){
-        turn(turnPID.get(), turnPID.get());
+        //turn(turnPID.get(), turnPID.get());
     }
 
 
@@ -138,27 +124,26 @@ public class Drivetrain extends Subsystem implements PIDOutput {
     }
 
     public void drive(){
-        System.out.println("DRIVE");
-       if(!Constants.EXPO_MODE){
-           differentialDrive.arcadeDrive(-(Robot.oi.getGamepad().getY(Hand.kLeft)), (Robot.oi.getGamepad().getX(Hand.kLeft)));
-       }
-       else{
-            System.out.println("IN EXPO MODE");
-           differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*0.5, Robot.oi.getGamepad().getX(Hand.kRight)*0.5);
+        //System.out.println("DRIVE");
+       // if(!Constants.EXPO_MODE){
+           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kLeft), Robot.oi.getGamepad(Hand.kLeft).getX());
+      //  }
+       // else{
+            //System.out.println("IN EXPO MODE");
+           // differentialDrive.arcadeDrive(-Robot.oi.getGamepad().getY(Hand.kRight)*Constants.EXPO_MODE_REDUCER, Robot.oi.getGamepad().getX(Hand.kRight)*Constants.EXPO_MODE_REDUCER);
 
-       }
+      //  }
     }
 
 	@Override
 	public void pidWrite(double output) {
-        leftMaster.set(ControlMode.PercentOutput, output*0.5);
-        rightMaster.set(ControlMode.PercentOutput, output*0.5);
+        leftMaster.set(ControlMode.PercentOutput, output*Constants.DT_TURN_MOTOR_OUTPUT);
+        rightMaster.set(ControlMode.PercentOutput, output*Constants.DT_TURN_MOTOR_OUTPUT);
     }
 
 
     public void cornerUp() {
 
-<<<<<<< HEAD
      //   if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
        //   SmartDashboard.putString("CornerUp", "back left");
         //}
@@ -174,23 +159,6 @@ public class Drivetrain extends Subsystem implements PIDOutput {
         //if(m_ahrs.getPitch()>-3&&m_ahrs.getPitch()<3&&m_ahrs.getRoll()>-3&&m_ahrs.getRoll()<3){//flat
           //  SmartDashboard.putString("CornerUp", "FLAT!!!!!");
           //} 
-=======
-        // if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()>3){//back left
-        //   SmartDashboard.putString("CornerUp", "back left");
-        // }
-        // if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()>3){//front left
-        //   SmartDashboard.putString("CornerUp", "front left");
-        // }
-        // if(m_ahrs.getPitch()>3&&m_ahrs.getRoll()<-3){//back right
-        //   SmartDashboard.putString("CornerUp", "back right");
-        // }
-        // if(m_ahrs.getPitch()<-3&&m_ahrs.getRoll()<-3){//front right
-        //   SmartDashboard.putString("CornerUp", "front right");
-        // } 
-        // if(m_ahrs.getPitch()>-3&&m_ahrs.getPitch()<3&&m_ahrs.getRoll()>-3&&m_ahrs.getRoll()<3){//flat
-        //     SmartDashboard.putString("CornerUp", "FLAT!!!!!");
-        //   } 
->>>>>>> bb790a89d69029cefa0d747d1c1e8b4d8f7aa0db
       }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

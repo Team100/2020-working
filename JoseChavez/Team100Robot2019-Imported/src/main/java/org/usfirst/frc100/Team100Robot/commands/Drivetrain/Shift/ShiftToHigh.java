@@ -22,11 +22,7 @@ public class ShiftToHigh extends Command {
   @Override
   protected void initialize() {
     System.out.println("ShiftToHigh");
-<<<<<<< HEAD
    // Robot.drivetrain.shift.set(true);
-=======
-    //Robot.drivetrain.shift.set(true);
->>>>>>> bb790a89d69029cefa0d747d1c1e8b4d8f7aa0db
   }
 
   // Called repeatedly when this Command is scheduled to run
