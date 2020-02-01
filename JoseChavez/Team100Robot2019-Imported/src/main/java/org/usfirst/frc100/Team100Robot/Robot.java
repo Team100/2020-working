@@ -40,7 +40,11 @@ public class Robot extends TimedRobot {
     public static Climber climber;
     //public static CargoHatchScore cargoHatchScore;
     public static double currentHeading;
+<<<<<<< HEAD
     //public static AHRS ahrs;
+=======
+    // public static AHRS ahrs;
+>>>>>>> bb790a89d69029cefa0d747d1c1e8b4d8f7aa0db
     public static Global global;
     public static RobotAutoSwitch ras;
     public static ControlPanelSpinner controlPanelSpinner;
@@ -145,14 +149,24 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putData("Bill Out", new HatchBillOut());
         //currentHeading = ahrs.getFusedHeading();
 
+<<<<<<< HEAD
       //  SmartDashboard.putBoolean("IMU_Connected", ahrs.isConnected());
         //SmartDashboard.putBoolean("IMU_IsCalibrating", ahrs.isCalibrating());
         //SmartDashboard.putNumber("IMU_Yaw", ahrs.getYaw());
         //SmartDashboard.putNumber("IMU_Pitch", ahrs.getPitch());
         //SmartDashboard.putNumber("IMU_Roll", ahrs.getRoll());
     }
+=======
+    //     SmartDashboard.putBoolean("IMU_Connected", ahrs.isConnected());
+    //     SmartDashboard.putBoolean("IMU_IsCalibrating", ahrs.isCalibrating());
+    //     SmartDashboard.putNumber("IMU_Yaw", ahrs.getYaw());
+    //     SmartDashboard.putNumber("IMU_Pitch", ahrs.getPitch());
+    //     SmartDashboard.putNumber("IMU_Roll", ahrs.getRoll());
+    // }
+>>>>>>> bb790a89d69029cefa0d747d1c1e8b4d8f7aa0db
 
-    public static double getCurrentHeading(){
-        return currentHeading;
+    // public static double getCurrentHeading(){
+    //     return currentHeading;
+    // }
     }
 }
