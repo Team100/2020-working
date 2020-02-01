@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc100.Team100Robot.commands.*;
-import org.usfirst.frc100.Team100Robot.commands.Procedures.HomingProcedure;
 import org.usfirst.frc100.Team100Robot.subsystems.*;
 import com.kauailabs.navx.frc.*;
 
@@ -38,15 +37,10 @@ public class Robot extends TimedRobot {
     public static OI oi;
     public static Drivetrain drivetrain;
     public static Shifter shifter;
-    public static CarriageShoulder carriageShoulder;
     public static Climber climber;
     //public static CargoHatchScore cargoHatchScore;
-    public static CargoPickup cargoPickup;
-    public static HatchPickup hatchPickup;
-    public static Elevator elevator;
     public static double currentHeading;
     public static AHRS ahrs;
-    public static Manipulator manipulator;
     public static Global global;
     public static RobotAutoSwitch ras;
     /**
@@ -59,13 +53,8 @@ public class Robot extends TimedRobot {
 
         drivetrain = new Drivetrain();
         shifter = new Shifter();
-        carriageShoulder = new CarriageShoulder();
         climber = new Climber();
         //cargoHatchScore = new CargoHatchScore();
-        cargoPickup = new CargoPickup();
-        hatchPickup = new HatchPickup();
-        elevator = new Elevator();
-        manipulator = new Manipulator();
         global = new Global();
         ras = new RobotAutoSwitch();
 
@@ -95,7 +84,6 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putData("PusherExtend",new ExtendPusher());
         //SmartDashboard.putData("PusherRetract",new RetractPusher());
         //SmartDashboard.putData("IntakeElement", new IntakeArmIntakeElement());
-        new HomingProcedure().start();
     }
 
     /**
@@ -110,14 +98,12 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         //Scheduler.getInstance().run();
-        SmartDashboard.putNumber("GLOBAL Shoulder PulseWidth Encoder", carriageShoulder.carriageShoulderMotor.getSensorCollection().getPulseWidthPosition());
-        SmartDashboard.putNumber("GLOBAL Shoulder Quadrature Encoder", carriageShoulder.carriageShoulderMotor.getSensorCollection().getQuadraturePosition());
     }
 
     @Override
     public void autonomousInit() {
         Scheduler.getInstance().run();
-        new HomingProcedure().start();
+
 
         
 
