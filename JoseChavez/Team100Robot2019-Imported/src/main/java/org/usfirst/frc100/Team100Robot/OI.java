@@ -54,42 +54,18 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    private Joystick leftStick;
-    private Joystick rightStick;
-    private Joystick manipulatorControl;
-    private Joystick buttonBoard;
+    private Joystick gamepad;
+
     
     private JoystickButton shiftLow;
     private JoystickButton shiftHigh;
-    private JoystickButton spitCargo;
-    private JoystickButton hatchUp;
-    private JoystickButton hatchDown;
-    private JoystickButton intakeCargo;
-    private JoystickButton cargoUp;
-    private JoystickButton cargoDown;
-    private JoystickButton climberToggle;
-    private JoystickButton hatchClamp;
-    private JoystickButton elevatorStageUp;
-    private JoystickButton hatchRelease;
-    private JoystickButton elevatorStageDown;
-    private JoystickButton restartHoming;
 
     // ButtonBoard
 
-    private JoystickButton hatchIntake;
-    private JoystickButton cargoIntake;
-    private JoystickButton cargoLevel3Reverse;
-    private JoystickButton hatchLevel3;
-    private JoystickButton cargoLevel2;
-    private JoystickButton cargoLevel3;
-    private JoystickButton hatchLevel2;
-    private JoystickButton home;
-    private JoystickButton cargoHPIntake;
-    private JoystickButton score;
-    private JoystickButton cargoLevel1;
+
     public JoystickButton autoSwitch;
-    private JoystickButton forceGlobalRehome;
-    private JoystickButton hatchLevel1;
+  
+
     
     
 
@@ -98,56 +74,21 @@ public class OI {
         /*
          * INIT Joysticks
          */
-        leftStick = new Joystick(0);
-        rightStick = new Joystick(1);
-        manipulatorControl = new Joystick(2);
-        buttonBoard = new Joystick(3);
+        gamepad = new Joystick(0);
 
         
         /* 
          * Joystick 0 (Left Stick)
          */
 
-        shiftLow = new JoystickButton(leftStick, 3);
+        shiftLow = new JoystickButton(gamepad, 3);
         shiftLow.whenPressed(new ShiftToLow());
-        
-        hatchUp = new JoystickButton(leftStick, 4);
- 
-        hatchDown = new JoystickButton(leftStick, 5);
 
-        //Joystick 1 (Right Stick)
-        intakeCargo = new JoystickButton(rightStick, 1);
         
-        shiftHigh = new JoystickButton(rightStick, 3);
+        shiftHigh = new JoystickButton(gamepad, 4);
         shiftHigh.whenPressed(new ShiftToHigh());
-        
 
-        //Joystick 2 (Manipulator Control)
-        climberToggle = new JoystickButton(manipulatorControl, 4);
-        hatchClamp = new JoystickButton(manipulatorControl, 5);
-        elevatorStageUp = new JoystickButton(manipulatorControl, 6);
-        hatchRelease = new JoystickButton(manipulatorControl, 7);
-        elevatorStageDown = new JoystickButton(manipulatorControl, 8);
-
-        //Button Board
-        hatchIntake= new JoystickButton(buttonBoard,1);
-        cargoIntake= new JoystickButton(buttonBoard,2);
-        cargoLevel3Reverse= new JoystickButton(buttonBoard,3);
-        hatchLevel3= new JoystickButton(buttonBoard,4);
-        cargoLevel2= new JoystickButton(buttonBoard,5);
-        cargoLevel3= new JoystickButton(buttonBoard,6);
-        hatchLevel2= new JoystickButton(buttonBoard,7);
-        home= new JoystickButton(buttonBoard,8);
-        cargoHPIntake= new JoystickButton(buttonBoard,10);
-        forceGlobalRehome = new JoystickButton(buttonBoard, 11);
-        
-        score= new JoystickButton(buttonBoard,12);
-        autoSwitch = new JoystickButton(buttonBoard, 14); // On for manual; off for tele
-        cargoLevel1= new JoystickButton(buttonBoard,15);
-        hatchLevel1= new JoystickButton(buttonBoard,16);
-
-
-
+       
       
 
         // //SmartDashboard Buttons
@@ -157,17 +98,10 @@ public class OI {
         //SmartDashboard.putData("LowGear", new LowGear());
     }
 
-    public Joystick getLeftStick() {
-        return leftStick;
+    public Joystick getGamepad() {
+        return gamepad;
     }
 
-    public Joystick getRightStick() {
-        return rightStick;
-    }
-
-    public Joystick getManipulatorControl() {
-        return manipulatorControl;
-    }
     
 
 }

@@ -5,39 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc100.Team100Robot.commands.Procedures;
-
-import org.usfirst.frc100.Team100Robot.Robot;
+package org.usfirst.frc100.Team100Robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class WaitForUserInput extends Command {
-  private boolean done = false;
-  public WaitForUserInput() {
+public class ColorReader extends Command {
+  public ColorReader() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    //requires(Robot.global);
-    
-    
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    done = false;
-    System.out.println("Wait for user input began");
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return done;
+    return false;
   }
 
   // Called once after isFinished returns true
