@@ -28,7 +28,8 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  private FRCTalonSRX talon;
+  public FRCTalonSRX talon;
+  public TalonSRX talon2;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -51,6 +52,8 @@ public class Robot extends TimedRobot {
             .withSmartDashboardPutEnabled(true)
             .withSmartDashboardPath("/sampleTalon")
             .build();
+
+    talon2 = new TalonSRX(2);
 
       //talon = new FRCTalonSRX();
       

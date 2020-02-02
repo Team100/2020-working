@@ -24,7 +24,6 @@ public class FRCTalonSRX {
     }
     public void drivePercentOutput(double percentOutput){
         this.motor.set(ControlMode.PercentOutput, percentOutput);
-        System.out.println(percentOutput);
         
     }
     public void driveMotionMagic(double setpoint){
