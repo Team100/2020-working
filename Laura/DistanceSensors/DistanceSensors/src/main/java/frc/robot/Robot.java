@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.*;
+import com.revrobotics.Rev2mDistanceSensor.Port;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,6 +35,7 @@ public class Robot extends TimedRobot {
   private final DigitalInput m_digital1 = new DigitalInput(1);
   private final DigitalInput m_digital2 = new DigitalInput(2);
   private final DigitalInput m_digital3 = new DigitalInput(3);
+  private Rev2mDistanceSensor distOnboard; 
 
   /**
    * This function is run when the robot is first started up and should be
@@ -43,6 +46,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    distOnboard = new Rev2mDistanceSensor(Port.kOnboard);
   }
 
   /**
@@ -58,6 +62,11 @@ public class Robot extends TimedRobot {
     double distance = 6787/(m_analog2.getVoltage()*1024/5 -3) - 4;
 
     SmartDashboard.putNumber("SHARP 2Y0A21", distance);
+    
+    if(distOnboard.isRangeValid()) {
+      SmartDashboard.putNumber("Range Onboard", distOnboard.getRange());
+      SmartDashboard.putNumber("Timestamp Onboard", distOnboard.getTimestamp());
+    }
   }
 
   /**
