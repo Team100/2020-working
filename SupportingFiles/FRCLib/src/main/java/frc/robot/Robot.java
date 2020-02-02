@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,18 +40,22 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
 
     talon = new FRCTalonSRX.FRCTalonSRXBuilder()
-            .withCanID(0)
+            .withCanID(1)
             .withFeedbackPort(0)
             .withInverted(false)
             .withSensorPhase(false)
             .withKP(0)
             .withKI(0)
             .withKD(0)
-            .withKF(1)
-            .withCurrentLimitEnabled(false)
+            .withKF(1)            
             .withSmartDashboardPutEnabled(true)
             .withSmartDashboardPath("/sampleTalon")
             .build();
+
+      //talon = new FRCTalonSRX();
+      
+      //talon.motor = new TalonSRX(1);
+      //talon.reset();
 
 
   }
@@ -106,8 +113,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    talon.drivePercentOutput(1);
-    talon.updateSmartDashboard();
+    //this.talon.motor.set(ControlMode.PercentOutput, .1);
+    this.talon.drivePercentOutput(.1);
   }
 
   /**

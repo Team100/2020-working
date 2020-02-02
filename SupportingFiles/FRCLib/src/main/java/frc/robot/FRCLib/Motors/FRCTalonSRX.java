@@ -16,11 +16,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class FRCTalonSRX {
 
+    public void reset(){
+        this.motor.configFactoryDefault();
+    }
     public void driveVelocity(double velocity){
         this.motor.set(ControlMode.Velocity, velocity);
     }
     public void drivePercentOutput(double percentOutput){
         this.motor.set(ControlMode.PercentOutput, percentOutput);
+        System.out.println(percentOutput);
+        
     }
     public void driveMotionMagic(double setpoint){
         this.motor.set(ControlMode.MotionProfile, setpoint);
@@ -41,6 +46,9 @@ public class FRCTalonSRX {
 
     public void updateSmartDashboard(){
         if(this.isSmartDashboardPutEnabled()){
+
+            SmartDashboard.putNumber(this.getSmartDashboardPath()+"/percentOutput",this.motor.getMotorOutputPercent());
+
             SmartDashboard.putNumber(this.getSmartDashboardPath() + "/allowableClosedLoopError", this.getAllowableClosedLoopError());
             SmartDashboard.putBoolean(this.getSmartDashboardPath()+"/auxPIDPolarity", this.isAuxPIDPolarity());
             SmartDashboard.putNumber(this.getSmartDashboardPath()+"/canID",this.getCanID());
@@ -86,7 +94,7 @@ public class FRCTalonSRX {
     /**
      * A direct reference to the TalonSRX motor, designed for direct control
      */
-    private TalonSRX motor;
+    public TalonSRX motor;
     ///////////////////////////////////////////////////////////////////////////
 
 
@@ -292,37 +300,85 @@ public class FRCTalonSRX {
         motor.config_kP(0,this.getkP());
         motor.config_kI(0, this.getkI());
         motor.config_kD(0, this.getkD());
-        motor.config_kF(0, this.getkF());
+        motor.config_kF(1, this.getkF());
 
 
 
     }
     public FRCTalonSRX configure(){
         motor = new TalonSRX(this.getCanID());
-        motor.setInverted(this.isInverted());
-        motor.enableCurrentLimit(this.isCurrentLimitEnabled());
-        motor.configContinuousCurrentLimit(this.getCurrentLimit());
-        motor.configFeedbackNotContinuous(this.isFeedbackNotContinuous(), this.getTimeout());
+        System.out.println(this.motor.configFactoryDefault());
+        System.out.println("#################RESET");
+        if(this.isInverted()){motor.setInverted(this.isInverted());System.out.println("Configuring Inverted");}
+        if(this.isCurrentLimitEnabled()){
+            motor.enableCurrentLimit(this.isCurrentLimitEnabled());
+            motor.configContinuousCurrentLimit(this.getCurrentLimit());
+            System.out.println("Configuring Current Limit");
+
+        }
+        if(this.isFeedbackNotContinuous()){motor.configFeedbackNotContinuous(this.isFeedbackNotContinuous(), this.getTimeout());System.out.println("Configuring Feedback Continuity");}
+
+        if(this.isForwardSoftLimitEnabled()){
         motor.configForwardSoftLimitEnable(this.isForwardSoftLimitEnabled());
         motor.configForwardSoftLimitThreshold(this.getForwardSoftLimitThreshold());
+        System.out.println("Configuring forward soft limit");
+        }
+        if(this.getMotionAcceleration() != 0){
         motor.configMotionAcceleration(this.getMotionAcceleration());
         motor.configMotionCruiseVelocity(this.getMotionCruiseVelocity());
-        motor.configMotionSCurveStrength(this.getMotionCurveStrength());
-        motor.setNeutralMode(this.getNeutralMode());
-        motor.configNominalOutputForward(this.getNominalOutputForward());
+        System.out.println("Configuring acceleration");
+        }
+        if(this.getNeutralMode() != null){
+            motor.setNeutralMode(this.getNeutralMode());
+            System.out.println("Setting Neutral Mode");
+        }
+        if(this.getNominalOutputForward() != 0 || this.getNominalOutputReverse() != 0){
+            motor.configNominalOutputForward(this.getNominalOutputForward());
         motor.configNominalOutputReverse(this.getNominalOutputReverse());
-        motor.configOpenloopRamp(this.getOpenLoopRampRate());
-        motor.configPeakOutputForward(this.getPeakOutputForward());
-        motor.configPeakOutputForward(this.getPeakOutputReverse());
-        motor.configReverseSoftLimitEnable(this.isReverseSoftLimitEnabled());
-        motor.configReverseSoftLimitThreshold(this.getReverseSoftLimitThreshold());
-        motor.setSensorPhase(this.isSensorPhase());
-        motor.getStatusFramePeriod(this.getStatusFrameType(), this.getStatusFrame());
-        motor.configVelocityMeasurementPeriod(this.getVelocityMeasurementPeriod());
-        motor.configVelocityMeasurementWindow(this.getVelocityMeasurementWindow());
-        motor.configVoltageCompSaturation(this.getVoltageCompensationSaturation());
+            System.out.println("Setting Nominal Output");
+        }
 
-        updatePIDController();
+        if(this.getOpenLoopRampRate() != 0){
+            motor.configOpenloopRamp(this.getOpenLoopRampRate());
+            System.out.println("Setting Open Loop Ramp Rate");
+
+        }
+
+        if(this.getPeakOutputForward() != 0 || this.getPeakOutputReverse() != 0){
+            motor.configPeakOutputForward(this.getPeakOutputForward());
+        motor.configPeakOutputForward(this.getPeakOutputReverse());
+        System.out.println("Setting Peak Output");
+        }
+        
+        if(this.isReverseSoftLimitEnabled()){
+            motor.configReverseSoftLimitEnable(this.isReverseSoftLimitEnabled());
+        motor.configReverseSoftLimitThreshold(this.getReverseSoftLimitThreshold());
+        System.out.println("setting reverse soft limit enabled");
+        }
+        if(this.isSensorPhase()){
+            motor.setSensorPhase(this.isSensorPhase());
+            System.out.println("setting sensor phase");
+
+        }
+        if(this.getStatusFrame() != 0){
+            motor.setStatusFramePeriod(this.getStatusFrameType(), this.getStatusFrame());
+            System.out.println("Setting Frame Period");
+
+        }
+        if(this.getVelocityMeasurementPeriod() != null || this.getVelocityMeasurementWindow() != 0){
+            motor.configVelocityMeasurementPeriod(this.getVelocityMeasurementPeriod());
+            motor.configVelocityMeasurementWindow(this.getVelocityMeasurementWindow());
+            System.out.println("Setting Velocity Measurement Period");
+        }
+        if(this.getVoltageCompensationSaturation() != 0){
+            motor.configVoltageCompSaturation(this.getVoltageCompensationSaturation());
+            System.out.println("Setting Saturation");
+
+        }
+        if(this.getkP() != 0 || this.getkI() != 0 || this.getkD() != 0 || this.getkF() != 0){
+            updatePIDController();
+            System.out.println("Setting PID Controller");
+        }
         return this;
     }
 
@@ -636,43 +692,43 @@ public class FRCTalonSRX {
 
 
     public static final class FRCTalonSRXBuilder {
-        private int canID = 0;
-        private boolean inverted = false;
-        private int feedbackPort = 0;
-        private int timeout = 10;
-        private boolean sensorPhase = false;
-        private double kP = 0;
-        private double kI = 0;
-        private double kD = 0;
-        private double kF = 0;
-        private int allowableClosedLoopError = 0;
-        private StatusFrameEnhanced statusFrameType = StatusFrameEnhanced.Status_13_Base_PIDF0;
-        private int statusFrame  = 0;
-        private boolean currentLimitEnabled = false;
-        private int currentLimit = 0;
-        private NeutralMode neutralMode = NeutralMode.Coast;
-        private boolean smartDashboardPutEnabled = false;
-        private String smartDashboardPath = "";
-        private double openLoopRampRate = 0;
-        private double closedLoopRampRate = 0;
-        private double nominalOutputForward = 1;
-        private double nominalOutputReverse = -1;
-        private double peakOutputForward = 1;
-        private double peakOutputReverse = -1;
-        private double neutralDeadband = 0;
-        private double voltageCompensationSaturation = 12;
-        private VelocityMeasPeriod velocityMeasurementPeriod = null;
-        private int velocityMeasurementWindow = 0;
-        private boolean forwardSoftLimitEnabled = false;
-        private int forwardSoftLimitThreshold = 0;
-        private boolean reverseSoftLimitEnabled = false;
-        private int reverseSoftLimitThreshold = 0;
-        private boolean auxPIDPolarity = false;
-        private int motionCruiseVelocity = 1000;
-        private int motionAcceleration = 1000;
-        private int motionCurveStrength = 1000;
-        private int motionProfileTrajectoryPeriod = 0;
-        private boolean feedbackNotContinuous = false;
+        private int canID;
+        private boolean inverted;
+        private int feedbackPort;
+        private int timeout;
+        private boolean sensorPhase;
+        private double kP;
+        private double kI;
+        private double kD;
+        private double kF;
+        private int allowableClosedLoopError;
+        private StatusFrameEnhanced statusFrameType;
+        private int statusFrame;
+        private boolean currentLimitEnabled;
+        private int currentLimit;
+        private NeutralMode neutralMode;
+        private boolean smartDashboardPutEnabled;
+        private String smartDashboardPath;
+        private double openLoopRampRate;
+        private double closedLoopRampRate;
+        private double nominalOutputForward;
+        private double nominalOutputReverse;
+        private double peakOutputForward;
+        private double peakOutputReverse ;
+        private double neutralDeadband;
+        private double voltageCompensationSaturation;
+        private VelocityMeasPeriod velocityMeasurementPeriod;
+        private int velocityMeasurementWindow;
+        private boolean forwardSoftLimitEnabled;
+        private int forwardSoftLimitThreshold;
+        private boolean reverseSoftLimitEnabled;
+        private int reverseSoftLimitThreshold;
+        private boolean auxPIDPolarity;
+        private int motionCruiseVelocity;
+        private int motionAcceleration;
+        private int motionCurveStrength;
+        private int motionProfileTrajectoryPeriod;
+        private boolean feedbackNotContinuous;
 
         public FRCTalonSRXBuilder() {
         }
