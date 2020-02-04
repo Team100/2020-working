@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Cameratiltsubsystem extends SubsystemBase {
-  private int setpoint;
+  private double setpoint;
   /**
    * Creates a new ExampleSubsystem.
    */
@@ -24,12 +24,12 @@ public class Cameratiltsubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    m_tiltmotor.setAngle(setpoint);
     SmartDashboard.putNumber("Servo Angle", setpoint);
+    // This method will be called once per scheduler run
   }
-
-  public void setsetpoint(int s) {
+  public void setsetpoint(double s) {
     setpoint = s;
+    m_tiltmotor.setAngle(setpoint);
+  
   }
 }

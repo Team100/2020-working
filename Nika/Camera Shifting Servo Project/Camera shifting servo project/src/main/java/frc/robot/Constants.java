@@ -17,8 +17,8 @@ package frc.robot;
  */
 public final class Constants {
     public final class Camera {
-        public static final int SETPOINT_TOP = 0;
-        public static final int SETPOINT_MIDDLE = 0;
-        public static final int INCREMENT = 10;
+        public static final double SETPOINT_TOP = 180;
+        public static final double SETPOINT_MIDDLE = 90;
+        public static final double INCREMENT = 20;
     }
 }
