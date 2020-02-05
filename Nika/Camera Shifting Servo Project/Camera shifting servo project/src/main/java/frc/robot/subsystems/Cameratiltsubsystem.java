@@ -32,4 +32,8 @@ public class Cameratiltsubsystem extends SubsystemBase {
     m_tiltmotor.setAngle(setpoint);
   
   }
+
+  public double getsetsetpoint() {
+    return m_tiltmotor.getAngle();
+  };
 }

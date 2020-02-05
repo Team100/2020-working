@@ -54,12 +54,12 @@ public class RobotContainer {
     middle.whenPressed(new InstantCommand(() -> {
       m_exampleSubsystem.setsetpoint(Constants.Camera.SETPOINT_MIDDLE);
     }));
-     /* servosetpoint += Constants.Camera.INCREMENT;
+    up.whenPressed(new InstantCommand(() -> {
+      m_exampleSubsystem.setsetpoint(m_exampleSubsystem.getsetsetpoint() + Constants.Camera.INCREMENT);
     }));
     down.whenPressed(new InstantCommand(() -> {
-     servosetpoint -= Constants.Camera.INCREMENT;
+      m_exampleSubsystem.setsetpoint(m_exampleSubsystem.getsetsetpoint() - Constants.Camera.INCREMENT);
     }));
- */
   }
 
   /**
@@ -70,5 +70,4 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return null;
-  }
-}
+  }}

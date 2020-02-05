@@ -19,6 +19,6 @@ public final class Constants {
     public final class Camera {
         public static final double SETPOINT_TOP = 180;
         public static final double SETPOINT_MIDDLE = 90;
-        public static final double INCREMENT = 20;
+        public static final double INCREMENT = 10;
     }
 }
