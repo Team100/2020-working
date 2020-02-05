@@ -26,16 +26,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Joystick joystick;
-  private final JoystickButton unlockButton;
-  private final JoystickButton lockButton;
+  public final Joystick joystick;
+  public final JoystickButton unlockButton;
+  public final JoystickButton lockButton;
+  public final JoystickButton winchDown;
+  public final JoystickButton winchUp;
 
-  private final Drivetrain drivetrain;
-  private final ClimberLock climberLock;
+  public final Drivetrain drivetrain;
+  public final ClimberLock climberLock;
 
-  private final Drive drive;
-  private final UnlockClimber unlockClimber;
-  private final LockClimber lockClimber;
+  public final Drive drive;
+  public final UnlockClimber unlockClimber;
+  public final LockClimber lockClimber;
 
 
   /**
@@ -44,7 +46,9 @@ public class RobotContainer {
   public RobotContainer() {
     joystick = new Joystick(Constants.Robot.JOYSTICK_PORT);
     unlockButton = new JoystickButton(joystick, 1);
-    lockButton = new JoystickButton(joystick, 2);
+    lockButton = new JoystickButton(joystick, 3);
+    winchDown = new JoystickButton(joystick, 2);
+    winchUp = new JoystickButton(joystick, 4);
 
     drivetrain = new Drivetrain();
     climberLock = new ClimberLock();
