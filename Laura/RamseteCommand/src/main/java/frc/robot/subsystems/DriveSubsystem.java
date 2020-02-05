@@ -11,9 +11,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
@@ -42,6 +44,8 @@ public class DriveSubsystem extends SubsystemBase {
   private double rightSimPosition = 0;
   private double simHeading = 0;
   private double simRotationalVelocity = 0;
+  private Timer m_timer = new Timer();
+  private double m_prevTime = 0;
 
   /**
    * Creates a new DriveSubsystem.
@@ -49,6 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     m_drive.setSafetyEnabled(false);
     resetEncoders();
+    m_timer.start();
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
   }
 
@@ -59,18 +64,22 @@ public class DriveSubsystem extends SubsystemBase {
     double leftPosition = 0;
     double rightPosition = 0;
 
+    double curTime = m_timer.get();
+    double dt = curTime - m_prevTime;
+    m_prevTime = curTime;
+
     if (Robot.isReal()) {
       leftPosition = m_leftMaster.getSelectedSensorPosition();
       rightPosition = m_rightMaster.getSelectedSensorPosition();
     } else {
-      leftSimPosition = leftSimPosition + leftSimVelocity * .02;
-      rightSimPosition = rightSimPosition + rightSimVelocity * 0.02;
+      leftSimPosition = leftSimPosition + leftSimVelocity * dt;
+      rightSimPosition = rightSimPosition + rightSimVelocity * dt;
       leftPosition = leftSimPosition;
       rightPosition = rightSimPosition;
       ChassisSpeeds chassis = DriveConstants.kDriveKinematics
           .toChassisSpeeds(new DifferentialDriveWheelSpeeds(leftSimVelocity, rightSimVelocity));
       simRotationalVelocity = chassis.omegaRadiansPerSecond;
-      simHeading = simHeading + new Rotation2d(simRotationalVelocity * 0.02).getDegrees();
+      simHeading = simHeading + new Rotation2d(simRotationalVelocity * dt).getDegrees();
       simHeading = Math.IEEEremainder(simHeading, 360);
     }
     m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftPosition, rightPosition);
@@ -87,7 +96,7 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pose_Y m", myPose.getTranslation().getY());
     SmartDashboard.putNumber("Pose_Angle deg", myPose.getRotation().getDegrees());
 
-    // System.out.println("POSE " + myPose.toString());
+    System.out.println("POSE " + myPose.toString());
     return myPose;
   }
 
@@ -144,6 +153,7 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Drive_RightVelocity", rightVelocity);
     leftSimVelocity = leftVelocity;
     rightSimVelocity = rightVelocity;
+
     m_leftMaster.set(ControlMode.Velocity, leftVelocity); // TODO Scaling
     m_rightMaster.set(ControlMode.Velocity, -rightVelocity); // TODO Scaling
   }
@@ -152,10 +162,20 @@ public class DriveSubsystem extends SubsystemBase {
    * Resets the drive encoders to currently read a position of 0.
    */
   public void resetEncoders() {
-    leftSimPosition = 0;
-    rightSimPosition = 0;
-    leftSimVelocity = 0;
-    rightSimVelocity = 0;
+    if (Robot.isSimulation()) {
+      leftSimPosition = 0;
+      rightSimPosition = 0;
+      leftSimVelocity = 0;
+      rightSimVelocity = 0;
+      simHeading = 0;
+      if (m_odometry != null) {
+
+        m_odometry.resetPosition(new Pose2d(new Translation2d(0.0,0.0), new Rotation2d(0.0)), 
+                                new Rotation2d(0.0)); 
+      }
+      
+    }
+
     m_leftMaster.setSelectedSensorPosition(0);
     m_rightMaster.setSelectedSensorPosition(0);
   }
