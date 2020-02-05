@@ -37,6 +37,11 @@ public class Indexer extends SubsystemBase {
     leftSpx.set(ControlMode.PercentOutput, (leftSpeed));
   }
 
+  public static void moveStageOne() {
+    double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
+    rightSpx.set(ControlMode.PercentOutput, (rightSpeed));
+  }
+
   public static void unJam() {
     double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
     double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);

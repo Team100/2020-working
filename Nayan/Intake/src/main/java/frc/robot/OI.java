@@ -23,6 +23,7 @@ public class OI {
     private JoystickButton IndexMoveUnJam;
     private JoystickButton IndexMoveEnd;
     private JoystickButton IndexMoveUp;
+    private JoystickButton IndexMoveS1;
 
     public OI() {
         stick = new Joystick(0);
@@ -30,11 +31,13 @@ public class OI {
         IndexMoveUnJam = new JoystickButton(stick, 2);
         IndexMoveEnd = new JoystickButton(stick, 3);
         IndexMoveUp = new JoystickButton(stick, 4);
+        IndexMoveS1 = new JoystickButton(stick, 5);
 
         IndexMoveFoward.whileHeld(new IndexMoveFoward());
         IndexMoveUnJam.whileHeld(new IndexMoveUnJam());
         IndexMoveEnd.whileHeld(new IndexMoveEnd());
-        IndexMoveUp.whileHeld(new IndexMoveUp());
+        IndexMoveUp.whileHeld(new IndexMoveUp(true));
+        IndexMoveS1.whileHeld(new IndexMoveUp(false));
     }
 
     public Joystick stick() {
@@ -42,4 +45,4 @@ public class OI {
     }
     
 
-}
+};

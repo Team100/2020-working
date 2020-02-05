@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  */
 public class IndexMoveUp extends CommandBase {
   // private final Indexer m_subsystem;
+  private boolean both;
 
 
   // public IndexMove(Indexer subsystem) {
@@ -19,7 +20,8 @@ public class IndexMoveUp extends CommandBase {
     
   // }
 
-  public IndexMoveUp() {
+  public IndexMoveUp(boolean b) {
+    both = b;
     //Indexer.foward();
 }
 
@@ -31,7 +33,8 @@ public class IndexMoveUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Indexer.MoveUp();
+    if (both) Indexer.MoveUp();
+    else Indexer.moveStageOne();
   }
   // Called once the command ends or is interrupted.
   @Override
