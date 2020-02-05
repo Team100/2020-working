@@ -60,7 +60,7 @@ public class Indexer extends SubsystemBase {
     leftSpx.set(ControlMode.PercentOutput, 0.3);
     rightSpx.set(ControlMode.PercentOutput, 0.3);
     try {
-      Thread.sleep(500);
+      Thread.sleep(400);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -80,7 +80,7 @@ public class Indexer extends SubsystemBase {
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
 
-    SmartDashboard.putNumber("Current Draw Can 0", PDP.getCurrent(0));
-    SmartDashboard.putNumber("Current Draw Can 1", PDP.getCurrent(1));
+    SmartDashboard.putNumber("Current Draw Can 2", PDP.getCurrent(2));
+    SmartDashboard.putNumber("Current Draw Can 14", PDP.getCurrent(14));
   }
 }
