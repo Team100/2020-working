@@ -13,10 +13,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-
+import edu.wpi.first.wpilibj.Preferences;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.*;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
@@ -38,8 +40,13 @@ public class Robot extends TimedRobot {
   private boolean blueController = true;
   private boolean yellowController = true;
   private boolean greenController = true;
-
-
+  private Preferences preferences;
+  private double configuratingColors;
+  private final Joystick  m_stick = new Joystick(0);
+  private final JoystickButton m_start = new JoystickButton(m_stick, 10);
+  private int counter = 0;
+  
+  
   /**
    * A Rev Color Sensor V3 object is constructed with an I2C port as a parameter.
    * The device will be automatically initialized with default parameters.
@@ -61,7 +68,12 @@ public class Robot extends TimedRobot {
   private final Color kBlueTarget = ColorMatch.makeColor(0.196, 0.491, 0.311);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.483, 0.371, 0.148);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.301, 0.550, 0.148);
+  private Color kYellowTarget = ColorMatch.makeColor(0.301, 0.550, 0.148);
+
+  private final Color detectedColor = m_colorSensor.getColor();
+  private final double red = detectedColor.red;
+  private final double blue = detectedColor.blue;
+  private final double green = detectedColor.green;
 
   @Override
   public void robotInit() {
@@ -69,8 +81,15 @@ public class Robot extends TimedRobot {
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
-  }
 
+   /*  preferences = Preferences.getInstance();
+    configuratingColors = preferences.getDouble("configurating Color", 0);
+    preferences.putDouble("configurating Color", configuratingColors); */
+
+    configuratingColors= SmartDashboard.getNumber("configurating Colors", 0);
+    SmartDashboard.putNumber("configurating Colors", configuratingColors);
+  }
+ 
   @Override
   public void robotPeriodic() {
     /**
@@ -83,14 +102,25 @@ public class Robot extends TimedRobot {
      * is the more light from the surroundings will bleed into the measurements and
      * make it difficult to accurately determine its color.
      */
-    final Color detectedColor = m_colorSensor.getColor();
+  
+    /**
+     * Open Smart Dashboard or Shuffleboard to see the color detected by the 
+     * sensor.
+     */
+    
 
     /**
      * Run the color match algorithm on our detected color
+     * 
      */
+    final Color detectedColor = m_colorSensor.getColor();
+
     String colorString;
     
     final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    final double red = detectedColor.red;
+    final double blue = detectedColor.blue;
+    final double green = detectedColor.green;
    
 
     if (match.color == kBlueTarget) {
@@ -113,6 +143,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putNumber("red value", red);
+    SmartDashboard.putNumber("blue value", blue);
+    SmartDashboard.putNumber("green value", green);
+    
+      
 
     String gameData;
   
@@ -199,18 +234,37 @@ public class Robot extends TimedRobot {
       // Code for no data received yet
     }
     SmartDashboard.putString("Game Data", gameData);
+
+
   }
 
   @Override
   public void teleopPeriodic() {
-
+   
+    if (m_start.get()){
+      if (configuratingColors==1){
+        kYellowTarget = ColorMatch.makeColor(red, green, blue);
+        counter=counter+1;
+      }
+    }
+    
     if(runMotor){
     //  m_motor.set(1);
     }
     else{
     //  m_motor.set(0);
     }
-    
+    SmartDashboard.putNumber("counter", counter);
   }
 
-}
+  @Override
+  public void teleopInit(){
+   /*  preferences = Preferences.getInstance();
+    configuratingColors = preferences.getDouble("configurating Color", 0); */
+
+    configuratingColors= SmartDashboard.getNumber("configurating Colors", 0);
+
+    
+  } 
+
+  }
