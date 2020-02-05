@@ -63,16 +63,21 @@ public class Indexer extends SubsystemBase {
 
 
     while(outSensor.get()) {
-      leftSpx.set(ControlMode.PercentOutput, 0.3);
-      rightSpx.set(ControlMode.PercentOutput, 0.3);
+      double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
+      double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
+
+      leftSpx.set(ControlMode.PercentOutput, leftSpeed);
+      rightSpx.set(ControlMode.PercentOutput, rightSpeed);
     }
     stop();
   }
 
   public static void MoveUp() {
+    double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
+    double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
 
-    leftSpx.set(ControlMode.PercentOutput, 0.3);
-    rightSpx.set(ControlMode.PercentOutput, 0.3);
+    leftSpx.set(ControlMode.PercentOutput, leftSpeed);
+    rightSpx.set(ControlMode.PercentOutput, rightSpeed);
     try {
       Thread.sleep(400);
     } catch (InterruptedException e) {
@@ -95,7 +100,7 @@ public class Indexer extends SubsystemBase {
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
 
-    SmartDashboard.putNumber("Current Draw Can 2", PDP.getCurrent(Constants.LEFT_SPX_CANID));
-    SmartDashboard.putNumber("Current Draw Can 14", PDP.getCurrent(Constants.RIGHT_SPX_CANID));
+    // SmartDashboard.putNumber("Current Draw Can 2", PDP.getCurrent(0));
+    // SmartDashboard.putNumber("Current Draw Can 14", PDP.getCurrent(1));
   }
 }
