@@ -12,22 +12,21 @@ import frc.robot.Constants;
 public class Indexer extends SubsystemBase {
   private static WPI_VictorSPX leftSpx;
   private static WPI_VictorSPX rightSpx;
-  static DigitalInput frontSensor = new DigitalInput(1);
-  static DigitalInput outSensor = new DigitalInput(0);
+  static DigitalInput frontSensor = new DigitalInput(0);
+  static DigitalInput outSensor = new DigitalInput(1);
+  public static double outputLimit = 0.5;
 
   PowerDistributionPanel PDP = new PowerDistributionPanel(0);
 
   public Indexer() {
     leftSpx = new WPI_VictorSPX(Constants.LEFT_SPX_CANID);
-    leftSpx.configPeakOutputForward(0.5);
-    leftSpx.configPeakOutputReverse(-0.5);
 
     rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
-    rightSpx.configPeakOutputForward(0.5);
-    rightSpx.configPeakOutputReverse(-0.5);
 
     SmartDashboard.putNumber("PercentOutLeft", 0.3);
     SmartDashboard.putNumber("PercentOutRight", 0.3);
+
+    SmartDashboard.putNumber("outputLimit", outputLimit);
   }
 
   public static void moveFoward() {
@@ -47,6 +46,16 @@ public class Indexer extends SubsystemBase {
     double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
     rightSpx.set(ControlMode.PercentOutput, -(rightSpeed));
     leftSpx.set(ControlMode.PercentOutput, -(leftSpeed));
+  }
+
+  public static void peakOutput() {
+    double outputLimit = SmartDashboard.getNumber("outputLimit", 0.5);
+
+    leftSpx.configPeakOutputForward(outputLimit);
+    leftSpx.configPeakOutputReverse(-outputLimit);
+
+    rightSpx.configPeakOutputForward(outputLimit);
+    rightSpx.configPeakOutputReverse(-outputLimit);
   }
 
 
@@ -81,11 +90,12 @@ public class Indexer extends SubsystemBase {
   @Override
   public void periodic() {
     stop();
-
+    peakOutput();
+    
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
 
-    SmartDashboard.putNumber("Current Draw Can 2", PDP.getCurrent(2));
-    SmartDashboard.putNumber("Current Draw Can 14", PDP.getCurrent(14));
+    SmartDashboard.putNumber("Current Draw Can 2", PDP.getCurrent(Constants.LEFT_SPX_CANID));
+    SmartDashboard.putNumber("Current Draw Can 14", PDP.getCurrent(Constants.RIGHT_SPX_CANID));
   }
 }
