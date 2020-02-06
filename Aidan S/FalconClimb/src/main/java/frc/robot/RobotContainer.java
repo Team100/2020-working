@@ -12,9 +12,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Drive;
 import frc.robot.commands.UnlockClimber;
+import frc.robot.commands.WinchDown;
+import frc.robot.commands.WinchNormal;
+import frc.robot.commands.WinchUp;
 import frc.robot.commands.LockClimber;
 import frc.robot.subsystems.ClimberLock;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Winch;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -34,6 +38,7 @@ public class RobotContainer {
 
   public final Drivetrain drivetrain;
   public final ClimberLock climberLock;
+  public final Winch winch;
 
   public final Drive drive;
   public final UnlockClimber unlockClimber;
@@ -50,8 +55,15 @@ public class RobotContainer {
     winchDown = new JoystickButton(joystick, 2);
     winchUp = new JoystickButton(joystick, 4);
 
+  
+    
+
     drivetrain = new Drivetrain();
     climberLock = new ClimberLock();
+    winch = new Winch();
+
+    winchUp.whileHeld(new WinchUp(winch));
+    winchDown.whileHeld(new WinchDown(winch));
 
     drive = new Drive(drivetrain, joystick);
     unlockClimber = new UnlockClimber(climberLock);
@@ -61,6 +73,7 @@ public class RobotContainer {
     lockButton.whenPressed(lockClimber);
 
     drivetrain.setDefaultCommand(drive);
+    winch.setDefaultCommand(new WinchNormal(winch));
 
     // Configure the button bindings
     configureButtonBindings();

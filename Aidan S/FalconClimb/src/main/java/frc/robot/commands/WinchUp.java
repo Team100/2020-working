@@ -8,18 +8,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Winch;
 
 public class WinchUp extends CommandBase {
+
+public Winch winch;
+
   /**
    * Creates a new WinchUp.
    */
-  public WinchUp() {
+  public WinchUp(Winch winch) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.winch = winch;
+    addRequirements(winch);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    winch.drive(0.3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

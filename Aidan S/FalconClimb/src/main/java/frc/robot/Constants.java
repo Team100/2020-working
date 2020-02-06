@@ -31,5 +31,9 @@ public final class Constants {
         public static final int LOCK_POSITION = 270;
         public static final int UNLOCK_POSITION = 0;
     }
+
+    public final class Winch{
+        public static final int CAN_ID = 1;
+    }
 }
 
