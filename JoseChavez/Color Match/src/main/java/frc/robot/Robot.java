@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
    * This object uses a simple euclidian distance to estimate the closest match
    * with given confidence range.
    */
-  private final ColorMatch m_colorMatcher = new ColorMatch();
+  private ColorMatch m_colorMatcher = new ColorMatch();
  /**
    * Note: Any example colors should be calibrated as the user needs, these are
    * here as a basic example.
@@ -245,6 +245,8 @@ public class Robot extends TimedRobot {
       if (configuratingColors==1){
         kYellowTarget = ColorMatch.makeColor(red, green, blue);
         counter=counter+1;
+        m_colorMatcher.addColorMatch(kYellowTarget);
+        
       }
     }
     
