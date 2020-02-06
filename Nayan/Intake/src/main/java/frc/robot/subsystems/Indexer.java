@@ -99,8 +99,5 @@ public class Indexer extends SubsystemBase {
     
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
-
-    // SmartDashboard.putNumber("Current Draw Can 2", PDP.getCurrent(0));
-    // SmartDashboard.putNumber("Current Draw Can 14", PDP.getCurrent(1));
   }
 }
