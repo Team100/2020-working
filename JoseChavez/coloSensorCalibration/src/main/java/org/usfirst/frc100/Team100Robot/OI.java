@@ -91,7 +91,6 @@ public class OI {
         lowerSpinner.whileHeld(new lowerSpinerWheel());
 
         calibrate = new JoystickButton(gamepad, 10);
-
         calibrate.whenPressed(new InstantCommand(() -> Robot.controlPanelSpinner.calibrate()));
 
         // //SmartDashboard Buttons

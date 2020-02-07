@@ -7,20 +7,20 @@
 
 package org.usfirst.frc100.Team100Robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.TimedRobot;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorSensorV3;
+
+import org.usfirst.frc100.Team100Robot.Constants;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
-import org.usfirst.frc100.Team100Robot.Constants;
-import org.usfirst.frc100.Team100Robot.OI;
-
-import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorMatch;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.*;
 /**
  * Add your docs here.
  */
@@ -43,16 +43,28 @@ public class ControlPanelSpinner extends Subsystem {
     private boolean yellowController = true;
     private boolean greenController = true;
   
-  
+  //= Preferences.getInstance().getDouble(".....", Constants.RGB_RED_VALUE_FOR_BLUE);)
     
     private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   
     private final ColorMatch m_colorMatcher = new ColorMatch();
    
-    private final Color kBlueTarget = ColorMatch.makeColor(Constants.RGB_RED_VALUE_FOR_BLUE, Constants.RGB_GREEN_VALUE_FOR_BLUE, Constants.RGB_BLUE_VALUE_FOR_BLUE);
-    private final Color kGreenTarget = ColorMatch.makeColor(Constants.RGB_RED_VALUE_FOR_GREEN, Constants.RGB_GREEN_VALUE_FOR_GREEN, Constants.RGB_BLUE_VALUE_FOR_GREEN);
-    private final Color kRedTarget = ColorMatch.makeColor(Constants.RGB_RED_VALUE_FOR_RED, Constants.RGB_GREEN_VALUE_FOR_RED, Constants.RGB_BLUE_VALUE_FOR_RED);
-    private final Color kYellowTarget = ColorMatch.makeColor(Constants.RGB_RED_VALUE_FOR_YELLOW, Constants.RGB_GREEN_VALUE_FOR_YELLOW, Constants.RGB_BLUE_VALUE_FOR_YELLOW);
+    private final Color kBlueTarget = ColorMatch.makeColor(
+      Preferences.getInstance().getDouble("RedTile_BlueComponent",Constants.RGB_RED_VALUE_FOR_BLUE), 
+      Preferences.getInstance().getDouble("GreenTile_BlueComponent",Constants.RGB_GREEN_VALUE_FOR_BLUE),
+      Preferences.getInstance().getDouble("BlueTile_BlueComponent", Constants.RGB_BLUE_VALUE_FOR_BLUE));
+    private final Color kGreenTarget = ColorMatch.makeColor(
+      Preferences.getInstance().getDouble("RedTile_GreenComponent",Constants.RGB_RED_VALUE_FOR_GREEN),
+      Preferences.getInstance().getDouble("GreenTile_GreenComponent", Constants.RGB_GREEN_VALUE_FOR_GREEN),
+      Preferences.getInstance().getDouble("BlueTile_GreenComponent", Constants.RGB_BLUE_VALUE_FOR_GREEN));
+    private final Color kRedTarget = ColorMatch.makeColor(
+      Preferences.getInstance().getDouble("RedTile_RedComponent",Constants.RGB_RED_VALUE_FOR_RED),
+      Preferences.getInstance().getDouble("GreenTile_RedComponent",Constants.RGB_GREEN_VALUE_FOR_RED),
+      Preferences.getInstance().getDouble("BlueTile_RedComponent",Constants.RGB_BLUE_VALUE_FOR_RED));
+    private final Color kYellowTarget = ColorMatch.makeColor(
+      Preferences.getInstance().getDouble("RedTile_YellowComponent",Constants.RGB_RED_VALUE_FOR_YELLOW),
+      Preferences.getInstance().getDouble("GreenTile_YellowComponent",Constants.RGB_GREEN_VALUE_FOR_YELLOW),
+      Preferences.getInstance().getDouble("BlueTile_YellowComponent",Constants.RGB_BLUE_VALUE_FOR_YELLOW));
 
     private final TalonSRX m_motor = new TalonSRX(5);
    
@@ -77,31 +89,36 @@ public class ControlPanelSpinner extends Subsystem {
 
   }
   public void calibrate(){
+     configuratingColors=  SmartDashboard.getNumber("configurating Colors", 0);
      Color detectedColor1 = m_colorSensor.getColor();
      double red1 = detectedColor1.red;
      double blue1 = detectedColor1.blue;
      double green1 = detectedColor1.green;
 
       if (configuratingColors==1){
-        SmartDashboard.putNumber("RGB red value for red", red1);
-        SmartDashboard.putNumber("RGB green value for red", green1);
-        SmartDashboard.putNumber("RGB blue value for red", blue1);
+        Preferences.getInstance().putDouble("RedTile_RedComponent", red1);
+        Preferences.getInstance().putDouble("GreenTile_RedComponent", green1);
+        Preferences.getInstance().putDouble("BlueTile_RedComponent", blue1);
 
       }
       if (configuratingColors==2){
-        SmartDashboard.putNumber("RGB red value for blue", red1);
-        SmartDashboard.putNumber("RGB green value for blue", green1);
-        SmartDashboard.putNumber("RGB blue value for blue", blue1);
+        Preferences.getInstance().putDouble("RedTile_BlueComponent", red1);
+        Preferences.getInstance().putDouble("GreenTile_BlueComponent", green1);
+        Preferences.getInstance().putDouble("BlueTile_BlueComponent", blue1);
+
       }
       if (configuratingColors==3){
-        SmartDashboard.putNumber("RGB red value for green", red1);
-        SmartDashboard.putNumber("RGB green value for green", green1);
-        SmartDashboard.putNumber("RGB blue value for green", blue1);
+       
+        Preferences.getInstance().putDouble("RedTile_GreenComponent", red1);
+        Preferences.getInstance().putDouble("GreenTile_GreenComponent", green1);
+        Preferences.getInstance().putDouble("BlueTile_GreenComponent", blue1);
+
       }
       if (configuratingColors==4){
-        SmartDashboard.putNumber("RGB red value for yellow", red1);
-        SmartDashboard.putNumber("RGB green value for yellow", green1);
-        SmartDashboard.putNumber("RGB blue value for yellow", blue1);
+        Preferences.getInstance().putDouble("RedTile_YellowComponent", red1);
+        Preferences.getInstance().putDouble("GreenTile_YellowComponent", green1);
+        Preferences.getInstance().putDouble("BlueTile_YellowComponent", blue1);
+
       }
     }
 
