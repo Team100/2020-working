@@ -42,6 +42,7 @@ public class OI {
 
     public Joystick stick() {
         return stick;
+  
     }
     
 

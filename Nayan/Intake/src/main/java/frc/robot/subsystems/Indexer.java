@@ -15,22 +15,52 @@ import frc.robot.Constants;
 public class Indexer extends SubsystemBase {
   private static TalonSRX leftSpx;
   private static TalonSRX rightSpx;
-  static DigitalInput frontSensor = new DigitalInput(0);
-  static DigitalInput outSensor = new DigitalInput(1);
-  public static double outputLimit = 0.5;
+
+  /**
+   * Keeps track of whether the last iteration was positive or not
+   */
+  public boolean lastIterateFront, lastIterateRear;
+
+  /**
+   * Keeps track of how many objects have passed the sensor
+   */
+  public int frontCount, rearCount;
+  static DigitalInput frontSensor = new DigitalInput(3);
+  static DigitalInput outSensor = new DigitalInput(0);
+  public static double outputLimit = 1;
 
   PowerDistributionPanel PDP = new PowerDistributionPanel(0);
 
   public Indexer() {
+
+    lastIterateFront = false;
+    lastIterateRear = false;
+    frontCount = 0;
+    rearCount = 0;
     leftSpx = new TalonSRX(Constants.LEFT_SPX_CANID);
 
     rightSpx = new TalonSRX(Constants.RIGHT_SPX_CANID);
 
+    leftSpx.enableCurrentLimit(true);
+    leftSpx.configPeakCurrentLimit(30);
+    leftSpx.configContinuousCurrentLimit(25);
+    leftSpx.configPeakCurrentDuration(100);
+
+    rightSpx.enableCurrentLimit(true);
+    rightSpx.configPeakCurrentLimit(30);
+    rightSpx.configContinuousCurrentLimit(25);
+    rightSpx.configPeakCurrentDuration(100);
+
+    leftSpx.configOpenloopRamp(0.1);
+    rightSpx.configOpenloopRamp(0.1);
+
+    
+
   
   
 
-    SmartDashboard.putNumber("PercentOutLeft", 0.3);
-    SmartDashboard.putNumber("PercentOutRight", 0.3);
+    SmartDashboard.putNumber("PercentOutLeft", .7);
+    SmartDashboard.putNumber("PercentOutRight", 0.5*.7);
 
     SmartDashboard.putNumber("outputLimit", outputLimit);
   }
@@ -102,10 +132,30 @@ public class Indexer extends SubsystemBase {
   public void periodic() {
     stop();
     peakOutput();
+
+    if(!frontSensor.get() && lastIterateFront){
+      lastIterateFront = false;
+    } else if(frontSensor.get() && !lastIterateFront){
+      lastIterateFront = true;
+      frontCount += 1;
+      System.out.println("Front Count: "+frontCount);
+      
+    }
+
+
+    if(!outSensor.get() && lastIterateRear){
+      lastIterateRear = false;
+    } else if(outSensor.get() && !lastIterateRear){
+      lastIterateRear = true;
+      rearCount += 1;
+      System.out.println("Rear Count: "+rearCount);
+
+    }
     
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("outSensor", outSensor.get());
 
+   
     SmartDashboard.putNumber("Current Draw Can 0", PDP.getCurrent(Constants.LEFT_SPX_CANID));
     SmartDashboard.putNumber("Current Draw Can 1", PDP.getCurrent(Constants.RIGHT_SPX_CANID));
   }
