@@ -5,13 +5,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
-  private static WPI_VictorSPX leftSpx;
-  private static WPI_VictorSPX rightSpx;
+  private static TalonSRX leftSpx;
+  private static TalonSRX rightSpx;
   static DigitalInput frontSensor = new DigitalInput(0);
   static DigitalInput outSensor = new DigitalInput(1);
   public static double outputLimit = 0.5;
@@ -19,9 +22,12 @@ public class Indexer extends SubsystemBase {
   PowerDistributionPanel PDP = new PowerDistributionPanel(0);
 
   public Indexer() {
-    leftSpx = new WPI_VictorSPX(Constants.LEFT_SPX_CANID);
+    leftSpx = new TalonSRX(Constants.LEFT_SPX_CANID);
 
-    rightSpx = new WPI_VictorSPX(Constants.RIGHT_SPX_CANID);
+    rightSpx = new TalonSRX(Constants.RIGHT_SPX_CANID);
+
+  
+  
 
     SmartDashboard.putNumber("PercentOutLeft", 0.3);
     SmartDashboard.putNumber("PercentOutRight", 0.3);
