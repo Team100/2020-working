@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Play;
+import frc.robot.subsystems.Symphony;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -23,16 +24,19 @@ import frc.robot.commands.Play;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Joystick joystick;
-  private final JoystickButton button;
   private final JoystickButton buttonPlay;
+  private final Symphony symphony;
+
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     joystick = new Joystick(Constants.OI.JOYSTICK_PORT);
-    button = new JoystickButton(joystick, Constants.OI.BUTTON_ID);
     buttonPlay = new JoystickButton(joystick, Constants.OI.BUTTON_PLAY);
+
+    symphony = new Symphony();
 
     // Configure the button bindings
     configureButtonBindings();
@@ -45,7 +49,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    button.whenPressed(new Play());
+    buttonPlay.whenPressed(new Play(symphony));
   }
 
 

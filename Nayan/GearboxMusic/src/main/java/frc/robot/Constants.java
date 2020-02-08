@@ -22,10 +22,10 @@ public final class Constants {
         public static final int BUTTON_PLAY = 2;
     }
 
-    public final class Gearbox {
-        public static final int FALCON_1_CANID = 1;
-        public static final int FALCON_2_CANID = 6;
-        public static final int TIME = 120;
-        public static final double POWER = 0.5;
+    public final class Symphony {
+        public static final int FALCON_1_CANID = 6;
+        public static final int FALCON_2_CANID = 2;
+        public static final int FALCON_3_CANID = 0;
+        public static final int FALCON_4_CANID = 1;
     }
 }

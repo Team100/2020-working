@@ -16,38 +16,28 @@ import java.util.ArrayList;
 
 public class Symphony extends SubsystemBase {
   Orchestra orchestra;
-      TalonFX [] FX =  { new TalonFX(1), new TalonFX(2) };
+      TalonFX [] FX =  {  new TalonFX(Constants.Symphony.FALCON_1_CANID), 
+                          new TalonFX(Constants.Symphony.FALCON_2_CANID), 
+                          new TalonFX(Constants.Symphony.FALCON_3_CANID), 
+                          new TalonFX(Constants.Symphony.FALCON_4_CANID) };
 
 
   public Symphony() {
+    ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
 
-  }
-
-
-  public void initDefaultCommand() {
-      /* A list of TalonFX's that are to be used as instruments */
-      ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
-
-      for (int i = 0; i < FX.length; ++i) {
-        instruments.add(FX[i]);
+    for (int i = 0; i < FX.length; ++i) {
+      instruments.add(FX[i]);
     }
-
     orchestra = new Orchestra(instruments);
-
-    LoadMusicSelection(0);
+    orchestra.loadMusic("mega.chrp"); 
   }
 
-  void LoadMusicSelection(int offset){
-    orchestra.loadMusic("song1.chrp"); 
-  }
-
-  public void Play(){
+  public void play(){
     orchestra.play();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    Play();
   }
 }
