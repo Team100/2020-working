@@ -20,12 +20,14 @@ public final class Constants {
         public static final int JOYSTICK_PORT = 0;
         public static final int BUTTON_ID = 1;
         public static final int BUTTON_PLAY = 2;
+        public static final int BUTTON_DOWN = 5;
+        public static final int BUTTON_UP = 6;
     }
 
     public final class Symphony {
-        public static final int FALCON_1_CANID = 6;
+        public static final int FALCON_1_CANID = 1;
         public static final int FALCON_2_CANID = 2;
-        public static final int FALCON_3_CANID = 0;
-        public static final int FALCON_4_CANID = 1;
+        public static final int FALCON_3_CANID = 6;
+        public static final int FALCON_4_CANID = 0;
     }
 }

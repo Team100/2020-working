@@ -15,6 +15,8 @@ import frc.robot.Constants;
 import java.util.ArrayList;
 
 public class Symphony extends SubsystemBase {
+  private boolean selected = false;
+
   Orchestra orchestra;
       TalonFX [] FX =  {  new TalonFX(Constants.Symphony.FALCON_1_CANID), 
                           new TalonFX(Constants.Symphony.FALCON_2_CANID), 
@@ -29,11 +31,20 @@ public class Symphony extends SubsystemBase {
       instruments.add(FX[i]);
     }
     orchestra = new Orchestra(instruments);
-    orchestra.loadMusic("mega.chrp"); 
+    orchestra.loadMusic("sinl.chrp"); 
   }
 
+  public void loadSong(String name) {
+    orchestra.loadMusic(name + ".chrp"); 
+    selected = true;
+  }
+
+
   public void play(){
-    orchestra.play();
+    if (selected) {
+      if (orchestra.isPlaying()) orchestra.pause();
+      else orchestra.play();
+    }
   }
 
   @Override

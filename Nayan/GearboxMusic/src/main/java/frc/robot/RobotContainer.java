@@ -10,7 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Play;
 import frc.robot.subsystems.Symphony;
@@ -24,9 +26,10 @@ import frc.robot.subsystems.Symphony;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Joystick joystick;
-  private final JoystickButton buttonPlay;
+  private final JoystickButton buttonPlay, buttonUp, buttonDown;
+  private static final String[] SONGS = { "caroline", "cotton", "count", "crab", "imperial", "pi", "sinl"};
   private final Symphony symphony;
-
+  private int selectedSong = 0;
 
 
   /**
@@ -35,6 +38,8 @@ public class RobotContainer {
   public RobotContainer() {
     joystick = new Joystick(Constants.OI.JOYSTICK_PORT);
     buttonPlay = new JoystickButton(joystick, Constants.OI.BUTTON_PLAY);
+    buttonUp = new JoystickButton(joystick, Constants.OI.BUTTON_UP);
+    buttonDown = new JoystickButton(joystick, Constants.OI.BUTTON_DOWN);
 
     symphony = new Symphony();
 
@@ -50,6 +55,20 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     buttonPlay.whenPressed(new Play(symphony));
+    buttonUp.whenPressed(new InstantCommand(() -> {
+      if(selectedSong < SONGS.length-1) {
+        selectedSong++;
+        symphony.loadSong(SONGS[selectedSong]);
+        SmartDashboard.putString("Song", SONGS[selectedSong]);
+      }
+    }));
+    buttonDown.whenPressed(new InstantCommand(() -> {
+      if(selectedSong > 0) {
+        selectedSong--;
+        symphony.loadSong(SONGS[selectedSong]);
+        SmartDashboard.putString("Song", SONGS[selectedSong]);
+      }
+    }));
   }
 
 
