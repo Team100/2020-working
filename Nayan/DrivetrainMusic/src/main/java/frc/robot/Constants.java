@@ -29,5 +29,8 @@ public final class Constants {
         public static final int FALCON_2_CANID = 2;//side b
         public static final int FALCON_3_CANID = 6;//side a
         public static final int FALCON_4_CANID = 0;//side b
+
+        //public static final int FALCON_5_CANID = 2;//shooter
+        //public static final int FALCON_6_CANID = 6;//shooter 2
     }
 }

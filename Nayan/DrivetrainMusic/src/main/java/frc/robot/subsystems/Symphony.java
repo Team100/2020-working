@@ -22,16 +22,21 @@ public class Symphony extends SubsystemBase {
                           new TalonFX(Constants.Symphony.FALCON_2_CANID)//,
                           //new TalonFX(Constants.Symphony.FALCON_3_CANID), 
                           //new TalonFX(Constants.Symphony.FALCON_4_CANID) 
+
+                          //new TalonFX(Constants.Symphony.Falcon_5_CANID)
                         };
                         private final TalonFX f3;
                         private final TalonFX f4;
+                        //private final TalonFX f6;
 
 
   public Symphony() {
     f3 = new TalonFX(Constants.Symphony.FALCON_3_CANID);
     f4 = new TalonFX(Constants.Symphony.FALCON_4_CANID);
+    //f6 = new TalonFX(Constants.Symphony.FALCON_6_CANID);
     f3.follow(FX[1]);//falcon 3 and 1 need to be same side
     f4.follow(FX[2]);//falcon 2 and 4 need to be same side
+    //f6.follow(FX[3]);//falcon shooter, no idea which directions they need to move
 
     ArrayList<TalonFX> instruments = new ArrayList<TalonFX>();
 
