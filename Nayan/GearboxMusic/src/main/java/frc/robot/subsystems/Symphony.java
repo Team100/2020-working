@@ -41,8 +41,13 @@ public class Symphony extends SubsystemBase {
     orchestra.loadMusic("song1.chrp"); 
   }
 
+  public void Play(){
+    orchestra.play();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    Play();
   }
 }
