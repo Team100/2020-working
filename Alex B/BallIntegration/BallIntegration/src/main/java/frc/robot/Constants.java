@@ -59,6 +59,12 @@ public final class Constants {
     }
 
     public static final class IntakeConstants{
+        public static final class IntakeMotionParameters{
+            public static final double INTAKE_PERCENT_OUTPUT = 0.7;
+            public static final double INTAKE_ZERO = 0;
+
+
+        }
         public static final class IntakeMotors{
             public static final class IntakeSpin{
                 public static final int CAN_ID = 5;
