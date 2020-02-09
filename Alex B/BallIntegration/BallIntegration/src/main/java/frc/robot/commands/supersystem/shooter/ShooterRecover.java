@@ -8,13 +8,18 @@
 package frc.robot.commands.supersystem.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Shooter;
 
 public class ShooterRecover extends CommandBase {
+
+  public Shooter shooter;
   /**
    * Creates a new ShooterRecover.
    */
-  public ShooterRecover() {
+  public ShooterRecover(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.shooter = shooter;
+    addRequirements(this.shooter);
   }
 
   // Called when the command is initially scheduled.
