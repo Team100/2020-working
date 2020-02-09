@@ -10,26 +10,26 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-    private TalonSRX master;
-    private TalonSRX follower;
+    private TalonFX master;
+    private TalonFX follower;
     private double shooterSetpoint = 0;
 
     /**
      * Creates a new Shooter.
      */
     public Shooter() {
-        master = new TalonSRX(15);
-        follower = new TalonSRX(13);
-        TalonSRX[] t = {master, follower};
+        master = new TalonFX(Constants.Shooter.FALCON_1_CANID);
+        follower = new TalonFX(Constants.Shooter.FALCON_2_CANID);
+        TalonFX[] t = {master, follower};
 
-        for (TalonSRX mc: t) {
+        for (TalonFX mc: t) {
             mc.configFactoryDefault();
             mc.setNeutralMode(NeutralMode.Coast);
             mc.configPeakOutputForward(Constants.Shooter.PEAK_OUTPUT);
@@ -43,11 +43,11 @@ public class Shooter extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        master.set(ControlMode.PercentOutput, shooterSetpoint);
+        master.set(ControlMode.PercentOutput, -shooterSetpoint);
         SmartDashboard.putNumber("SD Percent Output", shooterSetpoint);
-        SmartDashboard.putNumber("SD Sensor Velocity", master.getSensorCollection().getQuadratureVelocity());
+        SmartDashboard.putNumber("SD Sensor Velocity", master.getSensorCollection().getIntegratedSensorVelocity());
         SmartDashboard.putNumber("Output Velocity", (
-                master.getSensorCollection().getQuadratureVelocity() /  //Encoder ticks per 100ms
+                master.getSensorCollection().getIntegratedSensorVelocity() /  //Encoder ticks per 100ms
                 Constants.Shooter.ENCODER_CPR *                         // Revolutions per 100ms
                 10 *                                                    // Revolutions per second
                 2 * Math.PI *                                           // Radians per second
@@ -59,7 +59,7 @@ public class Shooter extends SubsystemBase {
                                                                         /* Final number from all this ^^ is the velocity 
                                                                         ** of the ball in units per second. */
                 SmartDashboard.putNumber("Shooter RPM", (
-                    master.getSensorCollection().getQuadratureVelocity() /  //Encoder ticks per 100ms
+                    master.getSensorCollection().getIntegratedSensorVelocity() /  //Encoder ticks per 100ms
                     Constants.Shooter.ENCODER_CPR *                         // Revolutions per 100ms
                     10 * 60));                                              // Revolutions per minute
                     

@@ -24,10 +24,10 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Turret turret = new Turret();
+  // private final Turret turret = new Turret();
   private final Shooter shooter = new Shooter();
   private final Joystick controller = new Joystick(0);
-  private final RotateTurret m_autoCommand = new RotateTurret(turret, controller);
+  // private final RotateTurret m_autoCommand = new RotateTurret(turret, controller);
 
 
   /**
@@ -36,7 +36,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    turret.setDefaultCommand(new RotateTurret(turret, controller));
+    // turret.setDefaultCommand(new RotateTurret(turret, controller));
     shooter.setDefaultCommand(new Shoot(shooter, controller));
   }
 
@@ -57,6 +57,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
