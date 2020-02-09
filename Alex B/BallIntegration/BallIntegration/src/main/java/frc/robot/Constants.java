@@ -19,6 +19,13 @@ import frc.robot.FRCLib.Conversions.IntakeConversionFactors;
  */
 public final class Constants {
     public static final class IndexerConstants{
+        public static final class IndexerMotionParameters{
+            public static final double STAGE_ONE_PERCENT_OUTPUT_FOWARD = 0.5;
+            public static final double STAGE_TWO_PERCENT_OUTPUT_FOWARD = 0.5;
+
+            public static final double STAGE_ONE_PERCENT_OUTPUT_BACKWARD = 0.5;
+            public static final double STAGE_TWO_PERCENT_OUTPUT_BACKWARD = 0.5;
+        }
         public static final class IndexerMotors{
             public static final class IndexerStageOne{
                 public static final int CAN_ID = 4;
