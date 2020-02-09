@@ -27,8 +27,7 @@ public class TurretStop extends CommandBase {
   @Override
   public void initialize() {
     turret.actionState = ActionState.STOPPED;
-    turret.
-    .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_TWO_PERCENT_OUTPUT_FOWARD);
+    turret.turretMotor.drivePercentOutput(Constants.TurretConstants.TurretMotionParameters.PERCENT_OUTPUT_FOWARD);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

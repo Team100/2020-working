@@ -18,6 +18,31 @@ import frc.robot.FRCLib.Conversions.IntakeConversionFactors;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class TurretConstants{
+        public static final class TurretMotionParameters{
+            public static final double PERCENT_OUTPUT_FOWARD = 0.5;
+        }
+        public static final class TurretMotors{
+            public static final class TurretMotor{
+                public static final int CAN_ID = 6;
+
+                public static final boolean INVERT = false;
+                public static final int FEEDBACK_PORT = 0;
+                public static final boolean SENSOR_PHASE = false;
+
+                public static final int TIMEOUT = 10;
+
+                public static final boolean ENABLE_CURRENT_LIMIT = true;
+                public static final int CURRENT_LIMIT = 25;
+                public static final double OPEN_LOOP_RAMP = 0.1;
+                public static final double PEAK_OUTPUT_FORWARD = .5;
+                public static final double PEAK_OUTPUT_REVERSE = -.5;
+
+                public static final double NOMINAL_OUTPUT_FORWARD = 0;
+                public static final double NOMINAL_OUTPUT_REVERSE = 0;
+            }
+        }
+    }
     public static final class IndexerConstants{
         public static final class IndexerMotionParameters{
             public static final double STAGE_ONE_PERCENT_OUTPUT_FOWARD = 0.5;
