@@ -8,18 +8,28 @@
 package frc.robot.commands.supersystem.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Indexer.ActionState;
 
 public class IndexerStop extends CommandBase {
   /**
    * Creates a new IndexerStop.
    */
-  public IndexerStop() {
+  public Indexer indexer;
+
+  public IndexerStop(Indexer indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.indexer = indexer;
+    addRequirements(this.indexer);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    indexer.actionState = ActionState.MOVE_FOWARD;
+    indexer.indexerStageOne.drivePercentOutput(0);
+    indexer.indexerStageTwo.drivePercentOutput(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

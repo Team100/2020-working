@@ -8,18 +8,28 @@
 package frc.robot.commands.supersystem.indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Indexer.ActionState;
 
 public class IndexerDriveBackward extends CommandBase {
   /**
    * Creates a new IndexerDriveBackward.
    */
-  public IndexerDriveBackward() {
+  public Indexer indexer;
+  
+  public IndexerDriveBackward(Indexer indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.indexer = indexer;
+    addRequirements(this.indexer);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    indexer.actionState = ActionState.MOVE_BACKWARDS;
+    indexer.indexerStageOne.drivePercentOutput(-(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_BACKWARD));
+    indexer.indexerStageTwo.drivePercentOutput(-(Constants.IndexerConstants.IndexerMotionParameters.STAGE_TWO_PERCENT_OUTPUT_BACKWARD));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

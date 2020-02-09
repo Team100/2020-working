@@ -17,7 +17,7 @@ public class Indexer extends SubsystemBase {
   public FRCTalonSRX indexerStageTwo;
 
 
-  public static enum IndexerStates{
+  public static enum SupersystemStates{
     PAUSED,
     NOT_AT_END,
     AT_END,
@@ -30,8 +30,14 @@ public class Indexer extends SubsystemBase {
     ERROR
     
   }
+  public SupersystemStates supersystemStates;
 
-  public IndexerStates indexerState;
+  public static enum ActionState{
+    MOVE_FOWARD,
+    MOVE_BACKWARDS,
+    STOP
+  }
+  public ActionState actionState;
 
   /**
    * Creates a new Indexer.
@@ -72,6 +78,7 @@ public class Indexer extends SubsystemBase {
 
 
   }
+
 
   @Override
   public void periodic() {

@@ -8,14 +8,17 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.FRCLib.Motors.FRCTalonSRX;
 
 public class Turret extends SubsystemBase {
 
-  public static enum TurretStates{
+  public FRCTalonSRX turret;
+
+  public static enum ActionState{
     MOVING,
     STOPPED
   }
-  public TurretStates turretState;
+  public ActionState actionState;
   /**
    * Creates a new Turret.
    */
