@@ -9,7 +9,6 @@ package frc.robot.FRCLib.Motors;
 
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -43,6 +42,10 @@ public class FRCTalonFX {
     }
     public int getSelectedSensorPosition(){
         return this.motor.getSelectedSensorPosition();
+    }
+
+    public void follow(FRCTalonFX master){
+        this.motor.follow(master.motor);
     }
 
     public void updateSmartDashboard(){
@@ -729,7 +732,7 @@ public class FRCTalonFX {
         private int motionProfileTrajectoryPeriod;
         private boolean feedbackNotContinuous;
 
-        private FRCTalonFXBuilder() {
+        public FRCTalonFXBuilder() {
         }
 
         public static FRCTalonFXBuilder aFRCTalonFX() {

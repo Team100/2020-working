@@ -7,9 +7,13 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.FRCLib.Motors.FRCTalonSRX;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +28,8 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  public FRCTalonSRX talon;
+  public TalonSRX talon2;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -33,6 +39,28 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    talon = new FRCTalonSRX.FRCTalonSRXBuilder()
+            .withCanID(1)
+            .withFeedbackPort(0)
+            .withInverted(false)
+            .withSensorPhase(false)
+            .withKP(0)
+            .withKI(0)
+            .withKD(0)
+            .withKF(1)            
+            .withSmartDashboardPutEnabled(true)
+            .withSmartDashboardPath("/sampleTalon")
+            .build();
+
+    talon2 = new TalonSRX(2);
+
+      //talon = new FRCTalonSRX();
+      
+      //talon.motor = new TalonSRX(1);
+      //talon.reset();
+
+
   }
 
   /**
@@ -45,6 +73,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+
+
   }
 
   /**
@@ -86,6 +116,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //this.talon.motor.set(ControlMode.PercentOutput, .1);
+    this.talon.drivePercentOutput(.1);
   }
 
   /**
