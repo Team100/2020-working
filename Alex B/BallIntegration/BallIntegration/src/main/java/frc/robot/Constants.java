@@ -58,8 +58,8 @@ public final class Constants {
         }
     }
 
-    public static final class IntakeConstants{
-        public static final class IntakeMotors{
+    public static final class ShooterConstants{
+        public static final class ShooterMotors{
             public static final class IntakeSpin{
                 public static final int CAN_ID = 5;
 
@@ -100,4 +100,6 @@ public final class Constants {
             }
         }
     }
+
+
 }
