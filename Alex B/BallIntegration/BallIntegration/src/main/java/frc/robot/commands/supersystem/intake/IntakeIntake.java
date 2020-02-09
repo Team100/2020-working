@@ -40,7 +40,6 @@ public class IntakeIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.spin.drivePercentOutput(Constants.IntakeConstants.IntakeMotionParameters.INTAKE_ZERO);
   }
 
   // Returns true when the command should end.

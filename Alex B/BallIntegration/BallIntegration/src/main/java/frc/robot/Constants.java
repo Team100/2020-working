@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.FRCLib.Conversions.IntakeConversionFactors;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -62,6 +64,9 @@ public final class Constants {
         public static final class IntakeMotionParameters{
             public static final double INTAKE_PERCENT_OUTPUT = 0.7;
             public static final double INTAKE_ZERO = 0;
+
+            public static final double INTAKE_DOWN_DEGREES = IntakeConversionFactors.CONVERT_ANGLE_TO_ENCODER_TICKS(-40); 
+            public static final double INTAKE_UP_DEGREES = 90;
 
 
         }
