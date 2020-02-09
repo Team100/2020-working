@@ -8,13 +8,23 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.FRCLib.Motors.FRCTalonFX;
 
 public class Shooter extends CommandBase {
+
+  public FRCTalonFX master;
+  public FRCTalonFX follower;
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
     // Use addRequirements() here to declare subsystem dependencies.
+    master = new FRCTalonFX.FRCTalonFXBuilder()
+    .build();
+
+    follower = new FRCTalonFX.FRCTalonFXBuilder()
+    .build();
+    follower.follow(master);
   }
 
   // Called when the command is initially scheduled.
