@@ -46,6 +46,14 @@ public final class Constants {
         }
     }
     public static final class IndexerConstants{
+        public static final class IndexerSensors{
+            public static final class FrontSensor{
+                public static final int ID = 3;
+            }
+            public static final class RearSensor{
+                public static final int ID = 0;
+            }
+        }
         public static final class IndexerMotionParameters{
             public static final double STAGE_ONE_PERCENT_OUTPUT_FOWARD = 0.5;
             public static final double STAGE_TWO_PERCENT_OUTPUT_FOWARD = 0.5;
@@ -104,6 +112,7 @@ public final class Constants {
 
 
         }
+        
         public static final class IntakeMotors{
             public static final class IntakeSpin{
                 public static final int CAN_ID = 5;
