@@ -20,6 +20,16 @@ public class Indexer extends SubsystemBase {
   public DigitalInput frontSensor = new DigitalInput(Constants.IndexerConstants.IndexerSensors.FrontSensor.ID);
   public DigitalInput rearSensor = new DigitalInput(Constants.IndexerConstants.IndexerSensors.RearSensor.ID);
 
+    /**
+   * Keeps track of whether the last iteration was positive or not
+   */
+  public boolean lastIterateFront, lastIterateRear;
+
+  /**
+   * Keeps track of how many objects have passed the sensor
+   */
+  public int frontCount, rearCount;
+
   public static enum SupersystemStates{
     PAUSED,
     NOT_AT_END,
@@ -82,9 +92,31 @@ public class Indexer extends SubsystemBase {
 
   }
 
+  public void processBallDetectionSensors(){
+    if(!frontSensor.get() && lastIterateFront){
+      lastIterateFront = false;
+    } else if(frontSensor.get() && !lastIterateFront){
+      lastIterateFront = true;
+      frontCount += 1;
+      System.out.println("Front Count: "+frontCount);
+      
+    }
+
+
+    if(!rearSensor.get() && lastIterateRear){
+      lastIterateRear = false;
+    } else if(rearSensor.get() && !lastIterateRear){
+      lastIterateRear = true;
+      rearCount += 1;
+      System.out.println("Rear Count: "+rearCount);
+
+    }
+  }
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    processBallDetectionSensors();
   }
 }
