@@ -1,15 +1,1 @@
-
-*.bin
-*.lock
-*.properties
-Aidan S/TurretShooterIntegration/.classpath
-Aidan S/TurretShooterIntegration/.project
-*.class
-*.json
-*.dll
-*.4
-*.so
-Aidan S/TurretShooterIntegration/.settings/org.eclipse.buildship.core.prefs
-Aidan S/TurretShooterIntegration/build/libs/Turret Point Shoot.jar
-Aidan S/TurretShooterIntegration/build/libs/TurretShooterIntegration.jar
-Aidan S/TurretShooterIntegration/build/tmp/jar/MANIFEST.MF
+Aidan S/*

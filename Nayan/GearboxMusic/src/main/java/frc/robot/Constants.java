@@ -25,9 +25,9 @@ public final class Constants {
     }
 
     public final class Symphony {
-        public static final int FALCON_1_CANID = 1;
-        public static final int FALCON_2_CANID = 2;
-        public static final int FALCON_3_CANID = 6;
-        public static final int FALCON_4_CANID = 0;
+        public static final int FALCON_1_CANID = 0;
+        public static final int FALCON_2_CANID = 1;
+        public static final int FALCON_3_CANID = 15;
+        public static final int FALCON_4_CANID = 14;
     }
 }
