@@ -10,6 +10,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase {
+
+  public static enum TurretStates{
+    MOVING,
+    STOPPED
+  }
+  public TurretStates turretState;
   /**
    * Creates a new Turret.
    */

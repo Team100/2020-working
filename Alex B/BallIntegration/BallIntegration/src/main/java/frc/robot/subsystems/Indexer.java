@@ -15,10 +15,29 @@ public class Indexer extends SubsystemBase {
 
   public FRCTalonSRX indexerStageOne;
   public FRCTalonSRX indexerStageTwo;
+
+
+  public static enum IndexerStates{
+    PAUSED,
+    NOT_AT_END,
+    AT_END,
+    MOVING_BOTH,
+    FIRST_OPEN,
+    REACHED_END,
+    INTAKING,
+    INTAKED,
+    COMPLETE,
+    ERROR
+    
+  }
+
+  public IndexerStates indexerState;
+
   /**
    * Creates a new Indexer.
    */
   public Indexer() {
+
 
     // Construct Motor Objects
     indexerStageOne = new FRCTalonSRX.FRCTalonSRXBuilder()

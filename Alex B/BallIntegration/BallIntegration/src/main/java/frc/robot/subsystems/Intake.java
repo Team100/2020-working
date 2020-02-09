@@ -15,6 +15,20 @@ public class Intake extends SubsystemBase {
 
   public FRCTalonSRX pivot;
   public FRCTalonSRX spin;
+
+
+  public static enum ActionState{
+    INTAKING,
+    NOT_INTAKING
+  }
+  public ActionState actionState;
+
+  public static enum LocationState{
+    UP,
+    DOWN
+  }
+  public LocationState locationState;
+
   /**
    * Creates a new Intake.
    */
