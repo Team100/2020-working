@@ -12,6 +12,11 @@ package frc.robot.FRCLib.Conversions;
  */
 public class IntakeConversionFactors {
 
+    /**
+     * Converts an angle to encoder ticks
+     * 
+     * Angle zero is parallel to the ground
+     */
     public static final int CONVERT_ANGLE_TO_ENCODER_TICKS(double angle){
         //TODO implement
         return 0;

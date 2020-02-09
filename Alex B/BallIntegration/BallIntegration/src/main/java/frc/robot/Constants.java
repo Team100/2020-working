@@ -66,7 +66,7 @@ public final class Constants {
             public static final double INTAKE_ZERO = 0;
 
             public static final double INTAKE_DOWN_DEGREES = IntakeConversionFactors.CONVERT_ANGLE_TO_ENCODER_TICKS(-40); 
-            public static final double INTAKE_UP_DEGREES = 90;
+            public static final double INTAKE_UP_DEGREES = IntakeConversionFactors.CONVERT_ANGLE_TO_ENCODER_TICKS(90);
 
 
         }

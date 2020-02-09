@@ -24,10 +24,18 @@ public class Intake extends SubsystemBase {
   public ActionState actionState;
 
   public static enum LocationState{
-    UP,
-    DOWN
+    MOVING,
+    STATIONARY
   }
   public LocationState locationState;
+
+  public static enum ValidAngles{
+    DOWN,
+    PARALLEL,
+    UP,
+    UNCERTAIN
+  }
+  public ValidAngles currentAngle;
 
   /**
    * Creates a new Intake.
