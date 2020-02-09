@@ -30,6 +30,7 @@ public class Symphony extends SubsystemBase {
     for (int i = 0; i < FX.length; ++i) {
       instruments.add(FX[i]);
     }
+    
     orchestra = new Orchestra(instruments);
     orchestra.loadMusic("sinl.chrp"); 
   }
