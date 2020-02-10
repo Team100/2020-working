@@ -275,25 +275,25 @@ public class ControlPanelSpinner extends Subsystem {
     if (gameData.length() > 0) {
       switch (gameData.charAt(0)) {
       case 'B':
-        if (match.color == kGreenTarget) {
+        if (match.color == kRedTarget) {
           stop = true;
         }
         // Blue case code
         break;
       case 'G':
-        if (match.color == kRedTarget) {
+        if (match.color == kYellowTarget) {
           stop = true;
         }
         // Green case code
         break;
       case 'R':
-        if (match.color == kYellowTarget) {
+        if (match.color == kBlueTarget) {
           stop = true;
         }
         // Red case code
         break;
       case 'Y':
-        if (match.color == kBlueTarget) {
+        if (match.color == kGreenTarget) {
           stop = true;
         }
         // Yellow case code

@@ -23,8 +23,9 @@ public class GoToSpecificColor extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.controlPanelSpinner.resetTo0();
     Robot.controlPanelSpinner.resetToFalse();
-    Robot.controlPanelSpinner.spin(1);
+    Robot.controlPanelSpinner.spin(0.5);
       done = false;
 
   }
@@ -32,11 +33,13 @@ public class GoToSpecificColor extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.controlPanelSpinner.spin(1);
-    if (Robot.controlPanelSpinner.reachedColor()==true){
-        done = true;
-    }
-  }
+    Robot.controlPanelSpinner.spin(0.5);
+    //if (Robot.controlPanelSpinner.getRevolutionsCounter()>=8){
+      if (Robot.controlPanelSpinner.reachedColor()==true){
+         done = true;
+     }
+   // }
+   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
