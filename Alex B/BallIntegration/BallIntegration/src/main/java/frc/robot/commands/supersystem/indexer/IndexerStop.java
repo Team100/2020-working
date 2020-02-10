@@ -30,6 +30,7 @@ public class IndexerStop extends CommandBase {
     indexer.actionState = ActionState.STOP;
     indexer.indexerStageOne.drivePercentOutput(0);
     indexer.indexerStageTwo.drivePercentOutput(0);
+    System.out.println("STOPPING");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

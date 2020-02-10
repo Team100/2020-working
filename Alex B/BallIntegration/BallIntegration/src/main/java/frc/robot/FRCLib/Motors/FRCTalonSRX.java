@@ -23,6 +23,7 @@ public class FRCTalonSRX {
         this.motor.set(ControlMode.Velocity, velocity);
     }
     public void drivePercentOutput(double percentOutput){
+        System.out.println(percentOutput);
         this.motor.set(ControlMode.PercentOutput, percentOutput);
         
     }
@@ -41,6 +42,9 @@ public class FRCTalonSRX {
     }
     public int getSelectedSensorPosition(){
         return this.motor.getSelectedSensorPosition();
+    }
+    public double getOutputCurrent(){
+        return this.motor.getSupplyCurrent();
     }
 
     public void updateSmartDashboard(){
@@ -79,12 +83,10 @@ public class FRCTalonSRX {
             SmartDashboard.putBoolean(this.getSmartDashboardPath()+"/sensorPhase",this.isSensorPhase());
             SmartDashboard.putString(this.getSmartDashboardPath()+"/SmartDashboardPath",this.getSmartDashboardPath());
             SmartDashboard.putNumber(this.getSmartDashboardPath()+"/statusFrame",this.getStatusFrame());
-            SmartDashboard.putString(this.getSmartDashboardPath()+"/statusFrameType",this.getStatusFrameType().toString());
             SmartDashboard.putNumber(this.getSmartDashboardPath()+"/timeout",this.getTimeout());
-            SmartDashboard.putString(this.getSmartDashboardPath()+"/velocityMeasurementPeriod",this.getVelocityMeasurementPeriod().toString());
             SmartDashboard.putNumber(this.getSmartDashboardPath()+"/velocityMeasurementWindow",this.getVelocityMeasurementWindow());
             SmartDashboard.putNumber(this.getSmartDashboardPath()+"/voltageCompensationSaturation",this.getVoltageCompensationSaturation());
-
+            SmartDashboard.putNumber(this.getSmartDashboardPath()+"/outputCurrent",this.getOutputCurrent());
         }
 
     }

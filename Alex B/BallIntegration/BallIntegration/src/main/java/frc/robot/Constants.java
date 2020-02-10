@@ -58,15 +58,15 @@ public final class Constants {
             }
         }
         public static final class IndexerMotionParameters{
-            public static final double STAGE_ONE_PERCENT_OUTPUT_FOWARD = 0.5;
-            public static final double STAGE_TWO_PERCENT_OUTPUT_FOWARD = 0.5;
+            public static final double STAGE_ONE_PERCENT_OUTPUT_FOWARD = .3;
+            public static final double STAGE_TWO_PERCENT_OUTPUT_FOWARD = .3;
 
-            public static final double STAGE_ONE_PERCENT_OUTPUT_BACKWARD = 0.5;
-            public static final double STAGE_TWO_PERCENT_OUTPUT_BACKWARD = 0.5;
+            public static final double STAGE_ONE_PERCENT_OUTPUT_BACKWARD = -0.5;
+            public static final double STAGE_TWO_PERCENT_OUTPUT_BACKWARD = -0.5;
         }
         public static final class IndexerMotors{
             public static final class IndexerStageOne{
-                public static final int CAN_ID = 4;
+                public static final int CAN_ID = 15;
 
                 public static final boolean INVERT = false;
                 public static final int FEEDBACK_PORT = 0;
@@ -88,7 +88,7 @@ public final class Constants {
 
             }
             public static final class IndexerStageTwo{
-                public static final int CAN_ID = 11;
+                public static final int CAN_ID = 1;
                 public static final boolean INVERT = false;
                 public static final int FEEDBACK_PORT = 0;
                 public static final boolean SENSOR_PHASE = false;

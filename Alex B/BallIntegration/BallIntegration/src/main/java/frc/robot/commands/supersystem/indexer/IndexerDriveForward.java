@@ -7,6 +7,8 @@
 
 package frc.robot.commands.supersystem.indexer;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Indexer;
@@ -28,13 +30,15 @@ public class IndexerDriveForward extends CommandBase {
   @Override
   public void initialize() {
     indexer.actionState = ActionState.MOVE_FOWARD;
-    indexer.indexerStageOne.drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FOWARD);
-    indexer.indexerStageTwo.drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_TWO_PERCENT_OUTPUT_FOWARD);
+   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    indexer.indexerStageOne.motor.set(ControlMode.PercentOutput, Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FOWARD);
+    //indexer.indexerStageOne.drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FOWARD);
+    indexer.indexerStageTwo.drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_TWO_PERCENT_OUTPUT_FOWARD);
   }
 
   // Called once the command ends or is interrupted.

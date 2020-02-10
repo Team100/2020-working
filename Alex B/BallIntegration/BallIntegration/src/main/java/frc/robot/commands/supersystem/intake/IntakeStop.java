@@ -25,7 +25,7 @@ public class IntakeStop extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.intake.spin.drivePercentOutput(0);
+    //this.intake.spin.drivePercentOutput(0);
     this.intake.actionState = ActionState.NOT_INTAKING;
   }
 

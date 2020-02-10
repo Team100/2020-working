@@ -40,9 +40,9 @@ public class RobotContainer {
   private final Turret turret = new Turret();
 
   private final Joystick joystick = new Joystick(0);
-  private final JoystickButton intakeButton = new JoystickButton(joystick, 0);
-  private final JoystickButton translateButton = new JoystickButton(joystick, 2);
-  private final JoystickButton runShooter = new JoystickButton(joystick, 1);
+  private final JoystickButton intakeButton = new JoystickButton(joystick, 1);
+  private final JoystickButton translateButton = new JoystickButton(joystick, 3);
+  private final JoystickButton runShooter = new JoystickButton(joystick, 2);
 
 
 

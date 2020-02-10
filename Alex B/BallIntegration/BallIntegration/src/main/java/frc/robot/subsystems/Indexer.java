@@ -125,5 +125,7 @@ public class Indexer extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     processBallDetectionSensors();
+    this.indexerStageOne.updateSmartDashboard();
+    this.indexerStageTwo.updateSmartDashboard();
   }
 }
