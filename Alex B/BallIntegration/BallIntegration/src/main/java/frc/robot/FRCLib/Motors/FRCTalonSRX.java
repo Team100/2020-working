@@ -308,7 +308,7 @@ public class FRCTalonSRX {
     }
     public FRCTalonSRX configure(){
         motor = new TalonSRX(this.getCanID());
-        System.out.println(this.motor.configFactoryDefault());
+        this.reset();
         System.out.println("#################RESET");
         if(this.isInverted()){motor.setInverted(this.isInverted());System.out.println("Configuring Inverted");}
         if(this.isCurrentLimitEnabled()){
@@ -345,7 +345,7 @@ public class FRCTalonSRX {
 
         }
 
-        if(this.getPeakOutputForward() != 0 || this.getPeakOutputReverse() != 0){
+        if(this.getPeakOutputForward() != 0 && this.getPeakOutputReverse() != 0){
             motor.configPeakOutputForward(this.getPeakOutputForward());
         motor.configPeakOutputForward(this.getPeakOutputReverse());
         System.out.println("Setting Peak Output");
@@ -844,6 +844,7 @@ public class FRCTalonSRX {
         }
 
         public FRCTalonSRXBuilder withPeakOutputForward(double peakOutputForward) {
+            System.out.println("Peak Output Forward "+peakOutputForward);
             this.peakOutputForward = peakOutputForward;
             return this;
         }
