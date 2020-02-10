@@ -43,8 +43,8 @@ public class EncoderConversionFactors {
         return encoderTicksPLG;
     }
 
-    public static final int CONVERT_ANGLE_TO_CUI_ENCODER_TICKS(double angle){//no idea which one we are using, will check
-        int encoderTicksCUI = (int)((angle/360)*8.108);
+    public static final int CONVERT_ANGLE_TO_CUI_ENCODER_TICKS(double angle){//no idea which one we are using, will check, if AMT10 at 2048ppr this is correct
+        int encoderTicksCUI = (int)((angle/360)*2048);
         return encoderTicksCUI;
     }
 }
