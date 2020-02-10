@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,6 +21,7 @@ public class Shooter extends SubsystemBase {
     private TalonFX master;
     private TalonFX follower;
     private double shooterSetpoint = 0;
+    private PowerDistributionPanel pdp;
 
     /**
      * Creates a new Shooter.
@@ -28,6 +30,7 @@ public class Shooter extends SubsystemBase {
         master = new TalonFX(Constants.Shooter.FALCON_1_CANID);
         follower = new TalonFX(Constants.Shooter.FALCON_2_CANID);
         TalonFX[] t = {master, follower};
+        pdp = new PowerDistributionPanel();
 
         for (TalonFX mc: t) {
             mc.configFactoryDefault();
@@ -46,6 +49,8 @@ public class Shooter extends SubsystemBase {
         master.set(ControlMode.PercentOutput, -shooterSetpoint);
         SmartDashboard.putNumber("SD Percent Output", shooterSetpoint);
         SmartDashboard.putNumber("SD Sensor Velocity", master.getSensorCollection().getIntegratedSensorVelocity());
+        SmartDashboard.putNumber("Current 14", pdp.getCurrent(14));
+        SmartDashboard.putNumber("Current 15", pdp.getCurrent(15));
         SmartDashboard.putNumber("Output Velocity", (
                 master.getSensorCollection().getIntegratedSensorVelocity() /  //Encoder ticks per 100ms
                 Constants.Shooter.ENCODER_CPR *                         // Revolutions per 100ms
