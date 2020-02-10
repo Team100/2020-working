@@ -62,6 +62,8 @@ public class OI {
     private JoystickButton riseSpinner;
     private JoystickButton lowerSpinner;
     private JoystickButton calibrate;
+    private JoystickButton threeTimes;
+    private JoystickButton goToColor;
 
     // ButtonBoard
 
@@ -93,6 +95,12 @@ public class OI {
         calibrate = new JoystickButton(gamepad, 10);
         calibrate.whenPressed(new InstantCommand(() -> Robot.controlPanelSpinner.calibrate()));
 
+        threeTimes = new JoystickButton(gamepad, 5);
+        threeTimes.whenPressed(new threeTimes());
+        
+        goToColor = new JoystickButton(gamepad, 7);
+        goToColor.whenPressed(new GoToSpecificColor());
+        
         // //SmartDashboard Buttons
         // SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         // SmartDashboard.putData("DriveCMD", new Drive());
