@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import frc.robot.FRCLib.Conversions.IntakeConversionFactors;
+import frc.robot.FRCLib.Conversions.EncoderConversionFactors;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -107,8 +107,8 @@ public final class Constants {
             public static final double INTAKE_PERCENT_OUTPUT = 0.7;
             public static final double INTAKE_ZERO = 0;
 
-            public static final double INTAKE_DOWN_DEGREES = IntakeConversionFactors.CONVERT_ANGLE_TO_ENCODER_TICKS(-40); 
-            public static final double INTAKE_UP_DEGREES = IntakeConversionFactors.CONVERT_ANGLE_TO_ENCODER_TICKS(90);
+            public static final double INTAKE_DOWN_DEGREES = EncoderConversionFactors.CONVERT_ANGLE_TO_MA3_ENCODER_TICKS(-40); 
+            public static final double INTAKE_UP_DEGREES = EncoderConversionFactors.CONVERT_ANGLE_TO_MA3_ENCODER_TICKS(90);
 
 
         }
