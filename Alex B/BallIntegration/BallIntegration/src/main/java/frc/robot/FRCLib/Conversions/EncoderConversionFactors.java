@@ -34,8 +34,8 @@ public class EncoderConversionFactors {
     }
 
     public static final int CONVERT_ANGLE_TO_ARMBOT_ENCODER_TICKS(double angle){//Armbot RS7 is a 12 cpr encoder, though good to check
-    int encoderTicksArmbot = (int)((angle/360)*12);
-    return encoderTicksArmbot;
+        int encoderTicksArmbot = (int)((angle/360)*12);
+        return encoderTicksArmbot;
     }
 
     public static final int CONVERT_ANGLE_TO_PLG_ENCODER_TICKS(double angle){//no idea which one we are using, will check, if plg motor 44.4 ppr than this should work

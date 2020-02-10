@@ -180,7 +180,6 @@ public final class Constants {
 
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
-
             }
             public static final class ShooterFollower{
                 public static final int CAN_ID = 3;
@@ -199,7 +198,6 @@ public final class Constants {
 
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
-
             }
         }
     }
