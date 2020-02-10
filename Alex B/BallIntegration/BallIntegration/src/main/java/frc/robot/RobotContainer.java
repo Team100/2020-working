@@ -11,8 +11,16 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.supersystem.indexer.IndexerDriveForward;
+import frc.robot.commands.supersystem.intake.IntakeIntake;
+import frc.robot.commands.supersystem.shooter.ShooterRun;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -25,6 +33,16 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+
+  private final Indexer indexer = new Indexer();
+  private final Intake intake = new Intake();
+  private final Shooter shooter = new Shooter();
+  private final Turret turret = new Turret();
+
+  private final Joystick joystick = new Joystick(0);
+  private final JoystickButton intakeButton = new JoystickButton(joystick, 0);
+  private final JoystickButton translateButton = new JoystickButton(joystick, 2);
+  private final JoystickButton runShooter = new JoystickButton(joystick, 1);
 
 
 
@@ -44,6 +62,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    intakeButton.whileHeld(new IntakeIntake(intake));
+    translateButton.whileHeld(new IndexerDriveForward(indexer));
+    runShooter.whileHeld(new ShooterRun(shooter));
+
   }
 
 

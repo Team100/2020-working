@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FRCLib.Motors.FRCTalonSRX;
+import frc.robot.commands.supersystem.intake.IntakeStop;
 
 public class Intake extends SubsystemBase {
 
@@ -54,6 +55,8 @@ public class Intake extends SubsystemBase {
     .withNominalOutputReverse(Constants.IntakeConstants.IntakeMotors.IntakePivot.NOMINAL_OUTPUT_REVERSE)
     .withPeakOutputForward(Constants.IntakeConstants.IntakeMotors.IntakePivot.PEAK_OUTPUT_FORWARD)
     .withPeakOutputReverse(Constants.IntakeConstants.IntakeMotors.IntakePivot.PEAK_OUTPUT_REVERSE)
+    .withSmartDashboardPutEnabled(Constants.DEBUG)
+    .withSmartDashboardPath(Constants.IntakeConstants.IntakeMotors.IntakePivot.SMART_DASHBOARD_PATH)
     .build();
 
     spin = new FRCTalonSRX.FRCTalonSRXBuilder()
@@ -69,8 +72,12 @@ public class Intake extends SubsystemBase {
     .withNominalOutputReverse(Constants.IntakeConstants.IntakeMotors.IntakeSpin.NOMINAL_OUTPUT_REVERSE)
     .withPeakOutputForward(Constants.IntakeConstants.IntakeMotors.IntakeSpin.PEAK_OUTPUT_FORWARD)
     .withPeakOutputReverse(Constants.IntakeConstants.IntakeMotors.IntakeSpin.PEAK_OUTPUT_REVERSE)
+    .withSmartDashboardPutEnabled(Constants.DEBUG)
+    .withSmartDashboardPath(Constants.IntakeConstants.IntakeMotors.IntakeSpin.SMART_DASHBOARD_PATH)
     .build();
-
+    
+    setDefaultCommand(new IntakeStop(this));
+  
   }
 
   @Override

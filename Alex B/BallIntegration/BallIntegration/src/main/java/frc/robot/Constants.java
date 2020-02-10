@@ -18,6 +18,7 @@ import frc.robot.FRCLib.Conversions.IntakeConversionFactors;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final boolean DEBUG = true;
 
 
     public static final class TurretConstants{
@@ -42,6 +43,8 @@ public final class Constants {
 
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
+
+                public static final String SMART_DASHBOARD_PATH = "/turret/turretmotor";
             }
         }
     }
@@ -80,6 +83,9 @@ public final class Constants {
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
 
+                public static final String SMART_DASHBOARD_PATH = "/index/motors/stage1";
+
+
             }
             public static final class IndexerStageTwo{
                 public static final int CAN_ID = 11;
@@ -98,6 +104,9 @@ public final class Constants {
 
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
+
+                public static final String SMART_DASHBOARD_PATH = "/index/motors/stage2";
+
             }
         }
     }
@@ -132,6 +141,9 @@ public final class Constants {
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
 
+                public static final String SMART_DASHBOARD_PATH = "/intake/motors/spin";
+
+
             }
             public static final class IntakePivot{
                 public static final int CAN_ID = 10;
@@ -150,6 +162,9 @@ public final class Constants {
 
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
+
+                public static final String SMART_DASHBOARD_PATH = "/intake/motors/pivot";
+
 
             }
         }
@@ -181,6 +196,9 @@ public final class Constants {
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
 
+                public static final String SMART_DASHBOARD_PATH = "/shooter/motors/master";
+
+
             }
             public static final class ShooterFollower{
                 public static final int CAN_ID = 3;
@@ -199,6 +217,9 @@ public final class Constants {
 
                 public static final double NOMINAL_OUTPUT_FORWARD = 0;
                 public static final double NOMINAL_OUTPUT_REVERSE = 0;
+
+                public static final String SMART_DASHBOARD_PATH = "/shooter/motors/follower";
+
 
             }
         }

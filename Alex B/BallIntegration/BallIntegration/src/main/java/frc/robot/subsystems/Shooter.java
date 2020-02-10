@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FRCLib.Motors.FRCTalonFX;
+import frc.robot.commands.supersystem.shooter.ShooterStop;
 
 public class Shooter extends SubsystemBase {
   public FRCTalonFX master;
@@ -39,6 +40,8 @@ public class Shooter extends SubsystemBase {
     .withNominalOutputReverse(Constants.ShooterConstants.ShooterMotors.ShooterMaster.NOMINAL_OUTPUT_REVERSE)
     .withPeakOutputForward(Constants.ShooterConstants.ShooterMotors.ShooterMaster.PEAK_OUTPUT_FORWARD)
     .withPeakOutputReverse(Constants.ShooterConstants.ShooterMotors.ShooterMaster.PEAK_OUTPUT_REVERSE)
+    .withSmartDashboardPutEnabled(Constants.DEBUG)
+    .withSmartDashboardPath(Constants.ShooterConstants.ShooterMotors.ShooterMaster.SMART_DASHBOARD_PATH)
     .build();
 
     follower = new FRCTalonFX.FRCTalonFXBuilder()
@@ -54,10 +57,14 @@ public class Shooter extends SubsystemBase {
     .withNominalOutputReverse(Constants.ShooterConstants.ShooterMotors.ShooterFollower.NOMINAL_OUTPUT_REVERSE)
     .withPeakOutputForward(Constants.ShooterConstants.ShooterMotors.ShooterFollower.PEAK_OUTPUT_FORWARD)
     .withPeakOutputReverse(Constants.ShooterConstants.ShooterMotors.ShooterFollower.PEAK_OUTPUT_REVERSE)
+    .withSmartDashboardPutEnabled(Constants.DEBUG)
+    .withSmartDashboardPath(Constants.ShooterConstants.ShooterMotors.ShooterFollower.SMART_DASHBOARD_PATH)
     .build();
 
 
     follower.follow(master);
+
+    setDefaultCommand(new ShooterStop(this));
 
   }
 

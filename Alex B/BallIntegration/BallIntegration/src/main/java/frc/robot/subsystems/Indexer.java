@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FRCLib.Motors.FRCTalonSRX;
+import frc.robot.commands.supersystem.indexer.IndexerStop;
 
 public class Indexer extends SubsystemBase {
 
@@ -72,6 +73,8 @@ public class Indexer extends SubsystemBase {
     .withNominalOutputReverse(Constants.IndexerConstants.IndexerMotors.IndexerStageOne.NOMINAL_OUTPUT_REVERSE)
     .withPeakOutputForward(Constants.IndexerConstants.IndexerMotors.IndexerStageOne.PEAK_OUTPUT_FORWARD)
     .withPeakOutputReverse(Constants.IndexerConstants.IndexerMotors.IndexerStageOne.PEAK_OUTPUT_REVERSE)
+    .withSmartDashboardPutEnabled(Constants.DEBUG)
+    .withSmartDashboardPath(Constants.IndexerConstants.IndexerMotors.IndexerStageOne.SMART_DASHBOARD_PATH)
     .build();
 
     indexerStageTwo = new FRCTalonSRX.FRCTalonSRXBuilder()
@@ -87,7 +90,11 @@ public class Indexer extends SubsystemBase {
     .withNominalOutputReverse(Constants.IndexerConstants.IndexerMotors.IndexerStageTwo.NOMINAL_OUTPUT_REVERSE)
     .withPeakOutputForward(Constants.IndexerConstants.IndexerMotors.IndexerStageTwo.PEAK_OUTPUT_FORWARD)
     .withPeakOutputReverse(Constants.IndexerConstants.IndexerMotors.IndexerStageTwo.PEAK_OUTPUT_REVERSE)
+    .withSmartDashboardPutEnabled(Constants.DEBUG)
+    .withSmartDashboardPath(Constants.IndexerConstants.IndexerMotors.IndexerStageTwo.SMART_DASHBOARD_PATH)
     .build();
+
+    setDefaultCommand(new IndexerStop(this));
 
 
   }
