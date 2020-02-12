@@ -18,6 +18,11 @@ import org.usfirst.frc100.Team100Robot.subsystems.ControlPanelSpinner;
  */
 public class Constants {
 
+    public final class Camera {
+        public static final double SETPOINT_TOP = 180;
+        public static final double SETPOINT_MIDDLE = 90;
+        public static final double INCREMENT = 10;
+    }
 
     public static final boolean EXPO_MODE = false;
     public static final double EXPO_MODE_REDUCER = 0.5;

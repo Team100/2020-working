@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc100.Team100Robot.commands.*;
 import org.usfirst.frc100.Team100Robot.subsystems.*;
 import com.kauailabs.navx.frc.*;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.TimedRobot;
 
 
 /**
@@ -30,6 +32,23 @@ import com.kauailabs.navx.frc.*;
  * the project.
  */
 public class Robot extends TimedRobot {
+
+    private Command m_autonomousCommand;
+
+    private RobotContainer m_robotContainer;
+  
+    /**
+     * This function is run when the robot is first started up and should be used for any
+     * initialization code.
+     */
+    @Override
+    public void robotInit() {
+      // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+      // autonomous chooser on the dashboard.
+      m_robotContainer = new RobotContainer();
+      CameraServer.getInstance().startAutomaticCapture();
+    }
+  
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
