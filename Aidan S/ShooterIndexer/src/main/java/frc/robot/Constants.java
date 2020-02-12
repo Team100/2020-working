@@ -16,23 +16,19 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public final class Turret {
-        public static final double           TICKS_PER_DEG = 21; //3.27;
-        public static final int                TICK_OFFSET = 0;
-        public static final int                     CAN_ID = 3;
-        public static final double                      kP = 2.5; //3.6;
-        public static final double                      kI = 0; //0.00038;
-        public static final double                      kD = 5; //4;
-        public static final double                      kF = 0;
-        public static final double             PEAK_OUTPUT = 1;
-        public static final double    RAMP_SECONDS_TO_FULL = 0;
-        public static final double NOMINAL_VOLTAGE_FORWARD = 1;
-        public static final double NOMINAL_VOLTAGE_REVERSE = -1;
-        public static final int            ALLOWABLE_ERROR = 10;
-        public static final int                LOWER_LIMIT = -2500;
-        public static final int                UPPER_LIMIT = 2500;
-    }
+    public final class OI {
+        public static final int INDEX_FORWARD = 8;
+        public static final int INDEX_UNJAM = 7;
+        public static final int INDEX_END = 2;
+        public static final int INDEX_UP = 4;
+        public static final int INDEX_STAGE1 = 1;
 
+        public static final int SHOOTER_UP = 6;
+        public static final int SHOOTER_DOWN = 5;
+        public static final int SHOOTER_OFF = 3;
+        public static final int SHOOTER_TOGGLE = 10;
+    }
+ 
     public final class Shooter {
         public static final double PEAK_OUTPUT = 1;
         public static final int FALCON_1_CANID = 0;
@@ -43,7 +39,7 @@ public final class Constants {
     }
 
     public final class Indexer {
-        public static final int LEFT_SPX_CANID = 13; //Type: CAN ID
-        public static final int RIGHT_SPX_CANID = 1; //Type: CAN ID
+        public static final int LEFT_SPX_CANID = 2; //Stage 2
+        public static final int RIGHT_SPX_CANID = 3; //Stage 1
     }
 }

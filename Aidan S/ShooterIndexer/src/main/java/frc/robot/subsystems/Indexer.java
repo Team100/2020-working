@@ -51,12 +51,8 @@ public class Indexer extends SubsystemBase {
 
     leftSpx.configOpenloopRamp(0.1);
     rightSpx.configOpenloopRamp(0.1);
-
+  
     
-
-  
-  
-
     SmartDashboard.putNumber("PercentOutLeft", .7);
     SmartDashboard.putNumber("PercentOutRight", 0.5*.7);
 

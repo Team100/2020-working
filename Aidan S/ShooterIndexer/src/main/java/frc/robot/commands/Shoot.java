@@ -17,10 +17,7 @@ import frc.robot.subsystems.Shooter;
 public class Shoot extends CommandBase {
   private Shooter shooter;
   private Joystick joystick;
-  private JoystickButton half;
-  private JoystickButton full;
-  private JoystickButton off;
-  private JoystickButton toggle;
+  private JoystickButton up, down, off, toggle;
   private boolean useButtons = false;
   private double sp = 0;
 
@@ -31,17 +28,17 @@ public class Shoot extends CommandBase {
     shooter = s;
     joystick = j;
 
-    half = new JoystickButton(joystick, 5);
-    full = new JoystickButton(joystick, 6);
-    off = new JoystickButton(joystick, 3);
-    toggle = new JoystickButton(joystick, 2);
+    down = new JoystickButton(joystick, Constants.OI.SHOOTER_DOWN);
+    up = new JoystickButton(joystick, Constants.OI.SHOOTER_UP);
+    off = new JoystickButton(joystick, Constants.OI.SHOOTER_OFF);
+    toggle = new JoystickButton(joystick, Constants.OI.SHOOTER_TOGGLE);
 
     toggle.whenPressed(new InstantCommand(() -> {
       useButtons = !useButtons;
       sp = Math.floor(sp * 10) / 10;
     }));
-    full.whenPressed(new InstantCommand(() -> { if (useButtons && sp < 0.9) { sp += 0.1; } }));
-    half.whenPressed(new InstantCommand(() -> { if (useButtons && sp > 0.1) { sp -= 0.1; } }));
+    up.whenPressed(new InstantCommand(() -> { if (useButtons && sp < 0.9) { sp += 0.1; } }));
+    down.whenPressed(new InstantCommand(() -> { if (useButtons && sp > 0.1) { sp -= 0.1; } }));
     off.whenPressed(new InstantCommand(() -> sp = 0));
 
     // Use addRequirements() here to declare subsystem dependencies.

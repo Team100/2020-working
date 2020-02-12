@@ -41,11 +41,11 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    indexMoveFoward = new JoystickButton(controller, 1);
-    indexMoveUnJam = new JoystickButton(controller, 2);
-    indexMoveEnd = new JoystickButton(controller, 3);
-    indexMoveUp = new JoystickButton(controller, 4);
-    indexMoveS1 = new JoystickButton(controller, 5);
+    indexMoveFoward = new JoystickButton(controller, Constants.OI.INDEX_FORWARD);
+    indexMoveUnJam = new JoystickButton(controller, Constants.OI.INDEX_UNJAM);
+    indexMoveEnd = new JoystickButton(controller, Constants.OI.INDEX_END);
+    indexMoveUp = new JoystickButton(controller, Constants.OI.INDEX_UP);
+    indexMoveS1 = new JoystickButton(controller, Constants.OI.INDEX_STAGE1);
 
     // Configure the button bindings
     configureButtonBindings();
