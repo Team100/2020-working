@@ -24,7 +24,9 @@ public class Testsubsystem extends SubsystemBase {
       .withCanID(4)
       .withSmartDashboardPath("TestSubsystemMotor")
       .withSmartDashboardPutEnabled(true)
-      .build();   
+      .build();  
+    
+    addChild("TestSubsubsystemMotor", m_motor.getMotor());
   }  
   
 	@Override

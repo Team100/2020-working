@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -55,6 +56,10 @@ public class DriveSubsystem extends SubsystemBase {
     resetEncoders();
     m_timer.start();
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+    addChild("Differential Drive", m_drive);
+   
+    //SendableRegistry.addChild(this, m_gyro);
+  
   }
 
   @Override
