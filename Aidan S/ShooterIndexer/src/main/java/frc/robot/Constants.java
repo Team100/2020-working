@@ -31,15 +31,15 @@ public final class Constants {
  
     public final class Shooter {
         public static final double PEAK_OUTPUT = 1;
-        public static final int FALCON_1_CANID = 0;
-        public static final int FALCON_2_CANID = 1;
+        public static final int FALCON_1_CANID = 15;
+        public static final int FALCON_2_CANID = 14;
         public static final double ENCODER_CPR = 2048;
         public static final double RAMP_RATE = 0; //seconds to full velocity
         public static final double WHEEL_RADIUS = 0.098/2; // Feet per second
     }
 
     public final class Indexer {
-        public static final int LEFT_SPX_CANID = 2; //Stage 2
+        public static final int LEFT_SPX_CANID = 1; //Stage 2
         public static final int RIGHT_SPX_CANID = 3; //Stage 1
     }
 }

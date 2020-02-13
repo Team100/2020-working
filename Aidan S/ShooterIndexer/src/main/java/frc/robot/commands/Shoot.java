@@ -18,7 +18,7 @@ public class Shoot extends CommandBase {
   private Shooter shooter;
   private Joystick joystick;
   private JoystickButton up, down, off, toggle;
-  private boolean useButtons = false;
+  private boolean useButtons = true;
   private double sp = 0;
 
   /**

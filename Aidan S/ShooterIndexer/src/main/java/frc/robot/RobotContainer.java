@@ -15,6 +15,7 @@ import frc.robot.commands.IndexMoveFoward;
 import frc.robot.commands.IndexMoveUnJam;
 import frc.robot.commands.IndexMoveUp;
 import frc.robot.commands.Shoot;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,6 +30,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final Turret turret = new Turret();
   private final Shooter shooter = new Shooter();
+  private final Indexer indexer = new Indexer();
   private final Joystick controller = new Joystick(0);
   private JoystickButton indexMoveFoward;
   private JoystickButton indexMoveUnJam;
@@ -60,11 +62,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    indexMoveFoward.whileHeld(new IndexMoveFoward());
-    indexMoveUnJam.whileHeld(new IndexMoveUnJam());
-    indexMoveEnd.whileHeld(new IndexMoveEnd());
-    indexMoveUp.whileHeld(new IndexMoveUp(true));
-    indexMoveS1.whileHeld(new IndexMoveUp(false));
+    indexMoveFoward.whileHeld(new IndexMoveFoward(indexer));
+    indexMoveUnJam.whileHeld(new IndexMoveUnJam(indexer));
+    indexMoveEnd.whileHeld(new IndexMoveEnd(indexer));
+    indexMoveUp.whileHeld(new IndexMoveUp(indexer, true));
+    indexMoveS1.whileHeld(new IndexMoveUp(indexer, false));
   }
 
 

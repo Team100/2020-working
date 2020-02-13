@@ -11,8 +11,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
-  private static TalonSRX leftSpx;
-  private static TalonSRX rightSpx;
+  private TalonSRX leftSpx;
+  private TalonSRX rightSpx;
 
   /**
    * Keeps track of whether the last iteration was positive or not
@@ -53,32 +53,32 @@ public class Indexer extends SubsystemBase {
     rightSpx.configOpenloopRamp(0.1);
   
     
-    SmartDashboard.putNumber("PercentOutLeft", .7);
-    SmartDashboard.putNumber("PercentOutRight", 0.5*.7);
+    SmartDashboard.putNumber("PercentOutLeft", 0.6);
+    SmartDashboard.putNumber("PercentOutRight", 0.4);
 
     SmartDashboard.putNumber("outputLimit", outputLimit);
   }
 
-  public static void moveFoward() {
+  public void moveFoward() {
     double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
     double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
     rightSpx.set(ControlMode.PercentOutput, (rightSpeed));
     leftSpx.set(ControlMode.PercentOutput, (leftSpeed));
   }
 
-  public static void moveStageOne() {
+  public void moveStageOne() {
     double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
     rightSpx.set(ControlMode.PercentOutput, (rightSpeed));
   }
 
-  public static void unJam() {
+  public void unJam() {
     double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
     double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
     rightSpx.set(ControlMode.PercentOutput, -(rightSpeed));
     leftSpx.set(ControlMode.PercentOutput, -(leftSpeed));
   }
 
-  public static void peakOutput() {
+  public void peakOutput() {
     double outputLimit = SmartDashboard.getNumber("outputLimit", 0.5);
 
     leftSpx.configPeakOutputForward(outputLimit);
@@ -89,7 +89,7 @@ public class Indexer extends SubsystemBase {
   }
 
 
-  public static void TillStop() {
+  public void TillStop() {
 
 
     while(outSensor.get()) {
@@ -102,14 +102,14 @@ public class Indexer extends SubsystemBase {
     stop();
   }
 
-  public static void MoveUp() {
+  public void MoveUp() {
     double leftSpeed = SmartDashboard.getNumber("PercentOutLeft", 0.3);
     double rightSpeed = SmartDashboard.getNumber("PercentOutRight", 0.3);
 
     leftSpx.set(ControlMode.PercentOutput, leftSpeed);
     rightSpx.set(ControlMode.PercentOutput, rightSpeed);
     try {
-      Thread.sleep(400);
+      Thread.sleep(60);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -117,7 +117,7 @@ public class Indexer extends SubsystemBase {
     stop();
   }
 
-  public static void stop(){
+  public void stop(){
     leftSpx.set(ControlMode.PercentOutput, 0.00);
     rightSpx.set(ControlMode.PercentOutput, 0.00);
   }
