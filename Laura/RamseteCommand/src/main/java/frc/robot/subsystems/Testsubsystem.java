@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utility.FRCTalonFX;
 
@@ -18,6 +21,10 @@ import frc.robot.utility.FRCTalonFX;
 public class Testsubsystem extends SubsystemBase {
 
   private FRCTalonFX m_motor;
+  private DigitalInput m_input = new DigitalInput(1);
+  private Encoder m_rio_encoder = new Encoder(2,3);
+  private PIDController m_rio_PID = new PIDController(0, 0, 0);
+  
 	public Testsubsystem() {
     
     m_motor = FRCTalonFX.FRCTalonFXBuilder.aFRCTalonFX()
@@ -26,7 +33,11 @@ public class Testsubsystem extends SubsystemBase {
       .withSmartDashboardPutEnabled(true)
       .build();  
     
-    addChild("TestSubsubsystemMotor", m_motor.getMotor());
+    addChild("TestMotor", m_motor.getMotor());
+    addChild("TestFRCTalonFX", m_motor);
+    addChild("TestDigitalInput", m_input);
+    addChild("Test RIO Encoder", m_rio_encoder);
+    addChild("Test RIO PID Controller", m_rio_PID);
   }  
   
 	@Override
