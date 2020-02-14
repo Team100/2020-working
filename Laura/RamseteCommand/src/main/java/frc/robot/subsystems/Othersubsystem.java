@@ -26,6 +26,7 @@ public class Othersubsystem extends SubsystemBase {
     m_motor = new FRCTalonSRX.FRCTalonSRXBuilder(1)
       .withSmartDashboardPath("OtherSubsystemMotor")
       .withSmartDashboardPutEnabled(true)
+      .withSensorPhase(true)
       .build();  
     
     addChild("OtherMotor", m_motor.getMotor());
