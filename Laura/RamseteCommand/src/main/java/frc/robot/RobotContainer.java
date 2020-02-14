@@ -38,8 +38,8 @@ import frc.robot.utility.AnnotatedTrajectory;
  */
 public class RobotContainer {
   // The robot's subsystems
-  //private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  //private final Testsubsystem m_testSubsystem = new Testsubsystem();
+  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final Testsubsystem m_testSubsystem = new Testsubsystem();
   private final Othersubsystem m_otherSubsystem = new Othersubsystem();
 
 
@@ -86,7 +86,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-   /*  // Create a voltage constraint to ensure we don't accelerate too fast
+   // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts,
@@ -131,7 +131,6 @@ public class RobotContainer {
     InstantCommand resetCommand = new InstantCommand(() -> m_robotDrive.resetEncoders());
 
     // Run path following command, then stop at the end.
-    return resetCommand.andThen(ramseteCommand).andThen(() -> m_robotDrive.arcadeDrive(0, 0)).andThen(() -> m_robotDrive.resetEncoders()); */
-    return null;
+    return resetCommand.andThen(ramseteCommand).andThen(() -> m_robotDrive.arcadeDrive(0, 0)).andThen(() -> m_robotDrive.resetEncoders()); 
   }
 }

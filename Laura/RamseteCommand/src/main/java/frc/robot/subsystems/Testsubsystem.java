@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -26,11 +29,9 @@ public class Testsubsystem extends SubsystemBase {
   private PIDController m_rio_PID = new PIDController(0, 0, 0);
   
 	public Testsubsystem() {
-    
-    m_motor = FRCTalonFX.FRCTalonFXBuilder.aFRCTalonFX()
-      .withCanID(4)
-      .withSmartDashboardPath("TestSubsystemMotor")
-      .withSmartDashboardPutEnabled(true)
+    m_motor = new FRCTalonFX.FRCTalonFXBuilder(4)
+       .withSmartDashboardPath("TestSubsystemMotor")
+       .withSmartDashboardPutEnabled(true)
       .build();  
     
     addChild("TestMotor", m_motor.getMotor());

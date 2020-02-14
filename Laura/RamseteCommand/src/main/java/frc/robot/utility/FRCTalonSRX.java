@@ -29,8 +29,10 @@ public class FRCTalonSRX implements Sendable{
         builder.setSmartDashboardType("Text View");
         builder.addDoubleProperty("EncoderPosition", this::getSelectedSensorPosition, null);
         builder.addDoubleProperty("EncoderSpeed", this::getSensorVelocity, null);
+        builder.addDoubleProperty("Analog Input", this.m_sensorCollection::getAnalogIn, null);
         builder.addBooleanProperty("Fwd Limit", this.m_sensorCollection::isFwdLimitSwitchClosed, null);
         builder.addBooleanProperty("Rev Limit", this.m_sensorCollection::isRevLimitSwitchClosed, null);
+
     }
 
     public void reset(){
@@ -365,8 +367,8 @@ public class FRCTalonSRX implements Sendable{
 
         if(this.getPeakOutputForward() != 0 || this.getPeakOutputReverse() != 0){
             motor.configPeakOutputForward(this.getPeakOutputForward());
-        motor.configPeakOutputForward(this.getPeakOutputReverse());
-        System.out.println("Setting Peak Output");
+            motor.configPeakOutputReverse(this.getPeakOutputReverse());
+            System.out.println("Setting Peak Output");
         }
         
         if(this.isReverseSoftLimitEnabled()){
@@ -712,49 +714,51 @@ public class FRCTalonSRX implements Sendable{
 
     public static final class FRCTalonSRXBuilder {
         private int canID;
-        private boolean inverted;
-        private int feedbackPort;
-        private int timeout;
-        private boolean sensorPhase;
-        private double kP;
-        private double kI;
-        private double kD;
-        private double kF;
-        private int allowableClosedLoopError;
-        private StatusFrameEnhanced statusFrameType;
-        private int statusFrame;
-        private boolean currentLimitEnabled;
-        private int currentLimit;
-        private NeutralMode neutralMode;
-        private boolean smartDashboardPutEnabled;
+        private boolean inverted = false;
+        private int feedbackPort = 0;
+        private int timeout = 10;
+        private boolean sensorPhase = false;
+        private double kP = 0.0;
+        private double kI = 0.0;
+        private double kD = 0.0;
+        private double kF = 0.0;
+        private int allowableClosedLoopError = 0;
+        private StatusFrameEnhanced statusFrameType = StatusFrameEnhanced.Status_3_Quadrature;
+        private int statusFrame = 0;
+        private boolean currentLimitEnabled = false;
+        private int currentLimit = 0;
+        private NeutralMode neutralMode = NeutralMode.Coast;
+        private boolean smartDashboardPutEnabled = false;
         private String smartDashboardPath;
-        private double openLoopRampRate;
-        private double closedLoopRampRate;
-        private double nominalOutputForward;
-        private double nominalOutputReverse;
-        private double peakOutputForward;
-        private double peakOutputReverse ;
-        private double neutralDeadband;
-        private double voltageCompensationSaturation;
-        private VelocityMeasPeriod velocityMeasurementPeriod;
-        private int velocityMeasurementWindow;
-        private boolean forwardSoftLimitEnabled;
-        private int forwardSoftLimitThreshold;
-        private boolean reverseSoftLimitEnabled;
-        private int reverseSoftLimitThreshold;
-        private boolean auxPIDPolarity;
-        private int motionCruiseVelocity;
-        private int motionAcceleration;
-        private int motionCurveStrength;
-        private int motionProfileTrajectoryPeriod;
-        private boolean feedbackNotContinuous;
+        private double openLoopRampRate = 0;
+        private double closedLoopRampRate = 0;
+        private double nominalOutputForward = 0;
+        private double nominalOutputReverse = 0;
+        private double peakOutputForward = 1.0;
+        private double peakOutputReverse = -1.0 ;
+        private double neutralDeadband = 0.04;
+        private double voltageCompensationSaturation = 0;
+        private VelocityMeasPeriod velocityMeasurementPeriod = VelocityMeasPeriod.Period_100Ms;//??
+        private int velocityMeasurementWindow = 64;
+        private boolean forwardSoftLimitEnabled = false;
+        private int forwardSoftLimitThreshold = 0;
+        private boolean reverseSoftLimitEnabled = false;
+        private int reverseSoftLimitThreshold = 0;
+        private boolean auxPIDPolarity = false;
+        private int motionCruiseVelocity = 0;
+        private int motionAcceleration = 0;
+        private int motionCurveStrength = 0;
+        private int motionProfileTrajectoryPeriod = 0;
+        private boolean feedbackNotContinuous = false;
 
-        public FRCTalonSRXBuilder() {
+        public FRCTalonSRXBuilder(int canID) {
+            this.canID = canID;
+            this.smartDashboardPath = "TalonSRX_" + canID;
         }
 
-        public static FRCTalonSRXBuilder aFRCTalonSRX() {
+/*         public static FRCTalonSRXBuilder aFRCTalonSRX() {
             return new FRCTalonSRXBuilder();
-        }
+        } */
 
         public FRCTalonSRXBuilder withCanID(int canID) {
             this.canID = canID;

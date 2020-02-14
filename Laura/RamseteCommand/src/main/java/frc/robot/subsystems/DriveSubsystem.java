@@ -34,7 +34,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMaster, m_rightMaster);
 
   // The gyro sensor
-  private final Gyro m_gyro = new ADXRS450_Gyro();
+  private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
@@ -57,9 +57,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_timer.start();
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     addChild("Differential Drive", m_drive);
-   
-    //SendableRegistry.addChild(this, m_gyro);
-  
+    addChild("DriveGyro", m_gyro);
   }
 
   @Override
