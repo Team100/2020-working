@@ -22,15 +22,10 @@ public class Othersubsystem extends SubsystemBase {
 
   private FRCTalonSRX m_motor;
   
-	public Othersubsystem() {
-    
-    m_motor = FRCTalonSRX.FRCTalonSRXBuilder.aFRCTalonSRX()
-      .withCanID(1)
+	public Othersubsystem() {   
+    m_motor = new FRCTalonSRX.FRCTalonSRXBuilder(1)
       .withSmartDashboardPath("OtherSubsystemMotor")
       .withSmartDashboardPutEnabled(true)
-      .withSensorPhase(true)
-      .withStatusFrameType(StatusFrameEnhanced.Status_1_General)
-      .withVelocityMeasurementPeriod(VelocityMeasPeriod.Period_20Ms)
       .build();  
     
     addChild("OtherMotor", m_motor.getMotor());
