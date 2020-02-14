@@ -10,12 +10,12 @@ package frc.robot.utility;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
@@ -24,15 +24,13 @@ import frc.robot.Robot;
  */
 public class FRCTalonFX implements Sendable {
 
-    private FRCTalonFX() {
-        //SendableRegistry.addLW(this, "FRCTalonFX", 0);
-
-    }
     @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("Text View");
-        builder.addStringProperty("SmartDashboardPath", this::getSmartDashboardPath, null);
-
+        builder.addDoubleProperty("EncoderPosition", this::getSelectedSensorPosition, null);
+        builder.addDoubleProperty("EncoderSpeed", this::getSensorVelocity, null);
+        builder.addDoubleProperty("Fwd Limit", this.m_sensorCollection::isFwdLimitSwitchClosed, null);
+        builder.addDoubleProperty("Rev Limit", this.m_sensorCollection::isRevLimitSwitchClosed, null);
     }
 
 
@@ -146,6 +144,7 @@ public class FRCTalonFX implements Sendable {
     public WPI_TalonFX motor;
     ///////////////////////////////////////////////////////////////////////////
 
+    public TalonFXSensorCollection m_sensorCollection;
     /**
      * The Can ID of the selected motor
      */
@@ -353,6 +352,7 @@ public class FRCTalonFX implements Sendable {
 
     public FRCTalonFX configure() {
         motor = new WPI_TalonFX(this.getCanID());
+        m_sensorCollection = motor.getSensorCollection();
         System.out.println(this.motor.configFactoryDefault());
         System.out.println("#################RESET");
         if (this.isInverted()) {
