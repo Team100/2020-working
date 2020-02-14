@@ -20,12 +20,13 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Othersubsystem;
 import frc.robot.subsystems.Testsubsystem;
 import frc.robot.utility.AnnotatedTrajectory;
 
@@ -37,8 +38,9 @@ import frc.robot.utility.AnnotatedTrajectory;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final Testsubsystem m_testSubsystem = new Testsubsystem();
+  //private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  //private final Testsubsystem m_testSubsystem = new Testsubsystem();
+  private final Othersubsystem m_otherSubsystem = new Othersubsystem();
 
 
   // The driver's controller
@@ -84,7 +86,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    // Create a voltage constraint to ensure we don't accelerate too fast
+   /*  // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts,
@@ -129,6 +131,7 @@ public class RobotContainer {
     InstantCommand resetCommand = new InstantCommand(() -> m_robotDrive.resetEncoders());
 
     // Run path following command, then stop at the end.
-    return resetCommand.andThen(ramseteCommand).andThen(() -> m_robotDrive.arcadeDrive(0, 0)).andThen(() -> m_robotDrive.resetEncoders());
+    return resetCommand.andThen(ramseteCommand).andThen(() -> m_robotDrive.arcadeDrive(0, 0)).andThen(() -> m_robotDrive.resetEncoders()); */
+    return null;
   }
 }
