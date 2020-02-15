@@ -231,8 +231,12 @@ public class Constants {
     public static final double RGB_BLUE_VALUE_FOR_GREEN =0.240;
     public static final double RGB_GREEN_VALUE_FOR_GREEN =0.561;
    
-
-  
+    // CameraTilt Stuff
+    public final class Camera {
+        public static final double SETPOINT_TOP = 180;
+        public static final double SETPOINT_MIDDLE = 90;
+        public static final double INCREMENT = 10;
+    }
     
 
 }

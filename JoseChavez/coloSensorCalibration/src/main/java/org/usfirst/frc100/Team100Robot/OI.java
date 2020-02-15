@@ -14,6 +14,7 @@ import org.usfirst.frc100.Team100Robot.commands.*;
 import org.usfirst.frc100.Team100Robot.commands.Drivetrain.Drive;
 import org.usfirst.frc100.Team100Robot.commands.Drivetrain.Shift.ShiftToHigh;
 import org.usfirst.frc100.Team100Robot.commands.Drivetrain.Shift.ShiftToLow;
+import org.usfirst.frc100.Team100Robot.subsystems.Cameratiltsubsystem;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,6 +23,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 import org.usfirst.frc100.Team100Robot.Robot;
+
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
+//import frc.robot.subsystems.Cameratiltsubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -65,6 +71,15 @@ public class OI {
     private JoystickButton threeTimes;
     private JoystickButton goToColor;
 
+    private final Cameratiltsubsystem m_exampleSubsystem = new Cameratiltsubsystem();
+
+  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Joystick joystick = new Joystick(1);
+  private final JoystickButton top = new JoystickButton(joystick, 4);
+  private final JoystickButton middle = new JoystickButton(joystick, 1);
+  private final JoystickButton up = new JoystickButton(joystick, 6);
+  private final JoystickButton down = new JoystickButton(joystick, 5);
+
     // ButtonBoard
 
     public JoystickButton autoSwitch;
@@ -106,7 +121,26 @@ public class OI {
         // SmartDashboard.putData("DriveCMD", new Drive());
         // SmartDashboard.putData("HighGear", new HighGear());
         // SmartDashboard.putData("LowGear", new LowGear());
+
+        configureButtonBindings();
     }
+
+    private void configureButtonBindings() {
+
+
+        top.whenPressed(new InstantCommand(() -> {
+          m_exampleSubsystem.setsetpoint(Constants.Camera.SETPOINT_TOP);
+        }));
+        middle.whenPressed(new InstantCommand(() -> {
+          m_exampleSubsystem.setsetpoint(Constants.Camera.SETPOINT_MIDDLE);
+        }));
+        up.whenPressed(new InstantCommand(() -> {
+          m_exampleSubsystem.setsetpoint(m_exampleSubsystem.getsetsetpoint() + Constants.Camera.INCREMENT);
+        }));
+        down.whenPressed(new InstantCommand(() -> {
+          m_exampleSubsystem.setsetpoint(m_exampleSubsystem.getsetsetpoint() - Constants.Camera.INCREMENT);
+        }));
+      }
 
     public Joystick getGamepad() {
         return gamepad;
@@ -115,5 +149,9 @@ public class OI {
     // public Joystick getGamepad() {
     // return gamepad;
     // }
+   // public Command getAutonomousCommand() {
+        // An ExampleCommand will run in autonomous
+       // return null;
+   //   }
 
 }

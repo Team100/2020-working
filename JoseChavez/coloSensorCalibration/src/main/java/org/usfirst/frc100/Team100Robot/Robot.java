@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc100.Team100Robot.commands.*;
 import org.usfirst.frc100.Team100Robot.subsystems.*;
 import com.kauailabs.navx.frc.*;
+import edu.wpi.first.cameraserver.CameraServer;
 
 
 /**
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
+
+    //private OI m_robotContainer;
 
     public static OI oi;
     public static Drivetrain drivetrain;
@@ -51,6 +54,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
       // ahrs = new AHRS(Constants.NAVX_COMM_PORT);
+
+    //  m_robotContainer = new OI();
+      CameraServer.getInstance().startAutomaticCapture();
 
         drivetrain = new Drivetrain();
         shifter = new Shifter();
@@ -107,11 +113,13 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
 
 
-        
+        //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         autonomousCommand = chooser.getSelected();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+
+
     }
 
     /**
