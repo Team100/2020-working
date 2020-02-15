@@ -8,6 +8,7 @@
 package org.usfirst.frc100.Team100Robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
@@ -74,6 +75,7 @@ public class ControlPanelSpinner extends Subsystem {
       Preferences.getInstance().getDouble("BlueTile_YellowComponent", Constants.RGB_BLUE_VALUE_FOR_YELLOW));
 
   private final TalonSRX m_motor = new TalonSRX(5);
+  
 
   private final Color detectedColor = m_colorSensor.getColor();
   private final double red = detectedColor.red;
@@ -98,6 +100,7 @@ public class ControlPanelSpinner extends Subsystem {
     m_motor.set(ControlMode.PercentOutput, speed);
 
   }
+  
 
   /*
    * public void threeTImes(){ while (revolutionsCounter>=24){ spin(1); }
@@ -227,6 +230,7 @@ public class ControlPanelSpinner extends Subsystem {
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putNumber("Counter of Changes", revolutionsCounter);
+    SmartDashboard.putData("Conrol Panel Spinner", this);
 
     String gameData;
 
@@ -316,5 +320,9 @@ public class ControlPanelSpinner extends Subsystem {
      */
     //revolutionsCounter=0;
     configuratingColors = SmartDashboard.getNumber("configurating Colors", 0);
+  }
+
+  public ControlPanelSpinner() {
+    m_motor.setNeutralMode(NeutralMode.Brake);
   }
 }

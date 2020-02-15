@@ -8,15 +8,11 @@
 package org.usfirst.frc100.Team100Robot.commands;
 
 import org.usfirst.frc100.Team100Robot.Robot;
-import org.usfirst.frc100.Team100Robot.subsystems.ControlPanelSpinner;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class threeTimes extends Command {
 
-private int currentColor;
-private int nextColor;
-private int revolutionsCounter = 0;
 private boolean done = false;
 
   public threeTimes() {
@@ -29,16 +25,15 @@ private boolean done = false;
   @Override
   protected void initialize() {
     Robot.controlPanelSpinner.resetTo0();
-    Robot.controlPanelSpinner.spin(1);
+    Robot.controlPanelSpinner.spin(.5);
     done = false;
-
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.controlPanelSpinner.spin(1);
-    if (Robot.controlPanelSpinner.getRevolutionsCounter()>=25){
+    Robot.controlPanelSpinner.spin(.5);
+    if (Robot.controlPanelSpinner.getRevolutionsCounter()>=24){
       done = true;
     }
   }
