@@ -27,6 +27,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Othersubsystem;
+import frc.robot.subsystems.PDPSubsystem;
 import frc.robot.subsystems.Testsubsystem;
 import frc.robot.utility.AnnotatedTrajectory;
 
@@ -41,6 +42,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Testsubsystem m_testSubsystem = new Testsubsystem();
   private final Othersubsystem m_otherSubsystem = new Othersubsystem();
+  private final PDPSubsystem m_pdpSubsystem = new PDPSubsystem();
 
 
   // The driver's controller
