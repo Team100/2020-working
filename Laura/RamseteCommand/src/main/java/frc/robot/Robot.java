@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    Shuffleboard.stopRecording();
+    Shuffleboard.startRecording();
   }
 
   /**
