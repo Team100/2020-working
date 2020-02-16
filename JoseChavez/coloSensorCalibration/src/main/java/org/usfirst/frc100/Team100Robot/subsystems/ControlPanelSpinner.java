@@ -188,35 +188,35 @@ public class ControlPanelSpinner extends Subsystem {
         nextColor = 2;
       } else {
         nextColor = 2;
-      }
+     }
       colorString = "Blue";
     } else if (match.color == kRedTarget) {
       currentColor = 3;
-      if (nextColor == currentColor) {
-        revolutionsCounter = revolutionsCounter + 1;
+      //if (nextColor == currentColor) {
+        //revolutionsCounter = revolutionsCounter + 1;
+        //nextColor = 4;
+      //} else {
         nextColor = 4;
-      } else {
-        nextColor = 4;
-      }
+      //}
       colorString = "Red";
     } else if (match.color == kGreenTarget) {
       colorString = "Green";
       currentColor = 2;
-      if (nextColor == currentColor) {
-        revolutionsCounter = revolutionsCounter + 1;
+      //if (nextColor == currentColor) {
+        //revolutionsCounter = revolutionsCounter + 1;
+       // nextColor = 3;
+     // } else {
         nextColor = 3;
-      } else {
-        nextColor = 3;
-      }
+     // }
     } else if (match.color == kYellowTarget) {
       colorString = "Yellow";
       currentColor = 4;
-      if (nextColor == currentColor) {
-        revolutionsCounter = revolutionsCounter + 1;
+      //if (nextColor == currentColor) {
+        //revolutionsCounter = revolutionsCounter + 1;
+       // nextColor = 1;
+      //} else {
         nextColor = 1;
-      } else {
-        nextColor = 1;
-      }
+      //}
     } else {
       colorString = "Unknown";
     }
@@ -324,5 +324,6 @@ public class ControlPanelSpinner extends Subsystem {
 
   public ControlPanelSpinner() {
     m_motor.setNeutralMode(NeutralMode.Brake);
+    m_motor.configContinuousCurrentLimit(25, 10);
   }
 }

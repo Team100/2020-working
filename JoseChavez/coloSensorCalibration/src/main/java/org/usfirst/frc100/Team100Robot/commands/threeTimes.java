@@ -25,15 +25,15 @@ private boolean done = false;
   @Override
   protected void initialize() {
     Robot.controlPanelSpinner.resetTo0();
-    Robot.controlPanelSpinner.spin(.5);
+    Robot.controlPanelSpinner.spin(.7);
     done = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.controlPanelSpinner.spin(.5);
-    if (Robot.controlPanelSpinner.getRevolutionsCounter()>=24){
+    Robot.controlPanelSpinner.spin(.7);
+    if (Robot.controlPanelSpinner.getRevolutionsCounter()>=6){
       done = true;
     }
   }
