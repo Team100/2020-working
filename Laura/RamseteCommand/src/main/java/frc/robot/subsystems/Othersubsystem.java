@@ -27,6 +27,7 @@ public class Othersubsystem extends SubsystemBase {
       .withSmartDashboardPath("OtherSubsystemMotor")
       .withSmartDashboardPutEnabled(true)
       .withSensorPhase(true)
+      .withFeedbackNotContinuous(true)
       .build();  
     
     addChild("OtherMotor", m_motor.getMotor());
