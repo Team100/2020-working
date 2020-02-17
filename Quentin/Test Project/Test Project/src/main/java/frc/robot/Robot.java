@@ -40,10 +40,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     m_gamepadCount += 1;
-    if (m_gamepadCount > 100) {
+    /* play with rate to get best fast, slow blink */
+    if (m_gamepadCount > 20) {
       m_gamepadCount = 0;
       if (m_gamepadToggle) {
-        m_gamepad.setOutputs(0x3F);
+        m_gamepad.setOutputs(0x32);
+         /* first 6 bits (0x3f) control */
       } else {
         m_gamepad.setOutputs(0x00);
       }
