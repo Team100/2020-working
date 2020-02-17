@@ -9,6 +9,8 @@ package frc.robot;
 
 import java.util.List;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
@@ -16,6 +18,7 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
@@ -27,6 +30,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Othersubsystem;
+import frc.robot.subsystems.PDPSubsystem;
 import frc.robot.subsystems.Testsubsystem;
 import frc.robot.utility.AnnotatedTrajectory;
 
@@ -41,6 +45,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Testsubsystem m_testSubsystem = new Testsubsystem();
   private final Othersubsystem m_otherSubsystem = new Othersubsystem();
+  private final PDPSubsystem m_pdpSubsystem = new PDPSubsystem();
 
 
   // The driver's controller
@@ -50,9 +55,11 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+   
     // Configure the button bindings
     configureButtonBindings();
-
+    NetworkTableEntry myLW = NetworkTableInstance.getDefault().getEntry("LiveWindow");
+    // Shuffleboard.getTab("My_LW").buildInto(myLW, null);
     // Configure default commands
     // Set the default drive command to split-stick arcade drive
    /*  m_robotDrive.setDefaultCommand(

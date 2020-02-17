@@ -58,6 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     addChild("Differential Drive", m_drive);
     addChild("DriveGyro", m_gyro);
+    addChild("Scheduler", this);
   }
 
   @Override

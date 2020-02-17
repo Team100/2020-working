@@ -30,6 +30,7 @@ public class FRCTalonSRX implements Sendable{
         builder.addDoubleProperty("EncoderPosition", this::getSelectedSensorPosition, null);
         builder.addDoubleProperty("EncoderSpeed", this::getSensorVelocity, null);
         builder.addDoubleProperty("Analog Input", this.m_sensorCollection::getAnalogIn, null);
+        builder.addDoubleProperty("Analog Raw", this.m_sensorCollection::getAnalogInRaw, null);
         builder.addBooleanProperty("Fwd Limit", this.m_sensorCollection::isFwdLimitSwitchClosed, null);
         builder.addBooleanProperty("Rev Limit", this.m_sensorCollection::isRevLimitSwitchClosed, null);
 

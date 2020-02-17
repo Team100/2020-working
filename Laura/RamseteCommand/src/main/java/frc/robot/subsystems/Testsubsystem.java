@@ -39,6 +39,7 @@ public class Testsubsystem extends SubsystemBase {
     addChild("TestDigitalInput", m_input);
     addChild("Test RIO Encoder", m_rio_encoder);
     addChild("Test RIO PID Controller", m_rio_PID);
+    addChild("Scheduler", this);
   }  
   
 	@Override
