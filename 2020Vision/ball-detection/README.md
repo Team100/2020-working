@@ -1,14 +1,4 @@
-# Object Detection Training Image
-This repository contains the necessary files to build the Docker image for training a neural network to detect power cells.
-This uses transfer learning to re-train an optimized neural network, specifically SSD MobileNet v1/v2.
-
-## Using the Image
-To use the image, see the [Docker Hub](https://hub.docker.com/r/akrantz/powercell-detection) page.
-
-## Building the Image
-To build the image, clone this repository and change into this directory.
-Then, with Docker installed, run:
-```
-docker build -t <some_name>:<some_tag> .
-```
-It will take approximately 10mins to build, depending on the speed of your computer.
+# Ball Detection
+This contains the ball detection code for the 2020 season.
+We use the trained model `edgetpu.tflite` on the [Google Coral USB Accelerator](https://www.coral.ai/products/accelerator/) to identify the power cells in each video frame.
+The model was trained using the [`powercell-detection`](https://hub.docker.com/repository/docker/akrantz/powercell-detection) image.

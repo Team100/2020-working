@@ -7,5 +7,9 @@ The target tracking code identifies the U-shaped retroreflective tape that borde
 To read more, see the [`turret`](./turret) folder.
 
 ## Ball Detection
-The ball detection image builds the Docker image to re-train SSD MobileNet v1 or v2.
+The ball detection code uses the trained models to identify the power cells.
 To read more, see the [`ball-detection`](./ball-detection) folder.
+
+## Ball Detection Training
+The ball detection image builds the Docker image to re-train SSD MobileNet v1 or v2.
+To read more, see the [`ball-detection-training`](./ball-detection-training) folder.
