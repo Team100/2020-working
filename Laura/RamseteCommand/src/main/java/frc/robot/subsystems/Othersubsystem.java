@@ -61,6 +61,7 @@ public class Othersubsystem extends SubsystemBase {
 	public void periodic() {
     m_motor.updateSmartDashboard();
     Color detectedColor = m_colorSensor.getColor();
+    ColorSensorV3.RawColor raw  = m_colorSensor.getRawColor();
     m_detectedColor = detectedColor;
     /**
      * Run the color match algorithm on our detected color
@@ -86,7 +87,10 @@ public class Othersubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putBoolean("Color Sensor Has Reset", m_colorSensor.hasReset());
-		
+    SmartDashboard.putNumber("RawRed", raw.red);
+    SmartDashboard.putNumber("RawGreen", raw.green);
+    SmartDashboard.putNumber("RawBlue", raw.blue);
+    
   }
   
   public Color getCurrentColor() {
