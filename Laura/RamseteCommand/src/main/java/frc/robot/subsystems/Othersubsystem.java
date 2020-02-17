@@ -11,6 +11,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -32,6 +33,9 @@ public class Othersubsystem extends SubsystemBase {
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private Color m_detectedColor = ColorMatch.makeColor(0,0,0);
+  private ColorMatchResult m_curColorMatch;
+  private DigitalInput m_rightSight = new DigitalInput(0);
   
 	public Othersubsystem() {   
     m_motor = new FRCTalonSRX.FRCTalonSRXBuilder(1)
@@ -49,6 +53,7 @@ public class Othersubsystem extends SubsystemBase {
     addChild("OtherFRCTalonSRX", m_motor);
     
     addChild("Scheduler", this);
+    addChild("Right Sight", m_rightSight);
     
   }  
   
@@ -56,12 +61,13 @@ public class Othersubsystem extends SubsystemBase {
 	public void periodic() {
     m_motor.updateSmartDashboard();
     Color detectedColor = m_colorSensor.getColor();
+    m_detectedColor = detectedColor;
     /**
      * Run the color match algorithm on our detected color
      */
     String colorString;
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-
+    m_curColorMatch = match;
     if (match.color == kBlueTarget) {
       colorString = "Blue";
     } else if (match.color == kRedTarget) {
@@ -81,5 +87,17 @@ public class Othersubsystem extends SubsystemBase {
     SmartDashboard.putString("Detected Color", colorString);
     SmartDashboard.putBoolean("Color Sensor Has Reset", m_colorSensor.hasReset());
 		
-	}
+  }
+  
+  public Color getCurrentColor() {
+    return m_detectedColor;
+  }
+
+  public Color getCurrentColorMatch() {
+    if (m_curColorMatch == null) {
+      return m_detectedColor;
+    } else {
+      return m_curColorMatch.color;
+    } 
+  }
 }

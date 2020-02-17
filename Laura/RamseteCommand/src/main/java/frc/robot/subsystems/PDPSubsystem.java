@@ -19,9 +19,4 @@ public class PDPSubsystem extends SubsystemBase {
   public PDPSubsystem() {
     addChild("PDP", m_pdp);
   }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
 }
