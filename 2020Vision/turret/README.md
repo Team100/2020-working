@@ -1,5 +1,5 @@
-# Vision
-This contains the vision code for the 2020 season.
+# Turret Tracking
+This contains the turret tracking vision code for the 2020 season.
 We use an initial image ([`capture.png`](./capture.png)) as a pattern to match against each frame.
 This is done to ensure that the contour we detect is actually the target we intend to do calculations on.
 For angle calculations, we calculate the horizontal number of degrees per pixel along with the center offset.

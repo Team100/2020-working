@@ -2,8 +2,12 @@
 This contains the visio code for the 2020 season. 
 There is the target tracking code and ball detection image.
 
-## Target Tracking
-The target tracking code identifies the U-shaped retroreflective tape that borders the bottom part of the target.
+## Robot Server
+The glue code that allows for the RoboRIO to operate on the data from the co-processor.
+To read more, see the [`robot-server`](./robot-server) folder.
+
+## Turret Tracking
+The turret tracking code identifies the U-shaped retroreflective tape that borders the bottom part of the target.
 To read more, see the [`turret`](./turret) folder.
 
 ## Ball Detection
