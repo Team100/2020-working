@@ -12,7 +12,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +29,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  //Added code for square
+  Thread m_visionThread;
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -31,10 +43,38 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    //Added code for square
+    m_visionThread = new Thread(() -> {
+      UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+
+      camera.setResolution(640, 480);
+
+      CvSink cvSink = CameraServer.getInstance().getVideo();
+
+      CvSource outputStream = CameraServer.getInstance().putVideo("Rectangle", 640, 480);
+
+      Mat mat = new Mat();
+
+      while (!Thread.interrupted()) {
+        if (cvSink.grabFrame(mat) == 0) {
+          outputStream.notifyError(cvSink.getError());
+          continue;
+        }
+
+        Imgproc.rectangle(mat, new Point(100, 100), new Point(540, 380), new Scalar(0, 0, 0), 10);
+
+        outputStream.putFrame(mat);
+      }
+    });
+
+    m_visionThread.setDaemon(true);
+    m_visionThread.start();
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
