@@ -31,7 +31,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../2020-roboRIO" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -72,6 +72,7 @@
       <workItem from="1580457967970" duration="8268000" />
       <workItem from="1580541218752" duration="4011000" />
       <workItem from="1580611089339" duration="72000" />
+      <workItem from="1581880177341" duration="15000" />
     </task>
     <servers />
   </component>
