@@ -11,6 +11,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +37,7 @@ public class Othersubsystem extends SubsystemBase {
   private Color m_detectedColor = ColorMatch.makeColor(0,0,0);
   private ColorMatchResult m_curColorMatch;
   private DigitalInput m_rightSight = new DigitalInput(0);
+  private AnalogInput m_forceSensor = new AnalogInput(0);
   
 	public Othersubsystem() {   
     m_motor = new FRCTalonSRX.FRCTalonSRXBuilder(1)
@@ -54,6 +56,7 @@ public class Othersubsystem extends SubsystemBase {
     
     addChild("Scheduler", this);
     addChild("Right Sight", m_rightSight);
+    addChild("Force Sensor", m_forceSensor);
     
   }  
   
