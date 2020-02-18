@@ -1,0 +1,12 @@
+{
+    "model": "./edgetpu.tflite",
+    "device": 4,
+    "labels": "labels.txt",
+    "threshold": 0.4,
+    "output": "none",
+    "socket": {
+        "enabled": false,
+        "host": "roborio-100-frc.local",
+        "port": 5810
+    }
+}

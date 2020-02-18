@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message HighGoal {
+    double distance = 1;
+    double v_angle = 2;
+    double h_angle = 3;
+}
+
+message PowerCells {
+    repeated double confidences = 1;
+    repeated double angles = 2;
+}

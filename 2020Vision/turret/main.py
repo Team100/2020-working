@@ -3,7 +3,7 @@ from collections import namedtuple
 from copy import deepcopy
 import cv2
 from json import load as parse_json, JSONDecodeError
-from message_pb2 import Message
+from messages_pb2 import HighGoal
 import numpy as np
 import pipeline
 import pyrealsense2 as rs
@@ -144,13 +144,13 @@ try:
 
         # Serialize and send data to robot
         if config.socket.enabled and robot_socket:
-            msg = Message()
+            msg = HighGoal()
             msg.v_angle = v_angle
             msg.h_angle = h_angle
             msg.distance = distance
             encoded = msg.SerializeToString()
             try:
-                robot_socket.sendall(bytes([len(encoded)]) + encoded)
+                robot_socket.sendall(bytes([0, len(encoded)]) + encoded)
             except ConnectionRefusedError:
                 pass
 

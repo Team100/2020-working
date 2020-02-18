@@ -6,11 +6,13 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-import frc.robot.MessageOuterClass.Message;
+import frc.robot.Messages.HighGoal;
+import frc.robot.Messages.PowerCells;
 
 class Server implements Runnable {
     // This is where identified target's data is stored
-    public volatile static Message target = null;
+    public volatile static HighGoal highGoal = null;
+    public volatile static PowerCells powerCells = null;
     // This is timestamp when the last packet was received
     public volatile static long lastUpdated = 0;
     private DatagramSocket server;
@@ -28,9 +30,18 @@ class Server implements Runnable {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 server.receive(packet);
 
-                byte[] decodable = Arrays.copyOfRange(buffer, 1, buffer[0]+1);
+                byte[] decodable = Arrays.copyOfRange(buffer, 2, buffer[0]+2);
 
-                target = Message.parseFrom(decodable);
+                switch (buffer[0]) {
+                    case 0:
+                        highGoal = HighGoal.parseFrom(decodable);
+                        break;
+
+                    case 1:
+                        powerCells = PowerCells.parseFrom(decodable);
+                        break;
+                }
+                
                 lastUpdated = System.currentTimeMillis();
             } catch(Exception e) {
                 e.printStackTrace();
