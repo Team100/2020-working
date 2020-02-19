@@ -7,6 +7,14 @@ message HighGoal {
 }
 
 message PowerCells {
-    repeated double confidences = 1;
+    repeated BoundingBox boxes = 1;
     repeated double angles = 2;
+    bool found = 3;
+}
+
+message BoundingBox {
+    int32 xmin = 1;
+    int32 xmax = 2;
+    int32 ymin = 3;
+    int32 ymax = 4;
 }

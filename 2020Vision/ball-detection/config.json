@@ -1,11 +1,19 @@
 {
-    "model": "./edgetpu.tflite",
-    "device": 4,
+    "models": {
+        "cpu": "./raw.tflite",
+        "tpu": "./edgetpu.tflite"
+    },
+    "runner": "tpu",
+    "camera": {
+        "device": 4,
+        "horizontal_fov": 64.4,
+        "image_width": 640
+    },
     "labels": "labels.txt",
     "threshold": 0.4,
-    "output": "none",
+    "output": "video",
     "socket": {
-        "enabled": false,
+        "enabled": true,
         "host": "roborio-100-frc.local",
         "port": 5810
     }

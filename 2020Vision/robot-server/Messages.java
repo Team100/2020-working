@@ -645,21 +645,28 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated double confidences = 1;</code>
-     * @return A list containing the confidences.
+     * <code>repeated .BoundingBox boxes = 1;</code>
      */
-    java.util.List<java.lang.Double> getConfidencesList();
+    java.util.List<Messages.BoundingBox> 
+        getBoxesList();
     /**
-     * <code>repeated double confidences = 1;</code>
-     * @return The count of confidences.
+     * <code>repeated .BoundingBox boxes = 1;</code>
      */
-    int getConfidencesCount();
+    Messages.BoundingBox getBoxes(int index);
     /**
-     * <code>repeated double confidences = 1;</code>
-     * @param index The index of the element to return.
-     * @return The confidences at the given index.
+     * <code>repeated .BoundingBox boxes = 1;</code>
      */
-    double getConfidences(int index);
+    int getBoxesCount();
+    /**
+     * <code>repeated .BoundingBox boxes = 1;</code>
+     */
+    java.util.List<? extends Messages.BoundingBoxOrBuilder> 
+        getBoxesOrBuilderList();
+    /**
+     * <code>repeated .BoundingBox boxes = 1;</code>
+     */
+    Messages.BoundingBoxOrBuilder getBoxesOrBuilder(
+        int index);
 
     /**
      * <code>repeated double angles = 2;</code>
@@ -677,6 +684,12 @@ public final class Messages {
      * @return The angles at the given index.
      */
     double getAngles(int index);
+
+    /**
+     * <code>bool found = 3;</code>
+     * @return The found.
+     */
+    boolean getFound();
   }
   /**
    * Protobuf type {@code PowerCells}
@@ -691,7 +704,7 @@ public final class Messages {
       super(builder);
     }
     private PowerCells() {
-      confidences_ = emptyDoubleList();
+      boxes_ = java.util.Collections.emptyList();
       angles_ = emptyDoubleList();
     }
 
@@ -726,25 +739,13 @@ public final class Messages {
             case 0:
               done = true;
               break;
-            case 9: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                confidences_ = newDoubleList();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              confidences_.addDouble(input.readDouble());
-              break;
-            }
             case 10: {
-              int length = input.readRawVarint32();
-              int limit = input.pushLimit(length);
-              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                confidences_ = newDoubleList();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                boxes_ = new java.util.ArrayList<Messages.BoundingBox>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              while (input.getBytesUntilLimit() > 0) {
-                confidences_.addDouble(input.readDouble());
-              }
-              input.popLimit(limit);
+              boxes_.add(
+                  input.readMessage(Messages.BoundingBox.parser(), extensionRegistry));
               break;
             }
             case 17: {
@@ -768,6 +769,11 @@ public final class Messages {
               input.popLimit(limit);
               break;
             }
+            case 24: {
+
+              found_ = input.readBool();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -784,7 +790,7 @@ public final class Messages {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          confidences_.makeImmutable(); // C
+          boxes_ = java.util.Collections.unmodifiableList(boxes_);
         }
         if (((mutable_bitField0_ & 0x00000002) != 0)) {
           angles_.makeImmutable(); // C
@@ -806,32 +812,40 @@ public final class Messages {
               Messages.PowerCells.class, Messages.PowerCells.Builder.class);
     }
 
-    public static final int CONFIDENCES_FIELD_NUMBER = 1;
-    private com.google.protobuf.Internal.DoubleList confidences_;
+    public static final int BOXES_FIELD_NUMBER = 1;
+    private java.util.List<Messages.BoundingBox> boxes_;
     /**
-     * <code>repeated double confidences = 1;</code>
-     * @return A list containing the confidences.
+     * <code>repeated .BoundingBox boxes = 1;</code>
      */
-    public java.util.List<java.lang.Double>
-        getConfidencesList() {
-      return confidences_;
+    public java.util.List<Messages.BoundingBox> getBoxesList() {
+      return boxes_;
     }
     /**
-     * <code>repeated double confidences = 1;</code>
-     * @return The count of confidences.
+     * <code>repeated .BoundingBox boxes = 1;</code>
      */
-    public int getConfidencesCount() {
-      return confidences_.size();
+    public java.util.List<? extends Messages.BoundingBoxOrBuilder> 
+        getBoxesOrBuilderList() {
+      return boxes_;
     }
     /**
-     * <code>repeated double confidences = 1;</code>
-     * @param index The index of the element to return.
-     * @return The confidences at the given index.
+     * <code>repeated .BoundingBox boxes = 1;</code>
      */
-    public double getConfidences(int index) {
-      return confidences_.getDouble(index);
+    public int getBoxesCount() {
+      return boxes_.size();
     }
-    private int confidencesMemoizedSerializedSize = -1;
+    /**
+     * <code>repeated .BoundingBox boxes = 1;</code>
+     */
+    public Messages.BoundingBox getBoxes(int index) {
+      return boxes_.get(index);
+    }
+    /**
+     * <code>repeated .BoundingBox boxes = 1;</code>
+     */
+    public Messages.BoundingBoxOrBuilder getBoxesOrBuilder(
+        int index) {
+      return boxes_.get(index);
+    }
 
     public static final int ANGLES_FIELD_NUMBER = 2;
     private com.google.protobuf.Internal.DoubleList angles_;
@@ -860,6 +874,16 @@ public final class Messages {
     }
     private int anglesMemoizedSerializedSize = -1;
 
+    public static final int FOUND_FIELD_NUMBER = 3;
+    private boolean found_;
+    /**
+     * <code>bool found = 3;</code>
+     * @return The found.
+     */
+    public boolean getFound() {
+      return found_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -875,12 +899,8 @@ public final class Messages {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      if (getConfidencesList().size() > 0) {
-        output.writeUInt32NoTag(10);
-        output.writeUInt32NoTag(confidencesMemoizedSerializedSize);
-      }
-      for (int i = 0; i < confidences_.size(); i++) {
-        output.writeDoubleNoTag(confidences_.getDouble(i));
+      for (int i = 0; i < boxes_.size(); i++) {
+        output.writeMessage(1, boxes_.get(i));
       }
       if (getAnglesList().size() > 0) {
         output.writeUInt32NoTag(18);
@@ -888,6 +908,9 @@ public final class Messages {
       }
       for (int i = 0; i < angles_.size(); i++) {
         output.writeDoubleNoTag(angles_.getDouble(i));
+      }
+      if (found_ != false) {
+        output.writeBool(3, found_);
       }
       unknownFields.writeTo(output);
     }
@@ -898,16 +921,9 @@ public final class Messages {
       if (size != -1) return size;
 
       size = 0;
-      {
-        int dataSize = 0;
-        dataSize = 8 * getConfidencesList().size();
-        size += dataSize;
-        if (!getConfidencesList().isEmpty()) {
-          size += 1;
-          size += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(dataSize);
-        }
-        confidencesMemoizedSerializedSize = dataSize;
+      for (int i = 0; i < boxes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, boxes_.get(i));
       }
       {
         int dataSize = 0;
@@ -919,6 +935,10 @@ public final class Messages {
               .computeInt32SizeNoTag(dataSize);
         }
         anglesMemoizedSerializedSize = dataSize;
+      }
+      if (found_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, found_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -935,10 +955,12 @@ public final class Messages {
       }
       Messages.PowerCells other = (Messages.PowerCells) obj;
 
-      if (!getConfidencesList()
-          .equals(other.getConfidencesList())) return false;
+      if (!getBoxesList()
+          .equals(other.getBoxesList())) return false;
       if (!getAnglesList()
           .equals(other.getAnglesList())) return false;
+      if (getFound()
+          != other.getFound()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -950,14 +972,17 @@ public final class Messages {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (getConfidencesCount() > 0) {
-        hash = (37 * hash) + CONFIDENCES_FIELD_NUMBER;
-        hash = (53 * hash) + getConfidencesList().hashCode();
+      if (getBoxesCount() > 0) {
+        hash = (37 * hash) + BOXES_FIELD_NUMBER;
+        hash = (53 * hash) + getBoxesList().hashCode();
       }
       if (getAnglesCount() > 0) {
         hash = (37 * hash) + ANGLES_FIELD_NUMBER;
         hash = (53 * hash) + getAnglesList().hashCode();
       }
+      hash = (37 * hash) + FOUND_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getFound());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1086,15 +1111,22 @@ public final class Messages {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getBoxesFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        confidences_ = emptyDoubleList();
-        bitField0_ = (bitField0_ & ~0x00000001);
+        if (boxesBuilder_ == null) {
+          boxes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          boxesBuilder_.clear();
+        }
         angles_ = emptyDoubleList();
         bitField0_ = (bitField0_ & ~0x00000002);
+        found_ = false;
+
         return this;
       }
 
@@ -1122,16 +1154,21 @@ public final class Messages {
       public Messages.PowerCells buildPartial() {
         Messages.PowerCells result = new Messages.PowerCells(this);
         int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) != 0)) {
-          confidences_.makeImmutable();
-          bitField0_ = (bitField0_ & ~0x00000001);
+        if (boxesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            boxes_ = java.util.Collections.unmodifiableList(boxes_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.boxes_ = boxes_;
+        } else {
+          result.boxes_ = boxesBuilder_.build();
         }
-        result.confidences_ = confidences_;
         if (((bitField0_ & 0x00000002) != 0)) {
           angles_.makeImmutable();
           bitField0_ = (bitField0_ & ~0x00000002);
         }
         result.angles_ = angles_;
+        result.found_ = found_;
         onBuilt();
         return result;
       }
@@ -1180,15 +1217,31 @@ public final class Messages {
 
       public Builder mergeFrom(Messages.PowerCells other) {
         if (other == Messages.PowerCells.getDefaultInstance()) return this;
-        if (!other.confidences_.isEmpty()) {
-          if (confidences_.isEmpty()) {
-            confidences_ = other.confidences_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureConfidencesIsMutable();
-            confidences_.addAll(other.confidences_);
+        if (boxesBuilder_ == null) {
+          if (!other.boxes_.isEmpty()) {
+            if (boxes_.isEmpty()) {
+              boxes_ = other.boxes_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureBoxesIsMutable();
+              boxes_.addAll(other.boxes_);
+            }
+            onChanged();
           }
-          onChanged();
+        } else {
+          if (!other.boxes_.isEmpty()) {
+            if (boxesBuilder_.isEmpty()) {
+              boxesBuilder_.dispose();
+              boxesBuilder_ = null;
+              boxes_ = other.boxes_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              boxesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getBoxesFieldBuilder() : null;
+            } else {
+              boxesBuilder_.addAllMessages(other.boxes_);
+            }
+          }
         }
         if (!other.angles_.isEmpty()) {
           if (angles_.isEmpty()) {
@@ -1199,6 +1252,9 @@ public final class Messages {
             angles_.addAll(other.angles_);
           }
           onChanged();
+        }
+        if (other.getFound() != false) {
+          setFound(other.getFound());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1230,83 +1286,244 @@ public final class Messages {
       }
       private int bitField0_;
 
-      private com.google.protobuf.Internal.DoubleList confidences_ = emptyDoubleList();
-      private void ensureConfidencesIsMutable() {
+      private java.util.List<Messages.BoundingBox> boxes_ =
+        java.util.Collections.emptyList();
+      private void ensureBoxesIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          confidences_ = mutableCopy(confidences_);
+          boxes_ = new java.util.ArrayList<Messages.BoundingBox>(boxes_);
           bitField0_ |= 0x00000001;
          }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          Messages.BoundingBox, Messages.BoundingBox.Builder, Messages.BoundingBoxOrBuilder> boxesBuilder_;
+
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @return A list containing the confidences.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public java.util.List<java.lang.Double>
-          getConfidencesList() {
-        return ((bitField0_ & 0x00000001) != 0) ?
-                 java.util.Collections.unmodifiableList(confidences_) : confidences_;
+      public java.util.List<Messages.BoundingBox> getBoxesList() {
+        if (boxesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(boxes_);
+        } else {
+          return boxesBuilder_.getMessageList();
+        }
       }
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @return The count of confidences.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public int getConfidencesCount() {
-        return confidences_.size();
+      public int getBoxesCount() {
+        if (boxesBuilder_ == null) {
+          return boxes_.size();
+        } else {
+          return boxesBuilder_.getCount();
+        }
       }
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @param index The index of the element to return.
-       * @return The confidences at the given index.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public double getConfidences(int index) {
-        return confidences_.getDouble(index);
+      public Messages.BoundingBox getBoxes(int index) {
+        if (boxesBuilder_ == null) {
+          return boxes_.get(index);
+        } else {
+          return boxesBuilder_.getMessage(index);
+        }
       }
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @param index The index to set the value at.
-       * @param value The confidences to set.
-       * @return This builder for chaining.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public Builder setConfidences(
-          int index, double value) {
-        ensureConfidencesIsMutable();
-        confidences_.setDouble(index, value);
-        onChanged();
+      public Builder setBoxes(
+          int index, Messages.BoundingBox value) {
+        if (boxesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureBoxesIsMutable();
+          boxes_.set(index, value);
+          onChanged();
+        } else {
+          boxesBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @param value The confidences to add.
-       * @return This builder for chaining.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public Builder addConfidences(double value) {
-        ensureConfidencesIsMutable();
-        confidences_.addDouble(value);
-        onChanged();
+      public Builder setBoxes(
+          int index, Messages.BoundingBox.Builder builderForValue) {
+        if (boxesBuilder_ == null) {
+          ensureBoxesIsMutable();
+          boxes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          boxesBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @param values The confidences to add.
-       * @return This builder for chaining.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public Builder addAllConfidences(
-          java.lang.Iterable<? extends java.lang.Double> values) {
-        ensureConfidencesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, confidences_);
-        onChanged();
+      public Builder addBoxes(Messages.BoundingBox value) {
+        if (boxesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureBoxesIsMutable();
+          boxes_.add(value);
+          onChanged();
+        } else {
+          boxesBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
-       * <code>repeated double confidences = 1;</code>
-       * @return This builder for chaining.
+       * <code>repeated .BoundingBox boxes = 1;</code>
        */
-      public Builder clearConfidences() {
-        confidences_ = emptyDoubleList();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
+      public Builder addBoxes(
+          int index, Messages.BoundingBox value) {
+        if (boxesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureBoxesIsMutable();
+          boxes_.add(index, value);
+          onChanged();
+        } else {
+          boxesBuilder_.addMessage(index, value);
+        }
         return this;
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Builder addBoxes(
+          Messages.BoundingBox.Builder builderForValue) {
+        if (boxesBuilder_ == null) {
+          ensureBoxesIsMutable();
+          boxes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          boxesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Builder addBoxes(
+          int index, Messages.BoundingBox.Builder builderForValue) {
+        if (boxesBuilder_ == null) {
+          ensureBoxesIsMutable();
+          boxes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          boxesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Builder addAllBoxes(
+          java.lang.Iterable<? extends Messages.BoundingBox> values) {
+        if (boxesBuilder_ == null) {
+          ensureBoxesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, boxes_);
+          onChanged();
+        } else {
+          boxesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Builder clearBoxes() {
+        if (boxesBuilder_ == null) {
+          boxes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          boxesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Builder removeBoxes(int index) {
+        if (boxesBuilder_ == null) {
+          ensureBoxesIsMutable();
+          boxes_.remove(index);
+          onChanged();
+        } else {
+          boxesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Messages.BoundingBox.Builder getBoxesBuilder(
+          int index) {
+        return getBoxesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Messages.BoundingBoxOrBuilder getBoxesOrBuilder(
+          int index) {
+        if (boxesBuilder_ == null) {
+          return boxes_.get(index);  } else {
+          return boxesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public java.util.List<? extends Messages.BoundingBoxOrBuilder> 
+           getBoxesOrBuilderList() {
+        if (boxesBuilder_ != null) {
+          return boxesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(boxes_);
+        }
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Messages.BoundingBox.Builder addBoxesBuilder() {
+        return getBoxesFieldBuilder().addBuilder(
+            Messages.BoundingBox.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public Messages.BoundingBox.Builder addBoxesBuilder(
+          int index) {
+        return getBoxesFieldBuilder().addBuilder(
+            index, Messages.BoundingBox.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .BoundingBox boxes = 1;</code>
+       */
+      public java.util.List<Messages.BoundingBox.Builder> 
+           getBoxesBuilderList() {
+        return getBoxesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          Messages.BoundingBox, Messages.BoundingBox.Builder, Messages.BoundingBoxOrBuilder> 
+          getBoxesFieldBuilder() {
+        if (boxesBuilder_ == null) {
+          boxesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              Messages.BoundingBox, Messages.BoundingBox.Builder, Messages.BoundingBoxOrBuilder>(
+                  boxes_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          boxes_ = null;
+        }
+        return boxesBuilder_;
       }
 
       private com.google.protobuf.Internal.DoubleList angles_ = emptyDoubleList();
@@ -1387,6 +1604,36 @@ public final class Messages {
         onChanged();
         return this;
       }
+
+      private boolean found_ ;
+      /**
+       * <code>bool found = 3;</code>
+       * @return The found.
+       */
+      public boolean getFound() {
+        return found_;
+      }
+      /**
+       * <code>bool found = 3;</code>
+       * @param value The found to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFound(boolean value) {
+        
+        found_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool found = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFound() {
+        
+        found_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1440,6 +1687,696 @@ public final class Messages {
 
   }
 
+  public interface BoundingBoxOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:BoundingBox)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 xmin = 1;</code>
+     * @return The xmin.
+     */
+    int getXmin();
+
+    /**
+     * <code>int32 xmax = 2;</code>
+     * @return The xmax.
+     */
+    int getXmax();
+
+    /**
+     * <code>int32 ymin = 3;</code>
+     * @return The ymin.
+     */
+    int getYmin();
+
+    /**
+     * <code>int32 ymax = 4;</code>
+     * @return The ymax.
+     */
+    int getYmax();
+  }
+  /**
+   * Protobuf type {@code BoundingBox}
+   */
+  public  static final class BoundingBox extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:BoundingBox)
+      BoundingBoxOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BoundingBox.newBuilder() to construct.
+    private BoundingBox(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BoundingBox() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BoundingBox();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BoundingBox(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              xmin_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              xmax_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              ymin_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              ymax_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return Messages.internal_static_BoundingBox_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return Messages.internal_static_BoundingBox_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              Messages.BoundingBox.class, Messages.BoundingBox.Builder.class);
+    }
+
+    public static final int XMIN_FIELD_NUMBER = 1;
+    private int xmin_;
+    /**
+     * <code>int32 xmin = 1;</code>
+     * @return The xmin.
+     */
+    public int getXmin() {
+      return xmin_;
+    }
+
+    public static final int XMAX_FIELD_NUMBER = 2;
+    private int xmax_;
+    /**
+     * <code>int32 xmax = 2;</code>
+     * @return The xmax.
+     */
+    public int getXmax() {
+      return xmax_;
+    }
+
+    public static final int YMIN_FIELD_NUMBER = 3;
+    private int ymin_;
+    /**
+     * <code>int32 ymin = 3;</code>
+     * @return The ymin.
+     */
+    public int getYmin() {
+      return ymin_;
+    }
+
+    public static final int YMAX_FIELD_NUMBER = 4;
+    private int ymax_;
+    /**
+     * <code>int32 ymax = 4;</code>
+     * @return The ymax.
+     */
+    public int getYmax() {
+      return ymax_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (xmin_ != 0) {
+        output.writeInt32(1, xmin_);
+      }
+      if (xmax_ != 0) {
+        output.writeInt32(2, xmax_);
+      }
+      if (ymin_ != 0) {
+        output.writeInt32(3, ymin_);
+      }
+      if (ymax_ != 0) {
+        output.writeInt32(4, ymax_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (xmin_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, xmin_);
+      }
+      if (xmax_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, xmax_);
+      }
+      if (ymin_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, ymin_);
+      }
+      if (ymax_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, ymax_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof Messages.BoundingBox)) {
+        return super.equals(obj);
+      }
+      Messages.BoundingBox other = (Messages.BoundingBox) obj;
+
+      if (getXmin()
+          != other.getXmin()) return false;
+      if (getXmax()
+          != other.getXmax()) return false;
+      if (getYmin()
+          != other.getYmin()) return false;
+      if (getYmax()
+          != other.getYmax()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + XMIN_FIELD_NUMBER;
+      hash = (53 * hash) + getXmin();
+      hash = (37 * hash) + XMAX_FIELD_NUMBER;
+      hash = (53 * hash) + getXmax();
+      hash = (37 * hash) + YMIN_FIELD_NUMBER;
+      hash = (53 * hash) + getYmin();
+      hash = (37 * hash) + YMAX_FIELD_NUMBER;
+      hash = (53 * hash) + getYmax();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static Messages.BoundingBox parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Messages.BoundingBox parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Messages.BoundingBox parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Messages.BoundingBox parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Messages.BoundingBox parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static Messages.BoundingBox parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static Messages.BoundingBox parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static Messages.BoundingBox parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Messages.BoundingBox parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static Messages.BoundingBox parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static Messages.BoundingBox parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static Messages.BoundingBox parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(Messages.BoundingBox prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code BoundingBox}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:BoundingBox)
+        Messages.BoundingBoxOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return Messages.internal_static_BoundingBox_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return Messages.internal_static_BoundingBox_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                Messages.BoundingBox.class, Messages.BoundingBox.Builder.class);
+      }
+
+      // Construct using Messages.BoundingBox.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        xmin_ = 0;
+
+        xmax_ = 0;
+
+        ymin_ = 0;
+
+        ymax_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return Messages.internal_static_BoundingBox_descriptor;
+      }
+
+      @java.lang.Override
+      public Messages.BoundingBox getDefaultInstanceForType() {
+        return Messages.BoundingBox.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public Messages.BoundingBox build() {
+        Messages.BoundingBox result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public Messages.BoundingBox buildPartial() {
+        Messages.BoundingBox result = new Messages.BoundingBox(this);
+        result.xmin_ = xmin_;
+        result.xmax_ = xmax_;
+        result.ymin_ = ymin_;
+        result.ymax_ = ymax_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof Messages.BoundingBox) {
+          return mergeFrom((Messages.BoundingBox)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(Messages.BoundingBox other) {
+        if (other == Messages.BoundingBox.getDefaultInstance()) return this;
+        if (other.getXmin() != 0) {
+          setXmin(other.getXmin());
+        }
+        if (other.getXmax() != 0) {
+          setXmax(other.getXmax());
+        }
+        if (other.getYmin() != 0) {
+          setYmin(other.getYmin());
+        }
+        if (other.getYmax() != 0) {
+          setYmax(other.getYmax());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Messages.BoundingBox parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (Messages.BoundingBox) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int xmin_ ;
+      /**
+       * <code>int32 xmin = 1;</code>
+       * @return The xmin.
+       */
+      public int getXmin() {
+        return xmin_;
+      }
+      /**
+       * <code>int32 xmin = 1;</code>
+       * @param value The xmin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setXmin(int value) {
+        
+        xmin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 xmin = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearXmin() {
+        
+        xmin_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int xmax_ ;
+      /**
+       * <code>int32 xmax = 2;</code>
+       * @return The xmax.
+       */
+      public int getXmax() {
+        return xmax_;
+      }
+      /**
+       * <code>int32 xmax = 2;</code>
+       * @param value The xmax to set.
+       * @return This builder for chaining.
+       */
+      public Builder setXmax(int value) {
+        
+        xmax_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 xmax = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearXmax() {
+        
+        xmax_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int ymin_ ;
+      /**
+       * <code>int32 ymin = 3;</code>
+       * @return The ymin.
+       */
+      public int getYmin() {
+        return ymin_;
+      }
+      /**
+       * <code>int32 ymin = 3;</code>
+       * @param value The ymin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setYmin(int value) {
+        
+        ymin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 ymin = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearYmin() {
+        
+        ymin_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int ymax_ ;
+      /**
+       * <code>int32 ymax = 4;</code>
+       * @return The ymax.
+       */
+      public int getYmax() {
+        return ymax_;
+      }
+      /**
+       * <code>int32 ymax = 4;</code>
+       * @param value The ymax to set.
+       * @return This builder for chaining.
+       */
+      public Builder setYmax(int value) {
+        
+        ymax_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 ymax = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearYmax() {
+        
+        ymax_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:BoundingBox)
+    }
+
+    // @@protoc_insertion_point(class_scope:BoundingBox)
+    private static final Messages.BoundingBox DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new Messages.BoundingBox();
+    }
+
+    public static Messages.BoundingBox getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BoundingBox>
+        PARSER = new com.google.protobuf.AbstractParser<BoundingBox>() {
+      @java.lang.Override
+      public BoundingBox parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BoundingBox(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BoundingBox> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BoundingBox> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public Messages.BoundingBox getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_HighGoal_descriptor;
   private static final 
@@ -1450,6 +2387,11 @@ public final class Messages {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_PowerCells_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_BoundingBox_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_BoundingBox_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1461,8 +2403,11 @@ public final class Messages {
     java.lang.String[] descriptorData = {
       "\n\033robot-server/messages.proto\">\n\010HighGoa" +
       "l\022\020\n\010distance\030\001 \001(\001\022\017\n\007v_angle\030\002 \001(\001\022\017\n\007" +
-      "h_angle\030\003 \001(\001\"1\n\nPowerCells\022\023\n\013confidenc" +
-      "es\030\001 \003(\001\022\016\n\006angles\030\002 \003(\001b\006proto3"
+      "h_angle\030\003 \001(\001\"H\n\nPowerCells\022\033\n\005boxes\030\001 \003" +
+      "(\0132\014.BoundingBox\022\016\n\006angles\030\002 \003(\001\022\r\n\005foun" +
+      "d\030\003 \001(\010\"E\n\013BoundingBox\022\014\n\004xmin\030\001 \001(\005\022\014\n\004" +
+      "xmax\030\002 \001(\005\022\014\n\004ymin\030\003 \001(\005\022\014\n\004ymax\030\004 \001(\005b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1479,7 +2424,13 @@ public final class Messages {
     internal_static_PowerCells_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PowerCells_descriptor,
-        new java.lang.String[] { "Confidences", "Angles", });
+        new java.lang.String[] { "Boxes", "Angles", "Found", });
+    internal_static_BoundingBox_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_BoundingBox_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_BoundingBox_descriptor,
+        new java.lang.String[] { "Xmin", "Xmax", "Ymin", "Ymax", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
