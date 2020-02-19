@@ -11,9 +11,9 @@
     },
     "labels": "labels.txt",
     "threshold": 0.4,
-    "output": "video",
+    "output": "none",
     "socket": {
-        "enabled": true,
+        "enabled": false,
         "host": "roborio-100-frc.local",
         "port": 5810
     }

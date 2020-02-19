@@ -14,9 +14,9 @@ if not camera.isOpened():
     print("Invalid device id for camera")
     sys.exit(1)
 
-#if config["socket"]["enabled"]:
-#    robot_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#    robot_socket.connect((config["socket"]["host"], config["socket"]["port"]))
+if config["socket"]["enabled"]:
+   robot_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+   robot_socket.connect((config["socket"]["host"], config["socket"]["port"]))
 
 labels = util.load_labels(config["labels"]) if config["labels"] else {}
 interpreter = util.make_interpreter(config["models"], config["runner"])
@@ -55,10 +55,10 @@ try:
                 msg.boxes.append(obj.bbox.message)
                 msg.angles.append(util.calculate_angle(obj.bbox, config["camera"]["image_width"], config["camera"]["horizontal_fov"]))
             encoded = msg.SerializeToString()
-            #try:
-            #    robot_socket.sendall(bytes([1, len(encoded)]) + encoded)
-            #except ConnectionRefusedError:
-            #    pass
+            try:
+               robot_socket.sendall(bytes([1, len(encoded)]) + encoded)
+            except ConnectionRefusedError:
+               pass
 
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
