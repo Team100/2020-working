@@ -31,6 +31,7 @@ class Server implements Runnable {
                 server.receive(packet);
 
                 byte[] decodable = Arrays.copyOfRange(buffer, 2, buffer[0]+2);
+                if (decodable.length == 0) continue;
 
                 switch (buffer[0]) {
                     case 0:
