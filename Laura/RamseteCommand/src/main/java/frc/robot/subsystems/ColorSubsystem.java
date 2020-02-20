@@ -34,29 +34,27 @@ public class ColorSubsystem extends SubsystemBase {
   private boolean isGreen = false;
   private boolean isBlue = false;
   /*
-  Creates a new ColorSubsystem.*/
+   * Creates a new ColorSubsystem.
+   */
 
   public ColorSubsystem() {
     m_colorSensor.addColorMatch(kBlueTarget);
     m_colorSensor.addColorMatch(kGreenTarget);
     m_colorSensor.addColorMatch(kRedTarget);
-    m_colorSensor.addColorMatch(kYellowTarget);  
+    m_colorSensor.addColorMatch(kYellowTarget);
     addChild("Color Sensor", m_colorSensor);
     ShuffleboardTab colorfulTab = Shuffleboard.getTab("Colorful");
     ShuffleboardLayout colorfulLayout = colorfulTab.getLayout("Sensor", BuiltInLayouts.kList);
     colorfulLayout.add("Color Sensor", m_colorSensor);
-    colorfulTab.addBoolean("IsRed", () -> isRed)
-      .withWidget(BuiltInWidgets.kBooleanBox)
-      .withProperties(Map.of("Color when true", "Red", "Color when false", "White"));
-    colorfulTab.addBoolean("IsYellow", () -> isYellow)
-      .withWidget(BuiltInWidgets.kBooleanBox)
-      .withProperties(Map.of("Color when true", "Yellow", "Color when false", "White"));
-    colorfulTab.addBoolean("IsGreen", () -> isGreen)
-      .withWidget(BuiltInWidgets.kBooleanBox)
-      .withProperties(Map.of("Color when true", "Green", "Color when false", "White"));
-    colorfulTab.addBoolean("IsBlue", () -> isBlue)
-      .withWidget(BuiltInWidgets.kBooleanBox)
-      .withProperties(Map.of("Color when true", "Blue", "Color when false", "White"));
+    ShuffleboardLayout colorBooleansLayout = colorfulTab.getLayout("Current Color", BuiltInLayouts.kGrid).withSize(4,1);
+    colorBooleansLayout.addBoolean("IsRed", () -> isRed).withWidget(BuiltInWidgets.kBooleanBox)
+        .withProperties(Map.of("Color when true", "Red", "Color when false", "White"));
+    colorBooleansLayout.addBoolean("IsYellow", () -> isYellow).withWidget(BuiltInWidgets.kBooleanBox)
+        .withProperties(Map.of("Color when true", "Yellow", "Color when false", "White"));
+    colorBooleansLayout.addBoolean("IsGreen", () -> isGreen).withWidget(BuiltInWidgets.kBooleanBox)
+        .withProperties(Map.of("Color when true", "Green", "Color when false", "White"));
+    colorBooleansLayout.addBoolean("IsBlue", () -> isBlue).withWidget(BuiltInWidgets.kBooleanBox)
+        .withProperties(Map.of("Color when true", "Blue", "Color when false", "White"));
   }
 
   @Override
