@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
@@ -28,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.ColorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Othersubsystem;
 import frc.robot.subsystems.PDPSubsystem;
@@ -46,6 +46,7 @@ public class RobotContainer {
   private final Testsubsystem m_testSubsystem = new Testsubsystem();
   private final Othersubsystem m_otherSubsystem = new Othersubsystem();
   private final PDPSubsystem m_pdpSubsystem = new PDPSubsystem();
+  private final ColorSubsystem m_colorSubsystem = new ColorSubsystem();
 
 
   // The driver's controller
