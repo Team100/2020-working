@@ -46,14 +46,25 @@ public class ColorSubsystem extends SubsystemBase {
     ShuffleboardTab colorfulTab = Shuffleboard.getTab("Colorful");
     ShuffleboardLayout colorfulLayout = colorfulTab.getLayout("Sensor", BuiltInLayouts.kList);
     colorfulLayout.add("Color Sensor", m_colorSensor);
-    ShuffleboardLayout colorBooleansLayout = colorfulTab.getLayout("Current Color", BuiltInLayouts.kGrid).withSize(4,1);
+    ShuffleboardLayout colorBooleansLayout = colorfulTab.getLayout("Current Color", BuiltInLayouts.kGrid)
+      .withSize(4,1)
+      .withPosition(0,0)
+      .withProperties(Map.of("Number of columns", 4, "Number of rows", 1, "Label position", "HIDDEN"));
     colorBooleansLayout.addBoolean("IsRed", () -> isRed).withWidget(BuiltInWidgets.kBooleanBox)
+        .withPosition(0,0)
+        .withSize(1,1)
         .withProperties(Map.of("Color when true", "Red", "Color when false", "White"));
     colorBooleansLayout.addBoolean("IsYellow", () -> isYellow).withWidget(BuiltInWidgets.kBooleanBox)
+        .withPosition(1,0)
+        .withSize(1,1)
         .withProperties(Map.of("Color when true", "Yellow", "Color when false", "White"));
     colorBooleansLayout.addBoolean("IsGreen", () -> isGreen).withWidget(BuiltInWidgets.kBooleanBox)
+        .withPosition(2,0)
+        .withSize(1,1)
         .withProperties(Map.of("Color when true", "Green", "Color when false", "White"));
     colorBooleansLayout.addBoolean("IsBlue", () -> isBlue).withWidget(BuiltInWidgets.kBooleanBox)
+        .withPosition(3,0)
+        .withSize(1,1)
         .withProperties(Map.of("Color when true", "Blue", "Color when false", "White"));
   }
 
