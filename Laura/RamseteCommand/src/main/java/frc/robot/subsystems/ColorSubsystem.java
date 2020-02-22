@@ -20,12 +20,13 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.utility.T100ColorSensor;
 
 public class ColorSubsystem extends SubsystemBase {
 
   public enum CP_Color {
-    RED(0.561, 0.232, 0.114, "Red"), 
+    RED(0.561, 0.35, 0.114, "Red"), 
     YELLOW(0.361, 0.524, 0.113, "Yellow"), 
     BLUE(0.143, 0.427, 0.429, "Blue"),
     GREEN(0.197, 0.561, 0.240, "Green"),
@@ -59,6 +60,7 @@ public class ColorSubsystem extends SubsystemBase {
 
   }
 
+  
   private final T100ColorSensor m_colorSensor = new T100ColorSensor();
   private String colorString = "Unknown";
   private boolean isRed = false;
@@ -100,21 +102,26 @@ public class ColorSubsystem extends SubsystemBase {
     isYellow = false;
     isGreen = false;
     CP_Color current;
-    if (match.color == CP_Color.BLUE.getColor()) {
-      current = CP_Color.BLUE;
-      isBlue = true;
-    } else if (match.color == CP_Color.RED.getColor()) {
-      current = CP_Color.RED;
-      isRed = true;
-    } else if (match.color == CP_Color.GREEN.getColor()) {
-      current = CP_Color.GREEN;
-      isGreen = true;
-    } else if (match.color == CP_Color.YELLOW.getColor()) {
-      current = CP_Color.YELLOW;
-      isYellow = true;
+    if (match.confidence >= Constants.ColorConstants.CONFIDENCE_LIMIT) {
+      if (match.color == CP_Color.BLUE.getColor()) {
+        current = CP_Color.BLUE;
+        isBlue = true;
+      } else if (match.color == CP_Color.RED.getColor()) {
+        current = CP_Color.RED;
+        isRed = true;
+      } else if (match.color == CP_Color.GREEN.getColor()) {
+        current = CP_Color.GREEN;
+        isGreen = true;
+      } else if (match.color == CP_Color.YELLOW.getColor()) {
+        current = CP_Color.YELLOW;
+        isYellow = true;
+      } else {
+        current = CP_Color.UNKNOWN;
+      }
     } else {
       current = CP_Color.UNKNOWN;
     }
+   
 
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", current.getName());
