@@ -7,12 +7,13 @@
 
 package frc.robot.commands.supersystem.indexer;
 
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IndexerStageOne;
 import frc.robot.subsystems.IndexerStageTwo;
-import frc.robot.subsystems.Indexer;
 
-public class Load extends CommandBase {
+public class TwoBall extends CommandBase {
   /**
    * subsystems used.
    */
@@ -21,79 +22,41 @@ public class Load extends CommandBase {
   Indexer indexer;
 
   /**
-   * Load vars
+   * Creates a new TwoBall.
    */
-  boolean isDone;
-
-  /**
-   * Creates a new Load.
-   */
-  public Load(IndexerStageOne stageOne, IndexerStageTwo stageTwo, Indexer indexer) {
+  public TwoBall(IndexerStageOne stageOne, IndexerStageTwo stageTwo, Indexer indexer) {
     this.stageOne = stageOne;
     this.stageTwo = stageTwo;
     this.indexer = indexer;
-    isDone = false;
+    this.indexer.frontSwitchState = false;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.stageOne);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("initialized TwoBall");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(indexer.indexerState){
-      case EMPTY:
-        new Empty(stageOne, stageTwo, indexer).schedule();
-        isDone = true;
-        break;
-
-      case ONE_BALL:
-        new OneBall(stageOne, stageTwo, indexer).schedule();
-        break;
-
-      case TWO_BALL:
-        new TwoBall(stageOne, stageTwo, indexer).schedule();
-        break;
-
-      case LOW_THREE_BALL:
-        break;
-
-      case HIGH_THREE_BALL:
-        new HighThreeBall(stageOne, stageTwo, indexer).schedule();
-        break;
-
-      case FOUR_BALL:
-        new FourBall(stageOne, stageTwo, indexer).schedule();
-        break;
-
-      case FIVE_BALL:
-        break;
-
-      case READY_SHOOT:
-        break;
-
-      case SHOOTING:
-        break;
-
-      case JAMMED:
-        break;
-
-      default:
-
-    }
+    stageOne.indexerStageOne
+        .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FORWARD);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    indexer.frontSwitchState = false;
+    indexer.indexerState = Indexer.IndexerStates.LOW_THREE_BALL;
+    new LowThreeBall(stageOne, stageTwo, indexer).schedule();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isDone;
+    return (indexer.frontSwitchState);
   }
 }

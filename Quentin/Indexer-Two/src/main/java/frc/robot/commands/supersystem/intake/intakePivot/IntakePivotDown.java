@@ -5,57 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.supersystem.indexer;
+package frc.robot.commands.supersystem.intake.intakePivot;
 
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.IndexerStageOne;
-import frc.robot.subsystems.IndexerStageTwo;
+import frc.robot.Constants;
+import frc.robot.subsystems.IntakePivot;
 
-public class Empty extends CommandBase {
+public class IntakePivotDown extends CommandBase {
   /**
-   * subsystems used.
+   * Subsystems used
    */
-  IndexerStageOne stageOne;
-  IndexerStageTwo stageTwo;
-  Indexer indexer;
+  public IntakePivot pivot;
 
   /**
-   * Creates a new Emtpy.
+   * Creates a new IntakePivotDown.
    */
-  public Empty(IndexerStageOne stageOne, IndexerStageTwo stageTwo, Indexer indexer) {
-    this.stageOne = stageOne;
-    this.stageTwo = stageTwo;
-    this.indexer = indexer;
-    this.indexer.frontSwitchState = false;
+  public IntakePivotDown(IntakePivot pivot) {
+    this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.stageOne);
+    addRequirements(this.pivot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("initialized empty");
+    System.out.println("initialized IntakePivotDown");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    stageOne.indexerStageOne
-        .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FORWARD);
+    this.pivot.pivot
+        .drivePercentOutput(Constants.IntakeConstants.IntakeMotors.IntakePivot.PERCENT_OUTPUT_DOWN);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    indexer.frontSwitchState = false;
-    indexer.indexerState = Indexer.IndexerStates.ONE_BALL;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (indexer.frontSwitchState);
+    return false;
   }
 }

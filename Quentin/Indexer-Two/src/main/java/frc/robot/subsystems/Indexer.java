@@ -24,6 +24,9 @@ public class Indexer extends SubsystemBase {
 
   public IndexerStates indexerState = IndexerStates.EMPTY;
 
+  /**
+   * Sensors
+   */
   public DigitalInput frontSensor = new DigitalInput(Constants.IndexerConstants.IndexerSensors.FrontSensor.ID);
   public DigitalInput rearSensor = new DigitalInput(Constants.IndexerConstants.IndexerSensors.RearSensor.ID);
 
@@ -38,28 +41,46 @@ public class Indexer extends SubsystemBase {
   public int frontCount, rearCount;
 
   /**
+   * Lets Indexer know when to switch states
+   */
+  public boolean frontSwitchState, rearSwitchState;
+
+  /**
    * Creates a new Indexer.
    */
   public Indexer() {
     frontCount = 0;
     rearCount = 0;
 
+    lastIterateFront = false;
+    lastIterateRear = false;
+
+    frontSwitchState = false;
+    rearSwitchState = false;
+
+    indexerState = IndexerStates.EMPTY;
+
   }
 
   public void processBallDetectionSensors() {
     if (!frontSensor.get() && lastIterateFront) {
       lastIterateFront = false;
+
     } else if (frontSensor.get() && !lastIterateFront) {
       lastIterateFront = true;
+      frontSwitchState = true;
       frontCount += 1;
       System.out.println("Front Count: " + frontCount);
-
     }
+    // if(!frontSensor.get() && !lastIterateFront){
+    //   frontSwitchState = true;
+    // }
 
     if (!rearSensor.get() && lastIterateRear) {
       lastIterateRear = false;
     } else if (rearSensor.get() && !lastIterateRear) {
       lastIterateRear = true;
+      rearSwitchState = true;
       rearCount += 1;
       System.out.println("Rear Count: " + rearCount);
 
@@ -88,9 +109,14 @@ public class Indexer extends SubsystemBase {
     processBallDetectionSensors();
     updateState();
 
+    //*****NOTE: frontSensor.get() returns true if it detects no object
+
+    // Puts all values we want to the dashboard
     SmartDashboard.putBoolean("frontSensor", frontSensor.get());
     SmartDashboard.putBoolean("backSensor", rearSensor.get());
     SmartDashboard.putString("currentindexerState", indexerState.toString());
-    //SmartDashboard.putString("currentCommand", this.getCurrentCommand().toString());
+    SmartDashboard.putNumber("Front Count", frontCount - 1);
+    SmartDashboard.putNumber("Rear Count", rearCount -1);
+
   }
 }

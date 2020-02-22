@@ -5,57 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.supersystem.indexer;
+package frc.robot.commands.supersystem.intake;
 
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.IndexerStageOne;
-import frc.robot.subsystems.IndexerStageTwo;
+import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
 
-public class Empty extends CommandBase {
+public class IntakeForward extends CommandBase {
   /**
-   * subsystems used.
+   * Subsystems used
    */
-  IndexerStageOne stageOne;
-  IndexerStageTwo stageTwo;
-  Indexer indexer;
+  public Intake intake;
 
   /**
-   * Creates a new Emtpy.
+   * Creates a new IntakeForward.
    */
-  public Empty(IndexerStageOne stageOne, IndexerStageTwo stageTwo, Indexer indexer) {
-    this.stageOne = stageOne;
-    this.stageTwo = stageTwo;
-    this.indexer = indexer;
-    this.indexer.frontSwitchState = false;
+  public IntakeForward(Intake intake) {
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.stageOne);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("initialized empty");
+    System.out.println("initialized IntakeForward");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    stageOne.indexerStageOne
-        .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FORWARD);
+    this.intake.spin
+        .drivePercentOutput(Constants.IntakeConstants.IntakeMotors.IntakeSpin.PERCENT_OUTPUT_FORWARD);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    indexer.frontSwitchState = false;
-    indexer.indexerState = Indexer.IndexerStates.ONE_BALL;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (indexer.frontSwitchState);
+    return false;
   }
 }
