@@ -197,7 +197,7 @@ public class Robot extends TimedRobot {
          */
         _diffDrive.setRightSideInverted(false);
 
-        kP_turn = 0.02;  // Set this to better value after finding what that is
+        kP_turn = 0.03;  // Set this to better value after finding what that is
 
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
         NetworkTable visionTable = inst.getTable("Vision");
