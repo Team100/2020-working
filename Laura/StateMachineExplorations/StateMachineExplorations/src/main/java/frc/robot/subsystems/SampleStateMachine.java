@@ -14,15 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.commands.Do_State_1;
-import frc.robot.commands.Do_State_2;
-import frc.robot.commands.Do_State_3;
-import frc.robot.commands.Do_State_4;
-import frc.robot.commands.Do_State_5;
-import frc.robot.triggers.State1Trigger;
-import frc.robot.triggers.State2Trigger;
-import frc.robot.triggers.State3Trigger;
-import frc.robot.triggers.State4Trigger;
-import frc.robot.triggers.State5Trigger;
 
 /**
  * Add your docs here.
@@ -30,6 +21,71 @@ import frc.robot.triggers.State5Trigger;
 public class SampleStateMachine implements Sendable {
     public enum StateEnum {
         INIT, STATE_1, STATE_2, STATE_3, STATE_4, STATE_5, COMPLETE, STATE_ERROR
+    }
+
+    public class State1Trigger extends Trigger {
+        SampleStateMachine machine;
+
+        public State1Trigger(SampleStateMachine machine) {
+            this.machine = machine;
+        }
+        @Override
+        public boolean get() {
+            return false;
+        }
+        
+    }
+
+    public class State2Trigger  extends Trigger{
+        SampleStateMachine machine;
+
+        public State2Trigger(SampleStateMachine machine) {
+            this.machine = machine;
+        }
+        
+        @Override
+        public boolean get() {
+            return false;
+        }
+    }
+
+    public class State3Trigger  extends Trigger{
+        SampleStateMachine machine;
+
+        public State3Trigger(SampleStateMachine machine) {
+            this.machine = machine;
+        }
+
+        @Override
+        public boolean get() {
+            return false;
+        }
+    }
+
+    public class State4Trigger extends Trigger {
+        SampleStateMachine machine;
+
+        public State4Trigger(SampleStateMachine machine) {
+            this.machine = machine;
+        }        
+        
+        @Override
+        public boolean get() {
+            return false;
+        }
+    }
+
+    public class State5Trigger extends Trigger {
+        SampleStateMachine machine;
+
+        public State5Trigger(SampleStateMachine machine) {
+            this.machine = machine;
+        } 
+
+        @Override
+        public boolean get() {
+            return false;
+        }
     }
 
     public class StateErrorTrigger extends Trigger {
@@ -49,14 +105,16 @@ public class SampleStateMachine implements Sendable {
 
     }
 
+
+
     private boolean stateMachineIsActive = false;
     private Timer m_Timer = new Timer();
     private StateEnum m_currentState = StateEnum.INIT;
-    private final Trigger m_state_Trigger_1 = new State1Trigger();
-    private final Trigger m_state_Trigger_2 = new State2Trigger();
-    private final Trigger m_state_Trigger_3 = new State3Trigger();
-    private final Trigger m_state_Trigger_4 = new State4Trigger();
-    private final Trigger m_state_Trigger_5 = new State5Trigger();
+    private final Trigger m_state_Trigger_1 = new State1Trigger(this);
+    private final Trigger m_state_Trigger_2 = new State2Trigger(this);
+    private final Trigger m_state_Trigger_3 = new State3Trigger(this);
+    private final Trigger m_state_Trigger_4 = new State4Trigger(this);
+    private final Trigger m_state_Trigger_5 = new State5Trigger(this);
     private final Trigger m_error_Trigger = new StateErrorTrigger(this);
     private final SubsystemA m_subsystemA;
     private final SubsystemB m_subsystemB;
