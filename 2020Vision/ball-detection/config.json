@@ -16,5 +16,9 @@
         "enabled": false,
         "host": "roborio-100-frc.local",
         "port": 5810
+    },
+    "network_tables": {
+        "enabled": false,
+        "host": "roborio-100-frc.local"
     }
 }

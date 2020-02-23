@@ -1,7 +1,10 @@
 import cv2
 import json
+import logging
+from networktables import NetworkTables
 import socket
 import sys
+import time
 
 from messages_pb2 import PowerCells
 import util
@@ -16,6 +19,12 @@ if not camera.isOpened():
 if config["socket"]["enabled"]:
     robot_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     robot_socket.connect((config["socket"]["host"], config["socket"]["port"]))
+
+if config["network_tables"]["enabled"]:
+    logging.basicConfig(level=logging.DEBUG)
+    NetworkTables.initialize(server=config["network_tables"]["host"])
+    time.sleep(3)
+    cameraTable = NetworkTables.getTable("Vision")
 
 labels = util.load_labels(config["labels"]) if config["labels"] else {}
 interpreter = util.make_interpreter(config["models"], config["runner"])
@@ -61,6 +70,12 @@ try:
                 robot_socket.sendall(bytes([1, len(encoded)]) + encoded)
             except ConnectionRefusedError:
                 pass
+
+        if config["network_tables"]["enabled"]:
+            cameraTable.putBoolean("ball_found", len(objs) != 0)
+            if len(objs) != 0:
+                cameraTable.putNumber("ball_angle", util.calculate_angle(objs[0].bbox, config["camera"]["image_width"],
+                                                                         config["camera"]["horizontal_fov"]))
 
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
