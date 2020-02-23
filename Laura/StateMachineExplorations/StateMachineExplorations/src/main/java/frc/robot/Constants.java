@@ -27,7 +27,7 @@ public final class Constants {
     public static final int ANALOG_IN_PORTA = 0;
     public static final int ANALOG_IN_PORTB = 1;
 
-    public static final double TIMEOUT = 1.0; // seconds
+    public static final double TIMEOUT = 5; // seconds
     public static final double HI_THRESHOLD = 4.5; //volts
     public static final double LO_THRESHOLD = 0.5; //volts
 

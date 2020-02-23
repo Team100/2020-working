@@ -25,7 +25,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SubsystemA m_subSystemA = new SubsystemA();
   private final SubsystemB m_subSystemB = new SubsystemB();
-  private final SampleStateMachine m_stateMachine = new SampleStateMachine();
+  private final SampleStateMachine m_stateMachine = new SampleStateMachine(m_subSystemA, m_subSystemB);
   
 
 
