@@ -42,6 +42,7 @@ class BoundingBox(object):
 	def message(self):
 		return self.__bbox
 
+
 def input_size(interpreter):
 	"""Returns input image size as (width, height) tuple."""
 	_, height, width, _ = interpreter.get_input_details()[0]['shape']
@@ -59,9 +60,7 @@ def set_input(interpreter, image):
 
 	Args:
 		interpreter: Interpreter object.
-		size: original image size as (width, height) tuple.
-		resize: a function that takes a (width, height) tuple, and returns an RGB
-			image resized to those dimensions.
+		image: image to set as the input.
 	Returns:
 		Actual resize ratio, which should be passed to `get_output` function.
 	"""
@@ -104,6 +103,7 @@ def get_output(interpreter, score_threshold, image_scale=(1.0, 1.0)):
 
 	return [make(i) for i in range(count) if scores[i] >= score_threshold]
 
+
 def load_labels(path, encoding="utf-8"):
 	with open(path, 'r', encoding=encoding) as f:
 		lines = f.readlines()
@@ -116,8 +116,10 @@ def load_labels(path, encoding="utf-8"):
 		else:
 			return {index: line.strip() for index, line in enumerate(lines)}
 
+
 def make_interpreter(models, runner):
 	return tflite.Interpreter(model_path=models[runner], experimental_delegates=[tflite.load_delegate(EDGETPU_SHARED_LIB, {})] if runner == "tpu" else [])
+
 
 def calculate_angle(bounding_box, width, fov):
 	cx = bounding_box.xmin + (bounding_box.xmax - bounding_box.xmin)/2
