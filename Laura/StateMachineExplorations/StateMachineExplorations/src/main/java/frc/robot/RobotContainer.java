@@ -10,6 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Do_State_1;
+import frc.robot.commands.Do_State_2;
+import frc.robot.commands.Do_State_3;
+import frc.robot.commands.Do_State_4;
+import frc.robot.commands.Do_State_5;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.SubsystemA;
 import frc.robot.subsystems.SubsystemB;
@@ -24,6 +30,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SubsystemA m_subSystemA = new SubsystemA();
   private final SubsystemB m_subSystemB = new SubsystemB();
+  
+  private boolean stateMachineIsActive = false;
+  private final Trigger m_state_Trigger_1 = new Trigger();
+  private final Trigger m_state_Trigger_2 = new Trigger();
+  private final Trigger m_state_Trigger_3 = new Trigger();
+  private final Trigger m_state_Trigger_4 = new Trigger();
+  private final Trigger m_state_Trigger_5 = new Trigger();
+
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_subSystemA);
 
@@ -44,6 +58,13 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    
+    m_state_Trigger_1.whenActive(new Do_State_1());
+    m_state_Trigger_2.whenActive(new Do_State_2());
+    m_state_Trigger_3.whenActive(new Do_State_3());
+    m_state_Trigger_4.whenActive(new Do_State_4());
+    m_state_Trigger_5.whenActive(new Do_State_5());
+
   }
 
 
