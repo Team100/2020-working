@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project BallTrack)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "BallTrack",
+    "language": "java"
+  }
+]
