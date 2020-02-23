@@ -17,3 +17,7 @@ To read more, see the [`ball-detection`](./ball-detection) folder.
 ## Ball Detection Training
 The ball detection image builds the Docker image to re-train SSD MobileNet v1 or v2.
 To read more, see the [`ball-detection-training`](./ball-detection-training) folder.
+
+## Services
+The systemd unit files that allow the vision to run in the background.
+To read more, see the [`services`](./services) folder.

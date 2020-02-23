@@ -1,0 +1,14 @@
+[Unit]
+Description=Ball detection and reporting
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/ball-detection
+ExecStart=/usr/bin/python3 /home/pi/ball-detection/detect.py
+Environment="LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH"
+Environment="PYTHONPATH=$PYTHONPATH:/usr/local/lib"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
