@@ -30,6 +30,7 @@ public final class Constants {
     public static final double TIMEOUT = 5; // seconds
     public static final double HI_THRESHOLD = 4.5; //volts
     public static final double LO_THRESHOLD = 0.5; //volts
+    public static final double MTR_INCRAMENT = 0.1; // Volts
 
 
 }
