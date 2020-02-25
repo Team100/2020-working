@@ -22,6 +22,7 @@ import frc.robot.commands.drivetrain.ArcadeDrive;
 import frc.robot.commands.supersystem.indexer.IndexerDriveBackward;
 import frc.robot.commands.supersystem.indexer.IndexerDriveForward;
 import frc.robot.commands.supersystem.indexer.Load;
+import frc.robot.commands.supersystem.indexer.ShootOne;
 import frc.robot.commands.supersystem.indexer.indexStageOne.IndexerStageOneDriveForward;
 import frc.robot.commands.supersystem.indexer.indexStageOne.IndexerStageOneStop;
 import frc.robot.commands.supersystem.indexer.indexStageTwo.IndexerStageTwoStop;
@@ -29,8 +30,7 @@ import frc.robot.commands.supersystem.intake.IntakeForward;
 import frc.robot.commands.supersystem.intake.IntakeReverse;
 import frc.robot.commands.supersystem.intake.IntakeStop;
 import frc.robot.commands.supersystem.intake.intakePivot.IntakeMoveJoystick;
-import frc.robot.commands.supersystem.intake.intakePivot.IntakePivotDown;
-import frc.robot.commands.supersystem.intake.intakePivot.IntakePivotUp;
+import frc.robot.commands.supersystem.shooter.ShooterRun;
 import frc.robot.commands.supersystem.shooter.ShooterStop;
 import frc.robot.commands.supersystem.turret.TurretStop;
 import frc.robot.subsystems.Drivetrain;
@@ -67,15 +67,18 @@ public class RobotContainer {
     public JoystickButton wholeIndexerReverse;
     public JoystickButton indexerStageOneForward;
     public JoystickButton indexerStageTwoForward;
-    public JoystickButton stateTester;
+    public JoystickButton stateTester;  // runts on button 4
 
-    public JoystickButton shooterShoot; // currently not attachted to anything
+    public JoystickButton shootOne;     // runs on button 8 (kicking ou shooter stop)
+
+    public JoystickButton shooterShoot; // runs on button 7
+    public JoystickButton shooterStop;  // runs on button 8
 
     public JoystickButton intakeForward; // runs on button 5
     public JoystickButton intakeReverse; // runs on button 6
 
-    public JoystickButton intakePivotUp; // runs on button 7
-    public JoystickButton intakePivotDown; // runs on button 8
+    public JoystickButton intakePivotUp; // HOLD runs on button 7
+    public JoystickButton intakePivotDown; // HOLD runs on button 8
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -140,14 +143,23 @@ public class RobotContainer {
         intakeReverse.whileHeld(new IntakeReverse(intake));
         
         ////////////////////////////////////////////////////////////////////////////
-        // shooterShoot = new JoystickButton(gamepad, 6);
-        // shooterShoot.whileHeld(new ShooterRun(shooter));
+        //shooterShoot = new JoystickButton(gamepad, 6);
+        //shooterShoot.whileHeld(new ShooterRun(shooter));
+
+        shooterShoot = new JoystickButton(gamepad, 7);
+        shooterShoot.whenPressed(new ShooterRun(shooter));
+        // shooterStop = new JoystickButton(gamepad, 8);
+        // shooterStop.whenPressed(new ShooterStop(shooter));
+
+        // indexer shoot
+        shootOne = new JoystickButton(gamepad, 8);
+        shootOne.whenPressed(new ShootOne(stageOne, stageTwo, indexer));
 
         ////////////////////////////////////////////////////////////////////////////
-        intakePivotUp = new JoystickButton(gamepad, 7);
-        intakePivotUp.whileHeld(new IntakePivotUp(intakePivot));
-        intakePivotDown = new JoystickButton(gamepad, 8);
-        intakePivotDown.whileHeld(new IntakePivotDown(intakePivot));
+        //intakePivotUp = new JoystickButton(gamepad, 7);
+        //intakePivotUp.whileHeld(new IntakePivotUp(intakePivot));
+        //intakePivotDown = new JoystickButton(gamepad, 8);
+        //intakePivotDown.whileHeld(new IntakePivotDown(intakePivot));
 
     }
 

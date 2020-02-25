@@ -33,17 +33,17 @@ public class Indexer extends SubsystemBase {
   /**
    * Keeps track of whether the last iteration was positive or not
    */
-  public boolean lastIterateFront, lastIterateRear;
+  public boolean lastIterateFront, lastIterateRear, lastIterateShoot;
 
   /**
    * Keeps track of how many objects have passed the sensor
    */
-  public int frontCount, rearCount;
+  public int frontCount, rearCount, exitCount;
 
   /**
    * Lets Indexer know when to switch states
    */
-  public boolean frontSwitchState, rearSwitchState;
+  public boolean frontSwitchState, rearSwitchState, rearShootState;
 
   /**
    * Creates a new Indexer.
@@ -54,9 +54,11 @@ public class Indexer extends SubsystemBase {
 
     lastIterateFront = false;
     lastIterateRear = false;
+    lastIterateShoot = false;
 
     frontSwitchState = false;
     rearSwitchState = false;
+    rearShootState = false;
 
     indexerState = IndexerStates.EMPTY;
 
@@ -83,23 +85,16 @@ public class Indexer extends SubsystemBase {
       rearSwitchState = true;
       rearCount += 1;
       System.out.println("Rear Count: " + rearCount);
-
     }
 
-
-  }
-
-  /**
-   * Tells what state robot is currently in
-   */
-  public void getState() {
-    System.out.println();
-  }
-
-  /**
-   * Update any states
-   */
-  public void updateState() {
+    if (rearSensor.get() && lastIterateShoot) {
+      lastIterateShoot = false;
+    } else if (!rearSensor.get() && !lastIterateShoot) {
+      lastIterateShoot = true;
+      rearShootState = true;
+      exitCount += 1;
+      System.out.println("Exit Count: " + exitCount);
+    }
 
   }
 
@@ -107,7 +102,6 @@ public class Indexer extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     processBallDetectionSensors();
-    updateState();
 
     //*****NOTE: frontSensor.get() returns true if it detects no object
 

@@ -13,49 +13,48 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IndexerStageOne;
 import frc.robot.subsystems.IndexerStageTwo;
 
-public class OneBall extends CommandBase {
+public class ShootOne extends CommandBase {
   /**
-   * subsystems used.
+   * Creates a new ShootOne.
    */
   IndexerStageOne stageOne;
   IndexerStageTwo stageTwo;
   Indexer indexer;
 
-  /**
-   * Creates a new OneBall.
-   */
-  public OneBall(IndexerStageOne stageOne, IndexerStageTwo stageTwo, Indexer indexer) {
+  public ShootOne(IndexerStageOne stageOne, IndexerStageTwo stageTwo, Indexer indexer) {
     this.stageOne = stageOne;
     this.stageTwo = stageTwo;
     this.indexer = indexer;
-    this.indexer.frontSwitchState = false;
+    this.indexer.rearShootState = false;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.stageOne);
+    addRequirements(this.stageTwo);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("initialized OneBall");
+    System.out.println("Shoot one ball");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      stageOne.indexerStageOne
-        .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_FORWARD);
+    stageTwo.indexerStageTwo
+      .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_TWO_PERCENT_OUTPUT_SHOOT);
+    //stageOne.indexerStageOne
+      //  .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_SHOOT);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    indexer.frontSwitchState = false;
-    indexer.indexerState = Indexer.IndexerStates.TWO_BALL;
+    indexer.rearShootState = false;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (indexer.frontSwitchState);
+    return (indexer.rearShootState);
   }
 }

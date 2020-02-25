@@ -161,6 +161,7 @@ public final class Constants {
         public static final class IndexerMotionParameters {
             public static final double STAGE_ONE_PERCENT_OUTPUT_FORWARD = 0.4;
             public static final double STAGE_TWO_PERCENT_OUTPUT_FORWARD = 0.6;
+            public static final double STAGE_ONE_PERCENT_OUTPUT_SHOOT = 0.6;
             public static final double STAGE_TWO_PERCENT_OUTPUT_SHOOT = 1.0;
 
             public static final double STAGE_ONE_PERCENT_OUTPUT_BACKWARD = -0.4;
