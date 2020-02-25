@@ -30,6 +30,7 @@ public class ShooterRecover extends CommandBase {
   public void initialize() {
     this.shooter.shooterState = ShooterState.RECOVERING;
     this.shooter.master.drivePercentOutput(Constants.ShooterConstants.ShooterMotionParameters.RECOVER_PO);
+    this.shooter.follower.drivePercentOutput(Constants.ShooterConstants.ShooterMotionParameters.RECOVER_PO);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -166,6 +166,7 @@ public final class Constants {
 
             public static final double STAGE_ONE_PERCENT_OUTPUT_BACKWARD = -0.4;
             public static final double STAGE_TWO_PERCENT_OUTPUT_BACKWARD = -0.4;
+            public static final boolean CONTINUOUS_FEED = false;  // sets state-to-state automatic transition
         }
 
         public static final class IndexerMotors {

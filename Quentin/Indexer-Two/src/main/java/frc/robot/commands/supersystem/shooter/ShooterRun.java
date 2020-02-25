@@ -30,6 +30,7 @@ public class ShooterRun extends CommandBase {
   public void initialize() {
     this.shooter.shooterState = ShooterState.SHOOTING;
     this.shooter.master.drivePercentOutput(Constants.ShooterConstants.ShooterMotionParameters.SHOOT_PO);
+    this.shooter.follower.drivePercentOutput(Constants.ShooterConstants.ShooterMotionParameters.SHOOT_PO);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

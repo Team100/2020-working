@@ -39,11 +39,11 @@ public class ShootOne extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //stageOne.indexerStageOne
+    //  .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_SHOOT);
     stageTwo.indexerStageTwo
       .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_TWO_PERCENT_OUTPUT_SHOOT);
-    //stageOne.indexerStageOne
-      //  .drivePercentOutput(Constants.IndexerConstants.IndexerMotionParameters.STAGE_ONE_PERCENT_OUTPUT_SHOOT);
-    
+
   }
 
   // Called once the command ends or is interrupted.

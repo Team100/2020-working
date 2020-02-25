@@ -56,6 +56,12 @@ public class LowThreeBall extends CommandBase {
     indexer.frontSwitchState = false;
     indexer.rearSwitchState = false;
     indexer.indexerState = Indexer.IndexerStates.HIGH_THREE_BALL;
+
+    // conditionally invoke next state
+    if (Constants.IndexerConstants.IndexerMotionParameters.CONTINUOUS_FEED) {
+      System.out.println("Loading Hi Three ball state");
+      new HighThreeBall(stageOne, stageTwo, indexer).schedule();
+    }
   }
 
   // Returns true when the command should end.

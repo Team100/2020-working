@@ -30,7 +30,7 @@ public class ShooterStop extends CommandBase {
   public void initialize() {
     this.shooter.shooterState = ShooterState.STOPPED;
     this.shooter.master.drivePercentOutput(Constants.ShooterConstants.ShooterMotionParameters.STOP_PO);
-  }
+    this.shooter.follower.drivePercentOutput(Constants.ShooterConstants.ShooterMotionParameters.STOP_PO);  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

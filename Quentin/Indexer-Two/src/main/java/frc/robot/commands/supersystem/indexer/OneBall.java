@@ -51,6 +51,12 @@ public class OneBall extends CommandBase {
   public void end(boolean interrupted) {
     indexer.frontSwitchState = false;
     indexer.indexerState = Indexer.IndexerStates.TWO_BALL;
+
+    // conditionally invoke next state
+    if (Constants.IndexerConstants.IndexerMotionParameters.CONTINUOUS_FEED) {
+      System.out.println("Loading twoball state");
+      new TwoBall(stageOne, stageTwo, indexer).schedule();
+    }
   }
 
   // Returns true when the command should end.

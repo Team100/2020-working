@@ -62,6 +62,7 @@ public class RobotContainer {
     public final Joystick leftJoystick;
     public final Joystick rightJoystick;
     public final Joystick gamepad;
+    public final Joystick gamepad2;
 
     public JoystickButton wholeIndexerForward;
     public JoystickButton wholeIndexerReverse;
@@ -88,6 +89,8 @@ public class RobotContainer {
         leftJoystick = new Joystick(0);
         rightJoystick = new Joystick(1);
         gamepad = new Joystick(2);
+        // add addition gamepage
+        gamepad2 = new Joystick(3);
 
         // Subsystem Initiation
         drivetrain = new Drivetrain();
@@ -146,10 +149,10 @@ public class RobotContainer {
         //shooterShoot = new JoystickButton(gamepad, 6);
         //shooterShoot.whileHeld(new ShooterRun(shooter));
 
-        shooterShoot = new JoystickButton(gamepad, 7);
+        shooterShoot = new JoystickButton(gamepad2, 1);
         shooterShoot.whenPressed(new ShooterRun(shooter));
-        // shooterStop = new JoystickButton(gamepad, 8);
-        // shooterStop.whenPressed(new ShooterStop(shooter));
+        shooterStop = new JoystickButton(gamepad2, 2);
+        shooterStop.whenPressed(new ShooterStop(shooter));
 
         // indexer shoot
         shootOne = new JoystickButton(gamepad, 8);
