@@ -52,8 +52,8 @@ public class Shooter extends SubsystemBase {
         .withPeakOutputForward(Constants.ShooterConstants.ShooterMotors.ShooterFollower.PEAK_OUTPUT_FORWARD)
         .withPeakOutputReverse(Constants.ShooterConstants.ShooterMotors.ShooterFollower.PEAK_OUTPUT_REVERSE).build();
 
-    follower.follow(master);
-
+    // follower.follow(master);
+    // follower.motor.follow(master.motor);
   }
 
   /**
@@ -69,6 +69,8 @@ public class Shooter extends SubsystemBase {
 
     // inform dashboard
     SmartDashboard.putNumber("Shooter %", Constants.ShooterConstants.ShooterMotionParameters.SHOOT_PO);
+    SmartDashboard.putNumber("Shooter Reported %", master.motor.getMotorOutputPercent());
+    SmartDashboard.putNumber("Follower Reported %", follower.motor.getMotorOutputPercent());
 
     updateState();
   }
