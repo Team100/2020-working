@@ -47,27 +47,27 @@ public class RotateTurret extends CommandBase {
     @Override
     public void execute() {
         if(mockTarget){
-        SmartDashboard.putBoolean("Target Exists", true);
-        subsystem.setTarget(controller.getDirectionDegrees()*Constants.Turret.TICKS_PER_DEG, true);
+            SmartDashboard.putBoolean("Target Exists", true);
+            subsystem.setTarget(controller.getDirectionDegrees()*Constants.Turret.TICKS_PER_DEG, true);
         } else {
-        if(Server.target != null) {
-            if(Server.target.getDistance() != -1) {
-                SmartDashboard.putNumber("Camera HAngle", Server.target.getHAngle());
-                SmartDashboard.putBoolean("Target Exists", true);
-                double h = Server.target.getHAngle();
-                subsystem.setTarget(Math.signum(h)*Math.pow(Math.abs(h), 1.5)/2, false);
+            if(Server.target != null) {
+                if(Server.target.getDistance() != -1) {
+                    SmartDashboard.putNumber("Camera HAngle", Server.target.getHAngle());
+                    SmartDashboard.putBoolean("Target Exists", true);
+                    double h = Server.target.getHAngle();
+                    subsystem.setTarget(Math.signum(h)*Math.pow(Math.abs(h), 1.5)/2, false);
+                } else {
+                SmartDashboard.putNumber("Camera HAngle", 999.999999);
+                SmartDashboard.putBoolean("Target Exists", false);
+                // if (subsystem.talon.getSelectedSensorPosition() > Constants.Turret.ALLOWABLE_ERROR)
+                // subsystem.setTarget(subsystem.talon.getSelectedSensorPosition()+1, true);
+                // if (subsystem.talon.getSelectedSensorPosition() < Constants.Turret.ALLOWABLE_ERROR)
+                // subsystem.setTarget(subsystem.talon.getSelectedSensorPosition()-1, true);
+                }
             } else {
-            SmartDashboard.putNumber("Camera HAngle", 999.999999);
-            SmartDashboard.putBoolean("Target Exists", false);
-            // if (subsystem.talon.getSelectedSensorPosition() > Constants.Turret.ALLOWABLE_ERROR)
-            // subsystem.setTarget(subsystem.talon.getSelectedSensorPosition()+1, true);
-            // if (subsystem.talon.getSelectedSensorPosition() < Constants.Turret.ALLOWABLE_ERROR)
-            // subsystem.setTarget(subsystem.talon.getSelectedSensorPosition()-1, true);
+                subsystem.setTarget(subsystem.talon.getSelectedSensorPosition(), true);
+                SmartDashboard.putBoolean("Target Exists", false);
             }
-        } else {
-        subsystem.setTarget(subsystem.talon.getSelectedSensorPosition(), true);
-        SmartDashboard.putBoolean("Target Exists", false);
-        }
         }
     }
 
