@@ -79,6 +79,8 @@ COPY *.sh ${work_dir}/
 
 ENV NETWORK_TYPE "mobilenet_v1_ssd"
 
+VOLUME ${work_dir}/powercell-detection
+
 EXPOSE 6006
 WORKDIR ${work_dir}
 ENTRYPOINT ["/bin/bash", "/tensorflow/models/research/entrypoint.sh"]
