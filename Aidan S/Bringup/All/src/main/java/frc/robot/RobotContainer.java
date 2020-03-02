@@ -13,10 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.CPForward;
-import frc.robot.commands.CPReverse;
-import frc.robot.commands.Drive;
-import frc.robot.commands.Spin;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 /**
@@ -41,6 +38,11 @@ public class RobotContainer {
     private JoystickButton pivotDown = new JoystickButton(rightStick, Constants.OI.PIVOT_DOWN);
     private JoystickButton pivotZero = new JoystickButton(rightStick, Constants.OI.PIVOT_ZERO);
     private JoystickButton spin = new JoystickButton(rightStick, Constants.OI.SPIN);
+
+    private JoystickButton s1forward = new JoystickButton(leftStick, Constants.OI.STAGE_ONE_FORWARD);
+    private JoystickButton s1reverse = new JoystickButton(leftStick, Constants.OI.STAGE_ONE_REVERSE);
+    private JoystickButton s2forward = new JoystickButton(rightStick, Constants.OI.STAGE_TWO_FORWARD);
+    private JoystickButton s2reverse = new JoystickButton(rightStick, Constants.OI.STAGE_TWO_REVERSE);
     
     private JoystickButton cpforward = new JoystickButton(rightStick, Constants.OI.SPINNER_FORWARD);
     private JoystickButton cpreverse = new JoystickButton(rightStick, Constants.OI.SPINNER_REVERSE);
@@ -51,6 +53,8 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Drivetrain drivetrain = new Drivetrain();
     private final Spinner spinner = new Spinner();
+    private final Stage m_stageOne = new Stage(Constants.StageOne.MOTOR_CAN_ID);
+    private final Stage m_stageTwo = new Stage(Constants.StageTwo.MOTOR_CAN_ID);
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -81,6 +85,11 @@ public class RobotContainer {
         pivotDown.whenHeld(new InstantCommand(intake::down));
         pivotZero.whenHeld(new InstantCommand(intake::zero));
         spin.whenHeld(new Spin(intake));
+
+        s1forward.whenHeld(new Forward(m_stageOne));
+        s1reverse.whenHeld(new Reverse(m_stageOne));
+        s2forward.whenHeld(new Forward(m_stageTwo));
+        s2reverse.whenHeld(new Reverse(m_stageTwo));
 
         cpforward.whenHeld(new CPForward(spinner));
         cpreverse.whenHeld(new CPReverse(spinner));
