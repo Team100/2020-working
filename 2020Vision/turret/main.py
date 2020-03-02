@@ -37,6 +37,20 @@ def debug_draw(f):
         f()
 
 
+def send_message(found, d=0, h=0, v=0):
+    if config.socket.enabled and robot_socket:
+        msg = HighGoal()
+        msg.v_angle = v
+        msg.h_angle = h
+        msg.distance = d
+        msg.found = found
+        encoded = msg.SerializeToString()
+        try:
+            robot_socket.sendall(bytes([0, len(encoded)]) + encoded)
+        except ConnectionRefusedError:
+            pass
+
+
 # Start file watcher
 observer = Observer()
 observer.schedule(FileWatcher(), path=".", recursive=False)
@@ -80,6 +94,7 @@ try:
         depth = frames.get_depth_frame()
         color = frames.get_color_frame()
         if not depth or not color:
+            send_message(False)
             continue
 
         # Convert to numpy array
@@ -100,6 +115,9 @@ try:
             frame_tracking_skip_count += 1
             if frame_tracking_skip_count > 15:
                 last_bounding_area = -1
+
+            # Send not found
+            send_message(False)
         else:
             frame_tracking_skip_count = 0
 
@@ -143,16 +161,7 @@ try:
             debug_draw(lambda: cv2.putText(frame, f"Distance: {distance}", (25, 440), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1))
 
         # Serialize and send data to robot
-        if config.socket.enabled and robot_socket:
-            msg = HighGoal()
-            msg.v_angle = v_angle
-            msg.h_angle = h_angle
-            msg.distance = distance
-            encoded = msg.SerializeToString()
-            try:
-                robot_socket.sendall(bytes([0, len(encoded)]) + encoded)
-            except ConnectionRefusedError:
-                pass
+        send_message(True, distance, h_angle, v_angle)
 
         # Display image frame for debugging
         if config.debug:

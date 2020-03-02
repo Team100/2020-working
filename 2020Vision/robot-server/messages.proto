@@ -4,6 +4,7 @@ message HighGoal {
     double distance = 1;
     double v_angle = 2;
     double h_angle = 3;
+    bool found = 4;
 }
 
 message PowerCells {

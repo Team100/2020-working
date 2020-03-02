@@ -30,7 +30,7 @@ class Server implements Runnable {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 server.receive(packet);
 
-                byte[] decodable = Arrays.copyOfRange(buffer, 2, buffer[0]+2);
+                byte[] decodable = Arrays.copyOfRange(buffer, 2, buffer[1]+2);
                 if (decodable.length == 0) continue;
 
                 switch (buffer[0]) {
