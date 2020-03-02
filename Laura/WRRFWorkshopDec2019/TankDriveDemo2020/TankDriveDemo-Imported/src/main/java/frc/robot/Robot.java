@@ -38,20 +38,21 @@ public class Robot extends TimedRobot {
   private static final String RIGHT_ID_KEY = "RightID";
   private static final String THROTTLE_RATIO_KEY = "ThrottleRatio";
 
-    private DifferentialDrive m_myRobot;
+  private DifferentialDrive m_myRobot;
   private Joystick m_gamepad;
+  private boolean m_gamepadToggle = false;
+  private int m_gamepadCount = 0;
   private SpeedController m_leftMotor;
   private SpeedController m_rightMotor;
   private double m_throttleRatio = 1.0;
-  
 
   @Override
   public void robotInit() {
     getFromPrefs();
-    
+
     m_myRobot = new DifferentialDrive(m_leftMotor, m_rightMotor);
     m_gamepad = new Joystick(0);
-    
+
   }
 
   private void getFromPrefs() {
@@ -60,43 +61,41 @@ public class Robot extends TimedRobot {
     int leftID;
     int rightID;
 
-    if(!keys.contains(CONTROLLER_TYPE_KEY)){
+    if (!keys.contains(CONTROLLER_TYPE_KEY)) {
       controllerType = "Victor";
-      Preferences.getInstance().putString(CONTROLLER_TYPE_KEY, controllerType);      
+      Preferences.getInstance().putString(CONTROLLER_TYPE_KEY, controllerType);
     } else {
       controllerType = Preferences.getInstance().getString(CONTROLLER_TYPE_KEY, "Victor");
     }
-   
+
     if (!keys.contains(LEFT_ID_KEY)) {
       leftID = LEFT_VICTOR;
       Preferences.getInstance().putInt(LEFT_ID_KEY, leftID);
     } else {
       leftID = Preferences.getInstance().getInt(LEFT_ID_KEY, LEFT_VICTOR);
     }
-    
+
     if (!keys.contains(RIGHT_ID_KEY)) {
       rightID = RIGHT_VICTOR;
       Preferences.getInstance().putInt(RIGHT_ID_KEY, rightID);
     } else {
       rightID = Preferences.getInstance().getInt(RIGHT_ID_KEY, RIGHT_VICTOR);
     }
-    
+
     if (!keys.contains(THROTTLE_RATIO_KEY)) {
       m_throttleRatio = 1.0;
       Preferences.getInstance().putDouble(THROTTLE_RATIO_KEY, m_throttleRatio);
     } else {
       m_throttleRatio = Preferences.getInstance().getDouble(THROTTLE_RATIO_KEY, 1.0);
     }
-        
+
     if (controllerType.compareTo(CANSparkMax.class.getSimpleName()) == 0) {
       m_leftMotor = new CANSparkMax(leftID, MotorType.kBrushless);
       m_rightMotor = new CANSparkMax(rightID, MotorType.kBrushless);
-    } 
-    else if (controllerType.compareTo(WPI_TalonSRX.class.getSimpleName())  == 0){
+    } else if (controllerType.compareTo(WPI_TalonSRX.class.getSimpleName()) == 0) {
       m_leftMotor = new WPI_TalonSRX(leftID);
       m_rightMotor = new WPI_TalonSRX(rightID);
-    }
-    else {
+    } else {
       m_leftMotor = new Victor(leftID);
       m_rightMotor = new Victor(rightID);
     }
@@ -109,10 +108,25 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    m_myRobot.tankDrive(m_gamepad.getY()*m_throttleRatio, m_gamepad.getThrottle()*m_throttleRatio, false);
-    SmartDashboard.putNumber ("LeftMotorVoltage", m_leftMotor.get());
-    SmartDashboard.putNumber ("RightMotorVoltage", m_rightMotor.get());
-    SmartDashboard.putString ("MotorType", m_leftMotor.getClass().getSimpleName());
-    SmartDashboard.putNumber ("ThrottleRatio", m_throttleRatio);
+    m_myRobot.tankDrive(m_gamepad.getY() * m_throttleRatio, m_gamepad.getThrottle() * m_throttleRatio, false);
+    SmartDashboard.putNumber("LeftMotorVoltage", m_leftMotor.get());
+    SmartDashboard.putNumber("RightMotorVoltage", m_rightMotor.get());
+    SmartDashboard.putString("MotorType", m_leftMotor.getClass().getSimpleName());
+    SmartDashboard.putNumber("ThrottleRatio", m_throttleRatio);
   }
+
+  @Override
+  public void robotPeriodic() {
+    m_gamepadCount += 1;
+    if (m_gamepadCount > 100) {
+      m_gamepadCount = 0;
+      if (m_gamepadToggle) {
+        m_gamepad.setOutputs(0x3F);
+      } else {
+        m_gamepad.setOutputs(0x00);
+      }
+    }
+    m_gamepadToggle = !m_gamepadToggle;
+  }
+
 }
