@@ -23,9 +23,6 @@ public class Intake extends SubsystemBase {
      */
     public Intake() {
         pivot = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Intake.PIVOT_MOTOR_CAN_ID)
-                .withKP(Constants.Intake.kP)
-                .withKI(Constants.Intake.kI)
-                .withKD(Constants.Intake.kD)
                 .build();
         pivot.setSmartDashboardPath("/FRClib/Intake/Pivot");
         pivot.setSmartDashboardPutEnabled(true);
@@ -41,23 +38,23 @@ public class Intake extends SubsystemBase {
         // This method will be called once per scheduler run
         pivot.updateSmartDashboard();
 
-        pivot.drivePosition(pivotSP);
+        pivot.drivePercentOutput(pivotSP / 100);
     }
 
     public void up() {
-        pivot.drivePercentOutput(1.0);
+        pivot.drivePercentOutput(-0.1);
     }
 
     public void down() {
-        pivot.drivePercentOutput(-1.0);
+        pivot.drivePercentOutput(0.1);
     }
 
     public void zero() {
-        pivotSP = pivot.getSelectedSensorPosition();
+        pivotSP = 0;
     }
 
     public void spin() {
-        spin.drivePercentOutput(1.0);
+        spin.drivePercentOutput(-0.5);
     }
 
     public void stop() {

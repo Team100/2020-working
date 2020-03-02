@@ -25,7 +25,9 @@ public class Drivetrain extends SubsystemBase {
         leftMaster.setSmartDashboardPath("/FRClib/Error");
         leftMaster.setSmartDashboardPutEnabled(true);
 
-        leftFollower = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Drivetrain.LEFT_FOLLOWER_CAN_ID).withMaster(leftMaster).build();
+        leftFollower = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Drivetrain.LEFT_FOLLOWER_CAN_ID)
+        // .withMaster(leftMaster)
+        .build();
         leftFollower.setSmartDashboardPath("/FRClib/Error");
         leftFollower.setSmartDashboardPutEnabled(true);
 
@@ -33,9 +35,16 @@ public class Drivetrain extends SubsystemBase {
         rightMaster.setSmartDashboardPath("/FRClib/Error");
         rightMaster.setSmartDashboardPutEnabled(true);
 
-        rightFollower = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Drivetrain.RIGHT_FOLLOWER_CAN_ID).withMaster(rightMaster).build();
+        rightFollower = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Drivetrain.RIGHT_FOLLOWER_CAN_ID)
+        // .withMaster(rightMaster)
+        .build();
         rightFollower.setSmartDashboardPath("/FRClib/Error");
         rightFollower.setSmartDashboardPutEnabled(true);
+
+        leftMaster.motor.setSafetyEnabled(false);
+        leftFollower.motor.setSafetyEnabled(false);
+        rightMaster.motor.setSafetyEnabled(false);
+        rightFollower.motor.setSafetyEnabled(false);
     }
 
     @Override
@@ -49,6 +58,8 @@ public class Drivetrain extends SubsystemBase {
 
     public void drive(double l, double r) {
         leftMaster.drivePercentOutput(l);
+        leftFollower.drivePercentOutput(l);
         rightMaster.drivePercentOutput(-r);
+        rightFollower.drivePercentOutput(-r);
     }
 }

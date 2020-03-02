@@ -33,17 +33,17 @@ public final class Constants {
         public static final int PIVOT_ZERO = 11;
         public static final int SPIN = 1;
         
-        public static final int STAGE_ONE_FORWARD = 6;
-        public static final int STAGE_ONE_REVERSE = 5;
-        public static final int STAGE_TWO_FORWARD = 6;
-        public static final int STAGE_TWO_REVERSE = 5;
+        public static final int STAGE_ONE_FORWARD = 4;
+        public static final int STAGE_ONE_REVERSE = 3;
+        public static final int STAGE_TWO_FORWARD = 4;
+        public static final int STAGE_TWO_REVERSE = 3;
 
-        public static final int SPINNER_FORWARD = 6;
-        public static final int SPINNER_REVERSE = 5;
+        public static final int SPINNER_FORWARD = 9;
+        public static final int SPINNER_REVERSE = 11;
     }
 
     public final class Turret {
-        public static final int MOTOR_CAN_ID = 8;
+        public static final int MOTOR_CAN_ID = 4;
         public static final double kP = 0;
         public static final double kI = 0;
         public static final double kD = 0;
@@ -71,10 +71,10 @@ public final class Constants {
     }
 
     public final class Drivetrain {
-        public static final int LEFT_MASTER_CAN_ID = 0;
-        public static final int LEFT_FOLLOWER_CAN_ID = 1;
-        public static final int RIGHT_MASTER_CAN_ID = 15;
-        public static final int RIGHT_FOLLOWER_CAN_ID = 14;
+        public static final int LEFT_MASTER_CAN_ID = 15;
+        public static final int LEFT_FOLLOWER_CAN_ID = 14;
+        public static final int RIGHT_MASTER_CAN_ID = 0;
+        public static final int RIGHT_FOLLOWER_CAN_ID = 1;
     }
 
     public final class Spinner {

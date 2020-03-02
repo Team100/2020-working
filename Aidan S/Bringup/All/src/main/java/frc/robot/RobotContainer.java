@@ -44,8 +44,8 @@ public class RobotContainer {
     private JoystickButton s2forward = new JoystickButton(rightStick, Constants.OI.STAGE_TWO_FORWARD);
     private JoystickButton s2reverse = new JoystickButton(rightStick, Constants.OI.STAGE_TWO_REVERSE);
     
-    private JoystickButton cpforward = new JoystickButton(rightStick, Constants.OI.SPINNER_FORWARD);
-    private JoystickButton cpreverse = new JoystickButton(rightStick, Constants.OI.SPINNER_REVERSE);
+    private JoystickButton cpforward = new JoystickButton(leftStick, Constants.OI.SPINNER_FORWARD);
+    private JoystickButton cpreverse = new JoystickButton(leftStick, Constants.OI.SPINNER_REVERSE);
 
     // The robot's subsystems and commands are defined here...
     private final Turret turret = new Turret();
@@ -53,8 +53,8 @@ public class RobotContainer {
     private final Intake intake = new Intake();
     private final Drivetrain drivetrain = new Drivetrain();
     private final Spinner spinner = new Spinner();
-    private final Stage m_stageOne = new Stage(Constants.StageOne.MOTOR_CAN_ID);
-    private final Stage m_stageTwo = new Stage(Constants.StageTwo.MOTOR_CAN_ID);
+    private final Stage m_stageOne = new Stage(Constants.StageOne.MOTOR_CAN_ID, 1.0);
+    private final Stage m_stageTwo = new Stage(Constants.StageTwo.MOTOR_CAN_ID, -1.0);
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -81,8 +81,8 @@ public class RobotContainer {
         decrease.whenHeld(new InstantCommand(shooter::decrease));
         stop.whenHeld(new InstantCommand(shooter::stop));
 
-        pivotUp.whenHeld(new InstantCommand(intake::up));
-        pivotDown.whenHeld(new InstantCommand(intake::down));
+        pivotUp.whileHeld(new InstantCommand(intake::up));
+        pivotDown.whileHeld(new InstantCommand(intake::down));
         pivotZero.whenHeld(new InstantCommand(intake::zero));
         spin.whenHeld(new Spin(intake));
 

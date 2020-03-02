@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.FRCLib.Motors.FRCTalonSRX;
@@ -14,7 +16,7 @@ import frc.robot.FRCLib.Motors.FRCTalonSRX;
 public class Shooter extends SubsystemBase {
     private FRCTalonSRX master;
     private FRCTalonSRX follower;
-    private int setpoint = 0;
+    private double setpoint = 0;
 
     /**
      * Creates a new Stage.
@@ -24,9 +26,16 @@ public class Shooter extends SubsystemBase {
         master.setSmartDashboardPath("/FRClib/Shooter/Master");
         master.setSmartDashboardPutEnabled(true);
 
-        follower = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Shooter.FOLLOWER_CAN_ID).withMaster(master).build();
+        follower = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Shooter.FOLLOWER_CAN_ID)
+                .withMaster(master)
+                .withInverted(InvertType.OpposeMaster)
+                .build();
         follower.setSmartDashboardPath("/FRClib/Shooter/Follower");
         follower.setSmartDashboardPutEnabled(true);
+
+        master.motor.setSafetyEnabled(false);
+        follower.motor.setSafetyEnabled(false);
+        // follower.motor.setInverted(InvertType.OpposeMaster);
     }
 
     @Override
@@ -35,15 +44,16 @@ public class Shooter extends SubsystemBase {
         master.updateSmartDashboard();
         follower.updateSmartDashboard();
 
-        master.drivePercentOutput((double)(setpoint/10));
+        master.drivePercentOutput(setpoint);
+        // follower.drivePercentOutput(setpoint);
     }
 
     public void increase() {
-        if (setpoint < 10) setpoint++;
+        if (setpoint < 1) setpoint += 0.1;
     }
 
     public void decrease() {
-        if (setpoint > 0) setpoint--;
+        if (setpoint > 0) setpoint -= 0.1;
     }
 
     public void stop() {

@@ -13,11 +13,13 @@ import frc.robot.FRCLib.Motors.FRCTalonSRX;
 
 public class Stage extends SubsystemBase {
     private FRCTalonSRX motor;
+    private double mod;
 
     /**
      * Creates a new Stage.
      */
-    public Stage(int CANID) {
+    public Stage(int CANID, double modifier) {
+        mod = modifier;
         motor = new FRCTalonSRX.FRCTalonSRXBuilder(CANID).build();
         if (CANID == Constants.StageOne.MOTOR_CAN_ID) motor.setSmartDashboardPath("/FRClib/Indexer/StageOne");
         else if (CANID == Constants.StageTwo.MOTOR_CAN_ID) motor.setSmartDashboardPath("/FRClib/Indexer/StageTwo");
@@ -32,11 +34,11 @@ public class Stage extends SubsystemBase {
     }
 
     public void forward() {
-        motor.drivePercentOutput(1.0);
+        motor.drivePercentOutput(0.5*mod);
     }
 
     public void reverse() {
-        motor.drivePercentOutput(-1.0);
+        motor.drivePercentOutput(-0.5*mod);
     }
 
     public void stop() {

@@ -22,9 +22,6 @@ public class Turret extends SubsystemBase {
      */
     public Turret() {
         motor = new FRCTalonSRX.FRCTalonSRXBuilder(Constants.Turret.MOTOR_CAN_ID)
-                .withKP(Constants.Turret.kP)
-                .withKI(Constants.Turret.kI)
-                .withKD(Constants.Turret.kD)
                 .build();
         motor.motor.configSelectedFeedbackSensor(FeedbackDevice.Analog);
         motor.setSmartDashboardPath("/FRClib/Turret");
@@ -36,7 +33,7 @@ public class Turret extends SubsystemBase {
         // This method will be called once per scheduler run
         motor.updateSmartDashboard();
 
-        motor.drivePosition(setpoint);
+        motor.drivePercentOutput(-(setpoint / 20));
     }
 
     public void forward() {
@@ -48,6 +45,6 @@ public class Turret extends SubsystemBase {
     }
 
     public void zero() {
-        setpoint = motor.getSelectedSensorPosition();
+        setpoint = 0;
     }
 }
