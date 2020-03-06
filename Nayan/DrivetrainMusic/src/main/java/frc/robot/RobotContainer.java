@@ -27,7 +27,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Joystick joystick;
   private final JoystickButton buttonPlay, buttonUp, buttonDown;
-  private static final String[] SONGS = { "caroline", "cotton", "count", "crab", "imperial", "pi", "sinl"};
+  private static final String[] SONGS = { "caroline", "cotton", "count", "crab", "imperial", "pi", "sinl","sand"};
   private final Symphony symphony;
   private int selectedSong = 0;
 
