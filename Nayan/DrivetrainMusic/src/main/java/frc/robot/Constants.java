@@ -27,8 +27,10 @@ public final class Constants {
     public final class Symphony {
         public static final int FALCON_1_CANID = 13;//side a
         public static final int FALCON_2_CANID = 2;//side b
-        public static final int FALCON_3_CANID = 6;//side a
+        public static final int FALCON_3_CANID = 1;//side a
         public static final int FALCON_4_CANID = 0;//side b
+        public static final int FALCON_5_CANID = 14;//side a
+        public static final int FALCON_6_CANID = 15;//side b
 
         //public static final int FALCON_5_CANID = 2;//shooter
         //public static final int FALCON_6_CANID = 6;//shooter 2

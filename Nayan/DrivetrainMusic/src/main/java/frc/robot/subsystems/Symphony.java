@@ -19,9 +19,8 @@ public class Symphony extends SubsystemBase {
 
   Orchestra orchestra;
       TalonFX [] FX =  {  new TalonFX(Constants.Symphony.FALCON_1_CANID), 
-                          new TalonFX(Constants.Symphony.FALCON_2_CANID)//,
-                          //new TalonFX(Constants.Symphony.FALCON_3_CANID), 
-                          //new TalonFX(Constants.Symphony.FALCON_4_CANID) 
+                          new TalonFX(Constants.Symphony.FALCON_2_CANID),//,
+                          // new TalonFX(Constants.Symphony.FALCON_3_CANID)
 
                           //new TalonFX(Constants.Symphony.Falcon_5_CANID)
                         };
