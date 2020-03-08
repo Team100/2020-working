@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class runs one light
@@ -16,64 +15,74 @@ public class Light {
     /**
      * lightPad vars
      */
-    private Joystick lightPad;
-    private int counter =  0;
+    public int colorNum;
+    public int blinkSpeed;
+    public int count;
+    public Colors currentColor;
+    public Speeds currentSpeed;
+    public boolean toggle;
 
     /**
-     * States vars
+     * Color enum
      */
-    public static enum lightStates{
-        OFF, REDSTEADY, GREENSTEADY, AMBERSTEADY, REDSLOWBLINK, GREENSLOWBLINK, AMBERSLOWBLINK,
-            REDFASTBLINK, GREENFASTBLINK, AMBERFASTBLINK
+    public static enum Colors{
+        OFF, RED, GREEN, AMBER
     }
-    private lightStates currentState = lightStates.OFF;
+
+    /**
+     * Speed enum
+     */
+    public static enum Speeds{
+        STEADY, SLOW, FAST
+    }
 
     /**
      * Creates new Light
      */
-    public Light(Joystick lightPad){
-        this.lightPad = lightPad;
+    public Light(){
+        colorNum = 0x00;
+        blinkSpeed = 0;
+        count = 0;
+        currentColor = Colors.OFF;
+        currentSpeed = Speeds.STEADY;
+        toggle = true;
     }
 
     /**
-     * Getter and Setter for currentState
+     * changes the properties of light instance
+     * @param newColor: Which color will be displayed
+     * @param newSpeed: How fast the blink will be
      */
-    public lightStates getCurrentState(){
-        return currentState;
-    }
-
-    public void setNewState(lightStates newState){
-        currentState = newState;
-        counter = 0;
-    }
-
-    /**
-     * Blinks light according to what state the light is in
-     * Runs every teleop periodic
-     */
-    public void peridicRun(){
-        switch(currentState){
+    public void changeProperties(Colors newColor, Speeds newSpeed){
+        count = 0;
+        this.currentColor = newColor;
+        this.currentSpeed = newSpeed;
+        switch(this.currentColor){
             case OFF:
-                lightPad.setOutputs(0);
+                colorNum = 0x00;
                 break;
-            case REDSTEADY:
+            case RED:
+                colorNum = 0x01;
                 break;
-            case GREENSTEADY:
+            case GREEN:
+                colorNum = 0x02;
                 break;
-            case AMBERSTEADY:
+            case AMBER:
+                colorNum = 0x03;
                 break;
-            case REDSLOWBLINK:
+        }
+        switch(this.currentSpeed){
+            case STEADY:
+                blinkSpeed = 0;
+                toggle = true;
                 break;
-            case GREENSLOWBLINK:
+            case SLOW:
+                blinkSpeed = 50;
                 break;
-            case AMBERSLOWBLINK:
-                break;
-            case REDFASTBLINK:
-                break;
-            case GREENFASTBLINK:
-                break;
-            case AMBERFASTBLINK:
+            case FAST:
+                blinkSpeed = 20;
                 break;
         }
     }
+
 }
