@@ -49,6 +49,7 @@ public class ControlPanelSpinner extends Subsystem {
   private int nextColor;
   private int revolutionsCounter = 0;
   private boolean stop = false;
+  
 
   // = Preferences.getInstance().getDouble(".....",
   // Constants.RGB_RED_VALUE_FOR_BLUE);)
@@ -89,6 +90,7 @@ public class ControlPanelSpinner extends Subsystem {
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
+   
 
     configuratingColors = SmartDashboard.getNumber("configurating Colors", 0);
     SmartDashboard.putNumber("configurating Colors", configuratingColors);
@@ -100,6 +102,7 @@ public class ControlPanelSpinner extends Subsystem {
     m_motor.set(ControlMode.PercentOutput, speed);
 
   }
+
   
 
   /*
@@ -181,45 +184,50 @@ public class ControlPanelSpinner extends Subsystem {
 
     final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
+  if (match.confidence>.91){
     if (match.color == kBlueTarget) {
-      currentColor = 1;
-      if (nextColor == currentColor) {
-        revolutionsCounter = revolutionsCounter + 1;
-        nextColor = 2;
+        currentColor = 1;
+        
+        if (nextColor == currentColor) {
+          revolutionsCounter = revolutionsCounter + 1;
+          nextColor = 2;
+        } else {
+          nextColor = 2;
+      }
+        colorString = "Blue";
+      } else if (match.color == kRedTarget) {
+        currentColor = 3;
+        //if (nextColor == currentColor) {
+          //revolutionsCounter = revolutionsCounter + 1;
+          //nextColor = 4;
+        //} else {
+          nextColor = 4;
+        //}
+        colorString = "Red";
+      } else if (match.color == kGreenTarget) {
+        colorString = "Green";
+        currentColor = 2;
+        //if (nextColor == currentColor) {
+          //revolutionsCounter = revolutionsCounter + 1;
+        // nextColor = 3;
+      // } else {
+          nextColor = 3;
+      // }
+      } else if (match.color == kYellowTarget) {
+        colorString = "Yellow";
+        currentColor = 4;
+        //if (nextColor == currentColor) {
+          //revolutionsCounter = revolutionsCounter + 1;
+        // nextColor = 1;
+        //} else {
+          nextColor = 1;
+        //}
       } else {
-        nextColor = 2;
-     }
-      colorString = "Blue";
-    } else if (match.color == kRedTarget) {
-      currentColor = 3;
-      //if (nextColor == currentColor) {
-        //revolutionsCounter = revolutionsCounter + 1;
-        //nextColor = 4;
-      //} else {
-        nextColor = 4;
-      //}
-      colorString = "Red";
-    } else if (match.color == kGreenTarget) {
-      colorString = "Green";
-      currentColor = 2;
-      //if (nextColor == currentColor) {
-        //revolutionsCounter = revolutionsCounter + 1;
-       // nextColor = 3;
-     // } else {
-        nextColor = 3;
-     // }
-    } else if (match.color == kYellowTarget) {
-      colorString = "Yellow";
-      currentColor = 4;
-      //if (nextColor == currentColor) {
-        //revolutionsCounter = revolutionsCounter + 1;
-       // nextColor = 1;
-      //} else {
-        nextColor = 1;
-      //}
-    } else {
-      colorString = "Unknown";
-    }
+        colorString = "Unknown";
+      }}
+      else{
+        colorString = "Unknown";
+      }
 
     /**
      * Open Smart Dashboard or Shuffleboard to see the color detected by the sensor.
@@ -279,27 +287,31 @@ public class ControlPanelSpinner extends Subsystem {
     if (gameData.length() > 0) {
       switch (gameData.charAt(0)) {
       case 'B':
+      if (match.confidence>.95){
         if (match.color == kRedTarget) {
           stop = true;
-        }
+        }}
         // Blue case code
         break;
       case 'G':
+      if (match.confidence>.95){
         if (match.color == kYellowTarget) {
           stop = true;
-        }
+        }}
         // Green case code
         break;
       case 'R':
+      if (match.confidence>.95){
         if (match.color == kBlueTarget) {
           stop = true;
-        }
+        }}
         // Red case code
         break;
       case 'Y':
+      if (match.confidence>.95){
         if (match.color == kGreenTarget) {
           stop = true;
-        }
+        }}
         // Yellow case code
         break;
       default:
