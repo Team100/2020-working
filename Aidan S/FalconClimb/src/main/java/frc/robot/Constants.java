@@ -23,7 +23,7 @@ public final class Constants {
     public final class Drivetrain {
         public static final int CAN_ID_LEFT = 0;
         public static final int CAN_ID_RIGHT = 15;
-        public static final double PEAK_OUTPUT = 0.5;
+        public static final double PEAK_OUTPUT = 0.8;
     }
 
     public final class ClimberLock {
