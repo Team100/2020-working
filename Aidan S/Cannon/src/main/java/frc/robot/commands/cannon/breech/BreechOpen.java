@@ -8,23 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Breech;
-import frc.robot.subsystems.PressureBox;
 
-public class Reload extends CommandBase {
-  PressureBox pressureBox;
+public class BreechOpen extends CommandBase {
   Breech breech;
   boolean done = false;
 
   /**
-   * Creates a new Reload.
+   * Creates a new Pressurize.
    */
-  public Reload(PressureBox pb, Breech b) {
-    pressureBox = pb;
+  public BreechOpen(Breech b) {
+    // Use addRequirements() here to declare subsystem dependencies.
     breech = b;
 
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(pressureBox);
     addRequirements(breech);
   }
 
@@ -32,23 +29,18 @@ public class Reload extends CommandBase {
   @Override
   public void initialize() {
     breech.open();
-    // wait here
-    breech.eject();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (breech.isLoaded()) {
       done = true;
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // wait a few seconds
-    breech.close();
+
   }
 
   // Returns true when the command should end.
