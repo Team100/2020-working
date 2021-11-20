@@ -9,10 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Aiming;
 import frc.robot.subsystems.Breech;
 import frc.robot.subsystems.PressureBox;
 import frc.robot.subsystems.Safety;
+import frc.robot.commands.Reload;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -23,14 +26,17 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Breech breech = new Breech();
-
+  public final Joystick gamepad;
+  public JoystickButton Reload;
+  public Breech breech;
 
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    gamepad = new Joystick(0);
+    breech = new Breech();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -42,6 +48,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    Reload = new JoystickButton(gamepad, 1);
+    Reload.whenPressed(new Reload(breech));
   }
 
 

@@ -52,6 +52,14 @@ public class Breech extends SubsystemBase {
         myTimer.stop();
     }
 
+    // public void closeEjectSolenoid() {
+    //     ejectSolenoid.set(true);
+    // }
+
+    // public void openEjectSolenoid() {
+    //     ejectSolenoid.set(false);
+    // }
+
     public boolean isOpen() {
         return breechSolenoid.get();
     }
